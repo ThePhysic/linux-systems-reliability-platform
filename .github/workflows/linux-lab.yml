@@ -1,0 +1,40 @@
+name: Disposable Linux lab integration
+
+on:
+  workflow_dispatch:
+    inputs:
+      disposable_lab:
+        description: 'I confirm the self-hosted runner is a disposable Linux VM dedicated to LSRP.'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lsrp-disposable-lab
+  cancel-in-progress: false
+
+jobs:
+  incidents:
+    if: ${{ inputs.disposable_lab == true }}
+    runs-on: [self-hosted, linux, x64, lsrp-disposable]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install in declared disposable lab
+        run: sudo bash scripts/install-lab.sh --accept-disposable-lab
+      - name: Real service and incident validation
+        run: sudo bash scripts/validate-linux.sh artifacts/validation
+      - name: Preserve observations even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-lab-evidence
+          path: artifacts/validation
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Remove lab installation
+        if: always()
+        run: sudo bash scripts/uninstall-lab.sh --accept-disposable-lab
