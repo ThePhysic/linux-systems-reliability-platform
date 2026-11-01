@@ -178,6 +178,10 @@ def cleanup(restart: bool = True) -> dict:
         except LabError as exc:
             errors.append(str(exc))
     try:
+        systemctl("reset-failed", COLLISION, RECOVER, check=False)
+    except LabError as exc:
+        errors.append(str(exc))
+    try:
         systemctl("stop", UNIT)
         if restart:
             start()

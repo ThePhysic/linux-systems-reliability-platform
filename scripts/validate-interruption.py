@@ -143,8 +143,10 @@ class Validator:
         child, path = self.launch("collision")
         checkpoint = self.checkpoint(child, path)
         runner.write_json(self.output / "collision-before-sigkill.json", checkpoint)
+        timer_before_kill = properties(lab.TIMER, ["LastTriggerUSecMonotonic", "LastTriggerUSec", "ActiveState", "SubState"])
         self.check("collision injection checkpoint exists", True,
-                   {"runner_pid": child.pid, "samples": len(checkpoint["samples"]), "trial_path": str(path)})
+                   {"runner_pid": child.pid, "samples": len(checkpoint["samples"]), "trial_path": str(path),
+                    "timer_before_kill": timer_before_kill})
         killed = time.monotonic()
         kill_wall = now()
         child.kill()
@@ -189,9 +191,14 @@ class Validator:
                                timeout=min(2, remaining))
             observations.append({"wall_time": now(), "monotonic": time.monotonic(), "probe": request,
                                  "helper": helper, "recovery": recovery, "timer": timer})
-            trigger = integer_property(timer, "LastTriggerUSecMonotonic")
+            # systemctl formats this timer property as a duration (for example
+            # '7min 29.885593s'), while the ExecMain timestamp remains numeric.
+            # Observe a changed nonzero trigger without parsing display units.
+            trigger = timer.get("LastTriggerUSecMonotonic")
+            newly_triggered = (trigger not in (None, "", "0", "0s", "0us", "n/a")
+                               and trigger != timer_before_kill.get("LastTriggerUSecMonotonic"))
             recovery_start = integer_property(recovery, "ExecMainStartTimestampMonotonic")
-            independently_triggered = (trigger is not None and trigger / 1_000_000 > killed
+            independently_triggered = (newly_triggered
                                        and recovery_start is not None and recovery_start / 1_000_000 > killed)
             helper_inactive = helper.get("ActiveState") == "inactive" and integer_property(helper, "MainPID") == 0
             if independently_triggered and helper_inactive and len(streak) >= 3:
@@ -205,7 +212,7 @@ class Validator:
                    recovered and observation_elapsed <= 40,
                    {"elapsed_s": observation_elapsed, "consecutive_normal_responses": len(streak),
                     "last_three_identities": [identity(p) for p in streak[-3:]],
-                    "timer": timer, "recovery": recovery, "helper": helper,
+                    "timer_before_kill": timer_before_kill, "timer": timer, "recovery": recovery, "helper": helper,
                     "observation_path": str(self.output / "independent-recovery-observations.json")})
         # Validate that observing recovery did not rewrite the killed runner's claim.
         after = read_record(path)

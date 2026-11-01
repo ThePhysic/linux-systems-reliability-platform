@@ -113,6 +113,17 @@ class CLIContractTests(unittest.TestCase):
                 path.write_text(payload, encoding='utf-8')
                 self.assert_cli_error(self.invoke('report', path))
 
+    def test_malformed_nested_trial_fields_fail_without_tracebacks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'bad.json'
+            for key, value in [('metrics', []), ('baseline', {}), ('samples', [None]),
+                               ('samples', [{'monotonic': None}]), ('samples', [{'probe': []}])]:
+                record = self.trial()
+                record[key] = value
+                path.write_text(json.dumps(record), encoding='utf-8')
+                with self.subTest(key=key, value=value):
+                    self.assert_cli_error(self.invoke('report', path))
+
 
 if __name__ == '__main__':
     unittest.main()

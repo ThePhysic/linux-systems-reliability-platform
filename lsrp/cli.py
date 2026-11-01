@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 import sys
 
@@ -49,6 +50,23 @@ def read_trial(path: Path) -> dict:
         raise lab.LabError(f"Not a schema-v1 trial: {path}")
     if data.get("scenario") not in runner.SCENARIOS or not isinstance(data.get("samples"), list):
         raise lab.LabError(f"Invalid trial structure: {path}")
+    if not isinstance(data["trial_id"], str) or ("outcome" in data and data["outcome"] not in ["recovered", "failed", "inconclusive"]):
+        raise lab.LabError(f"Invalid trial identity/outcome: {path}")
+    for key in ["metrics", "injection", "cleanup", "environment", "parameters"]:
+        if key in data and not isinstance(data[key], dict):
+            raise lab.LabError(f"Invalid {key} object: {path}")
+    for key in ["events", "baseline", "limitations"]:
+        if key in data and not isinstance(data[key], list):
+            raise lab.LabError(f"Invalid {key} array: {path}")
+    for sample in data.get("baseline", []) + data["samples"]:
+        if not isinstance(sample, dict):
+            raise lab.LabError(f"Invalid snapshot: {path}")
+        for key in ["probe", "unit", "process", "cgroup", "socket", "journal"]:
+            if key in sample and not isinstance(sample[key], dict):
+                raise lab.LabError(f"Invalid snapshot {key}: {path}")
+        for key in ["monotonic", "completed_monotonic"]:
+            if key in sample and (type(sample[key]) not in [int, float] or not math.isfinite(sample[key])):
+                raise lab.LabError(f"Invalid snapshot timestamp: {path}")
     return data
 
 
