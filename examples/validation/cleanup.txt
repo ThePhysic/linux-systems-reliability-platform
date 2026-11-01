@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "errors": [],
+  "verification": {
+    "lsrp-recover.timer": "inactive",
+    "lsrp-recover.service": "inactive",
+    "lsrp-collision.service": "inactive"
+  }
+}

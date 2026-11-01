@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "linux_validation",
+  "passed": true,
+  "trial_count": 12,
+  "scenario_counts": {
+    "collision": 3,
+    "cpu": 3,
+    "crash": 3,
+    "hang": 3
+  },
+  "checks": [
+    "portable_tests",
+    "normal_lifecycle",
+    "graceful_shutdown",
+    "confirmed_faults",
+    "evidence_envelopes",
+    "monotonic_chronology",
+    "sustained_work_recovery",
+    "cleanup",
+    "repeated_trials",
+    "overhead_record"
+  ],
+  "limitations": [
+    "Three trials per incident provide a reproducibility check, not a stable tail estimate.",
+    "Results apply to the environment and revision recorded in environment.txt."
+  ],
+  "final_cleanup_ok": true
+}

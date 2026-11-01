@@ -135,6 +135,8 @@ Read the [architecture](docs/ARCHITECTURE.md), [diagnostic walkthrough](docs/DIA
 
 ## Development
 
+Actual Linux run records, measurements, and interruption evidence are checked in under [examples](examples/README.md).
+
 ```bash
 python3 -m unittest discover -s tests -v
 python3 -m compileall -q lsrp tests
