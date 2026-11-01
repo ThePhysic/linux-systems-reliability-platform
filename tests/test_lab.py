@@ -161,13 +161,23 @@ class LabBoundaryTests(unittest.TestCase):
     def test_exclusive_lock_rejects_overlapping_operations(self):
         real_open = os.open
         with tempfile.TemporaryDirectory() as directory:
-            lock = Path(directory) / "lock"
+            runtime = Path(directory) / "run"
+            runtime.mkdir()
+            lab_runtime = runtime / "lsrp"
+            lock = lab_runtime / "lock"
+            real_path = Path
+            def path(value):
+                return {"/run": runtime, "/run/lsrp": lab_runtime}.get(str(value), real_path(value))
             def redirect(path, flags, mode=0o777):
                 self.assertEqual(path, "/run/lsrp/lock")
                 return real_open(lock, flags, mode)
             with patch.object(lab, "guard"), patch.object(lab, "_trusted"), \
-                    patch.object(lab.os, "open", side_effect=redirect):
+                    patch.object(lab, "Path", side_effect=path), \
+                    patch.object(lab.os, "open", side_effect=redirect), \
+                    patch.object(lab.os, "fstat", return_value=types.SimpleNamespace(st_uid=0, st_mode=stat.S_IFREG | 0o600)):
+                self.assertFalse(lab_runtime.exists())
                 with lab.locked():
+                    self.assertTrue(lab_runtime.is_dir())
                     with self.assertRaisesRegex(lab.LabError, "Another LSRP"):
                         with lab.locked():
                             self.fail("overlapping lock was acquired")

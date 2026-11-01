@@ -170,11 +170,15 @@ def analyze(trial):
         evidence.extend({"source": "journald", "observation": m} for m in exit_entries[:3])
         mechanisms.append({"mechanism": "systemd recorded a main-process exit or failed service result.",
                            "basis": "Service-scoped journal entries", "source": "journald", "confidence": "confirmed observation"})
-    # Recovery requires an observed symptom first and three normal, timely successes.
+    # Recovery requires an observed symptom followed by a final stable segment
+    # of at least three normal, timely responses. A later relapse invalidates
+    # an earlier provisional recovery; process changes start a fresh segment.
     incident_candidates = [s for s in failures + degraded + throttle_samples if _number(_time(s))]
     first_symptom = min(incident_candidates, key=_time) if incident_candidates else None
     detection = _time(first_symptom) if first_symptom else None
     streak = []
+    provisional_segments = []
+    relapses = []
     recovery_first = recovery_confirmed = None
     if first_symptom:
         for sample in samples:
@@ -182,18 +186,27 @@ def analyze(trial):
             identity = request.get("identity") or {}
             timely = (_number(request.get("latency_ms")) and latency_threshold is not None
                       and request["latency_ms"] <= latency_threshold)
+            current_identity = _identity(sample)
             if (_number(_time(sample)) and _time(sample) > detection and request.get("ok")
-                    and identity.get("mode") == "normal" and timely):
+                    and identity.get("mode") == "normal" and timely and current_identity is not None):
                 # Process identity must remain the same throughout a sustained streak.
-                if streak and _identity(streak[-1]) != _identity(sample):
+                if streak and _identity(streak[-1]) != current_identity:
+                    if len(streak) >= 3:
+                        relapses.append({"at_monotonic": _time(sample), "reason": "Process identity changed after provisional recovery"})
                     streak = []
                 streak.append(sample)
                 if len(streak) == 3:
-                    recovery_first = _time(streak[0])
-                    recovery_confirmed = _time(streak[-1])
-                    break
+                    provisional_segments.append({"first_success_monotonic": _time(streak[0]),
+                                                 "confirmed_monotonic": _time(streak[2])})
             else:
+                if len(streak) >= 3:
+                    relapses.append({"at_monotonic": _time(sample), "reason": "Unhealthy, untimely, or non-normal response after provisional recovery"})
                 streak = []
+        if len(streak) >= 3:
+            recovery_first = _time(streak[0])
+            recovery_confirmed = _time(streak[2])
+    if relapses:
+        symptoms.append(f"{len(relapses)} later relapse(s) or process identity change(s) invalidated provisional sampled recovery.")
     onset_bounds = None
     if first_symptom:
         previous = [s for s in all_samples if _number(_time(s)) and _time(s) < detection]
@@ -249,7 +262,8 @@ def analyze(trial):
             "metrics": metrics, "incident_observed": first_symptom is not None,
             "functional_failure_observed": bool(failures), "throttling_observed": bool(throttle_samples),
             "recovery": {"sustained": recovery_confirmed is not None, "first_success_monotonic": recovery_first,
-                         "confirmed_monotonic": recovery_confirmed, "consecutive_successes": len(streak)},
+                         "confirmed_monotonic": recovery_confirmed, "consecutive_successes": len(streak),
+                         "provisional_segments": provisional_segments, "relapses": relapses},
             "limitations": list(dict.fromkeys(list(trial.get("limitations", [])) + limitations))}
 
 

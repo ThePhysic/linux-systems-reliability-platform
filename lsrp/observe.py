@@ -11,7 +11,7 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
-from urllib.request import ProxyHandler, build_opener
+from urllib.request import HTTPRedirectHandler, ProxyHandler, build_opener
 import uuid
 
 UNIT = "lsrp-lab.service"
@@ -24,6 +24,15 @@ JOURNALCTL = "/usr/bin/journalctl"
 SS = "/usr/bin/ss"
 COMMAND_ENV = {"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "LC_ALL": "C", "LANG": "C",
                "SYSTEMD_COLORS": "0", "SYSTEMD_PAGER": "cat", "SYSTEMD_PAGERSECURE": "1"}
+
+
+class NoRedirect(HTTPRedirectHandler):
+    """A lab probe must never leave its explicitly recorded loopback target."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 UNIT_FIELDS = (
     "Id", "LoadState", "ActiveState", "SubState", "Result", "MainPID",
     "NRestarts", "ExecMainCode", "ExecMainStatus", "ExecMainStartTimestampMonotonic",
@@ -230,7 +239,7 @@ def probe(timeout=0.4):
               "latency_ms": None, "error": None, "error_kind": None, "identity": None,
               "identity_verification": None, "http_status": None}
     try:
-        opener = build_opener(ProxyHandler({}))
+        opener = build_opener(ProxyHandler({}), NoRedirect())
         with opener.open(f"http://127.0.0.1:{PORT}/work", timeout=timeout) as response:
             result["http_status"] = response.status
             if response.status != 200:
@@ -245,7 +254,9 @@ def probe(timeout=0.4):
             else:
                 result.update(error=result["identity_verification"]["error"], error_kind="identity_unverified")
     except HTTPError as exc:
-        result.update(error=f"HTTP {exc.code}", error_kind="http_error", http_status=exc.code)
+        description = f"HTTP {exc.code}" + (" (redirect rejected)" if 300 <= exc.code < 400 else "")
+        result.update(error=description, error_kind="http_error", http_status=exc.code)
+        exc.close()
     except (TimeoutError, socket.timeout) as exc:
         result.update(error=str(exc) or "Request timed out", error_kind="timeout")
     except URLError as exc:
@@ -276,10 +287,14 @@ def snapshot():
     observed = process.get("data") or {}
     identity = request.get("identity") or {}
     if request["ok"]:
-        mismatch = pid > 0 and identity.get("pid") != pid
-        if process["status"] == "ok":
-            mismatch = mismatch or any(identity.get(k) != observed.get(k) for k in ("pid", "start_ticks", "boot_id"))
-        if mismatch:
+        supervised = (unit.get("status") == "ok" and data.get("ActiveState") == "active"
+                      and pid > 1 and process.get("status") == "ok")
+        if not supervised:
+            request.update(ok=False,
+                           error="Cannot affirm that the response belongs to an active supervised main process: unit/process evidence unavailable or inactive",
+                           error_kind="identity_unverified")
+        elif identity.get("pid") != pid or any(identity.get(k) != observed.get(k)
+                                               for k in ("pid", "start_ticks", "boot_id")):
             request.update(ok=False, error="Response process identity differs from observed main process (possible restart race)",
                            error_kind="identity_mismatch")
     journal = journal_state()

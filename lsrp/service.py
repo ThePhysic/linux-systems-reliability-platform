@@ -119,10 +119,15 @@ class ServiceHTTP(ThreadingHTTPServer):
     daemon_threads = False
     block_on_close = True
     allow_reuse_address = True
+    request_queue_size = 16
 
     def __init__(self, address: tuple, modes: Modes, identity: dict) -> None:
         self.modes, self.identity = modes, identity
         self.capacity = threading.BoundedSemaphore(12)
+        # A fault must not consume every HTTP handler and hide /live as well.
+        # Eight bounded waiters leave four handler slots for liveness and
+        # immediate overload responses, while preserving real request timeouts.
+        self.hang_capacity = threading.BoundedSemaphore(8)
         super().__init__(address, Handler)
 
     def get_request(self):
@@ -160,17 +165,30 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404)
             return
         server = self.server
-        while self.path != "/live" and server.modes.current() == "hang":
-            if server.modes.closed.wait(0.025):
-                break
-        if self.path == "/work":
-            hashlib.pbkdf2_hmac("sha256", WORK_INPUT, b"lsrp-lab", 20000)
-        body = {**server.identity, "mode": server.modes.current()}
-        if self.path == "/work":
-            body["result"] = WORK_RESULT
+        waiting = False
+        try:
+            while self.path != "/live" and server.modes.current() == "hang":
+                if not waiting:
+                    waiting = server.hang_capacity.acquire(blocking=False)
+                    if not waiting:
+                        self._json(503, {**server.identity, "mode": "hang", "error": "hang_waiters_full"})
+                        return
+                if server.modes.closed.wait(0.025):
+                    break
+            if self.path == "/work":
+                hashlib.pbkdf2_hmac("sha256", WORK_INPUT, b"lsrp-lab", 20000)
+            body = {**server.identity, "mode": server.modes.current()}
+            if self.path == "/work":
+                body["result"] = WORK_RESULT
+            self._json(200, body)
+        finally:
+            if waiting:
+                server.hang_capacity.release()
+
+    def _json(self, status: int, body: dict):
         raw = json.dumps(body, sort_keys=True).encode()
         try:
-            self.send_response(200)
+            self.send_response(status)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(raw)))
             self.end_headers()

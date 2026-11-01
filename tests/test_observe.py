@@ -1,8 +1,10 @@
 import io
 import json
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import subprocess
 import tempfile
+import threading
 import unittest
 from unittest.mock import patch
 from urllib.error import URLError
@@ -121,6 +123,48 @@ class ObservationTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(result["error_kind"], "identity_unverified")
 
+    def test_redirect_is_rejected_without_contacting_second_loopback_server(self):
+        requests = {"target": 0}
+
+        class Target(BaseHTTPRequestHandler):
+            def do_GET(self):
+                requests["target"] += 1
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b"This target must never receive a probe")
+
+            def log_message(self, *_args):
+                pass
+
+        with ThreadingHTTPServer(("127.0.0.1", 0), Target) as target:
+            class Redirect(BaseHTTPRequestHandler):
+                def do_GET(self):
+                    self.send_response(302)
+                    self.send_header("Location", f"http://127.0.0.1:{target.server_port}/not-the-lab")
+                    self.end_headers()
+
+                def log_message(self, *_args):
+                    pass
+
+            with ThreadingHTTPServer(("127.0.0.1", 0), Redirect) as redirect:
+                threads = [threading.Thread(target=server.serve_forever, kwargs={"poll_interval": .01}, daemon=True)
+                           for server in (target, redirect)]
+                for thread in threads:
+                    thread.start()
+                try:
+                    with patch.object(observe, "PORT", redirect.server_port):
+                        result = observe.probe(timeout=1)
+                    self.assertFalse(result["ok"])
+                    self.assertEqual(result["http_status"], 302)
+                    self.assertEqual(result["error_kind"], "http_error")
+                    self.assertIn("redirect rejected", result["error"])
+                    self.assertEqual(requests["target"], 0)
+                finally:
+                    redirect.shutdown()
+                    target.shutdown()
+                    for thread in threads:
+                        thread.join(timeout=2)
+
     def test_journal_is_unit_scoped_and_drops_unrelated_fields(self):
         entry = {"MESSAGE": "service started", "_SYSTEMD_UNIT": observe.UNIT, "UNRELATED_SECRET": "do not collect"}
         result = subprocess.CompletedProcess([], 0, json.dumps(entry) + "\n", "")
@@ -132,7 +176,7 @@ class ObservationTests(unittest.TestCase):
     def test_snapshot_rejects_response_from_another_main_process(self):
         env = lambda data: {"status": "ok", "data": data}
         response = {"ok": True, "identity": {"pid": 999, "start_ticks": 8, "boot_id": "boot"}}
-        with patch.object(observe, "unit_state", return_value=env({"MainPID": "123"})), \
+        with patch.object(observe, "unit_state", return_value=env({"MainPID": "123", "ActiveState": "active"})), \
                 patch.object(observe, "process_state", return_value=env({"pid": 123, "start_ticks": 7, "boot_id": "boot"})), \
                 patch.object(observe, "cgroup_state", return_value=env({})), \
                 patch.object(observe, "socket_state", return_value=env({})), \
@@ -141,6 +185,30 @@ class ObservationTests(unittest.TestCase):
             value = observe.snapshot()
         self.assertFalse(value["probe"]["ok"])
         self.assertEqual(value["probe"]["error_kind"], "identity_mismatch")
+
+    def test_snapshot_requires_affirmative_supervised_process_identity(self):
+        healthy = {"ok": True, "identity": {"pid": 123, "start_ticks": 7, "boot_id": "boot", "mode": "normal"}}
+        env = lambda data: {"status": "ok", "data": data}
+        unavailable = {"status": "unavailable", "data": None, "error": "restricted"}
+        cases = [
+            (env({"MainPID": "0", "ActiveState": "inactive"}), unavailable, False),
+            (unavailable, unavailable, False),
+            (env({"MainPID": "123", "ActiveState": "active"}), unavailable, False),
+            (env({"MainPID": "123", "ActiveState": "inactive"}), env(healthy["identity"]), False),
+            (env({"MainPID": "123", "ActiveState": "active"}), env(healthy["identity"]), True),
+        ]
+        for unit, process, accepted in cases:
+            with self.subTest(unit=unit, process=process), \
+                    patch.object(observe, "unit_state", return_value=unit), \
+                    patch.object(observe, "process_state", return_value=process), \
+                    patch.object(observe, "cgroup_state", return_value=env({})), \
+                    patch.object(observe, "socket_state", return_value=env({})), \
+                    patch.object(observe, "journal_state", return_value=env({})), \
+                    patch.object(observe, "probe", return_value=dict(healthy)):
+                value = observe.snapshot()
+            self.assertEqual(value["probe"]["ok"], accepted)
+            if not accepted:
+                self.assertEqual(value["probe"]["error_kind"], "identity_unverified")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import hashlib
+from concurrent.futures import ThreadPoolExecutor
 import http.client
 import io
 import json
@@ -94,6 +95,36 @@ class HttpTests(unittest.TestCase):
 
     def test_unknown_endpoint_is_not_healthy(self):
         self.assertEqual(self.request("/does-not-exist")[0], 404)
+
+    def test_abandoned_hang_requests_leave_liveness_capacity_and_shutdown_drains_waiters(self):
+        self.modes.set("hang", 3)
+        barrier = threading.Barrier(13)
+        def client():
+            barrier.wait(timeout=3)
+            try:
+                status, body = self.request("/ready", timeout=.4)
+                return status
+            except (TimeoutError, socket.timeout):
+                return "timeout"
+        with ThreadPoolExecutor(max_workers=12) as clients:
+            pending = [clients.submit(client) for _ in range(12)]
+            barrier.wait(timeout=3)
+            results = [future.result(timeout=3) for future in pending]
+        # Clients timing out do not cancel the server-side request. The service
+        # must retain capacity even while those abandoned requests still hang.
+        self.assertGreaterEqual(results.count("timeout"), 1)
+        self.assertGreaterEqual(results.count(503), 1)
+        self.assertEqual(set(results), {"timeout", 503})
+        status, raw = self.request("/live", timeout=.4)
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(raw)["mode"], "hang")
+        handlers = list(self.server._threads)
+        self.modes.close()
+        self.server.shutdown()
+        self.server.server_close()
+        self.thread.join(timeout=2)
+        self.assertFalse(self.thread.is_alive())
+        self.assertTrue(all(not thread.is_alive() for thread in handlers))
 
 
 class ControlTests(unittest.TestCase):

@@ -108,6 +108,10 @@ def guard(require_root: bool = True) -> dict:
 def locked():
     import fcntl
     guard()
+    # /run is volatile. Recreate our fixed root-owned directory after reboot;
+    # verify the parent before creating anything and reject insecure existing paths.
+    _trusted(Path("/run"), directory=True)
+    Path("/run/lsrp").mkdir(mode=0o755, exist_ok=True)
     _trusted(Path("/run/lsrp"), directory=True)
     fd = os.open("/run/lsrp/lock", os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW | os.O_CLOEXEC, 0o600)
     try:

@@ -103,6 +103,29 @@ class ReportTests(unittest.TestCase):
         result = analyze(trial([sample(5, ok=False), sample(6), sample(7, pid=11), sample(8, pid=11)]))
         self.assertFalse(result["recovery"]["sustained"])
 
+    def test_later_relapse_invalidates_earlier_three_successes(self):
+        result = analyze(trial([sample(5, ok=False), sample(6), sample(7), sample(8), sample(9, ok=False)]))
+        self.assertFalse(result["recovery"]["sustained"])
+        self.assertIsNone(result["metrics"]["recovery_time_s"])
+        self.assertEqual(len(result["recovery"]["relapses"]), 1)
+        self.assertEqual(len(result["recovery"]["provisional_segments"]), 1)
+
+    def test_final_stable_segment_after_relapse_sets_recovery_time(self):
+        result = analyze(trial([sample(5, ok=False), sample(6), sample(7), sample(8), sample(9, ok=False),
+                               sample(10), sample(11), sample(12)]))
+        self.assertTrue(result["recovery"]["sustained"])
+        self.assertAlmostEqual(result["metrics"]["recovery_time_s"], 6.01)
+        self.assertAlmostEqual(result["recovery"]["confirmed_monotonic"], 12.01)
+        self.assertEqual(len(result["recovery"]["relapses"]), 1)
+
+    def test_identity_switch_after_provisional_recovery_requires_new_three(self):
+        early = [sample(5, ok=False), sample(6), sample(7), sample(8)]
+        unstable = analyze(trial(early + [sample(9, pid=11), sample(10, pid=11)]))
+        self.assertFalse(unstable["recovery"]["sustained"])
+        stable = analyze(trial(early + [sample(9, pid=11), sample(10, pid=11), sample(11, pid=11)]))
+        self.assertTrue(stable["recovery"]["sustained"])
+        self.assertAlmostEqual(stable["metrics"]["recovery_time_s"], 5.01)
+
     def test_no_sampled_incident_remains_inconclusive(self):
         result = analyze(trial([sample(5), sample(6), sample(7), sample(8)]))
         self.assertFalse(result["incident_observed"])

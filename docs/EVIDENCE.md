@@ -55,7 +55,7 @@ Monotonic time measures elapsed intervals inside a trial. UTC wall time enables 
 
 Failure onset is not known at infinite resolution. The harness records when it requested and confirmed the injection; observations bound when a symptom appeared. Detection latency depends on polling interval, probe timeout, sequential collector duration, and any delay in the requested operation. Reports distinguish observation-based timing from injection-relative timing. If no failure was sampled, unavailability duration remains unknown.
 
-Recovery requires **at least three consecutive identity-valid work requests** after the incident. The first success in that sustained sequence is the observed recovery point; completion of the sequence establishes sustained recovery. The unit becoming active or acquiring a new PID is a separate lifecycle event. Resource-fault recovery additionally requires the fault condition to be removed and cleanup verification to pass.
+Recovery requires **at least three consecutive identity-valid work requests** after the incident. The first success in the final sustained sequence is the observed recovery point; completion of that sequence establishes sustained recovery. A later failure, untimely response, fault mode, or process-identity change invalidates an earlier provisional recovery; the complete observation window is analyzed. Provisional segments and relapses remain visible. The unit becoming active or acquiring a new PID is a separate lifecycle event. Resource-fault recovery additionally requires the fault condition to be removed and cleanup verification to pass.
 
 ## Repeated-trial statistics
 
