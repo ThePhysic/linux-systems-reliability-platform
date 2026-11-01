@@ -16,4 +16,6 @@ The reviewer independently audited the initial twelve saved trials and found the
 
 ## Final verdict
 
-Pending independent rereview of the fixes and refreshed Linux evidence.
+Independent adversarial rereview of commit `5c22e95022207010d197b005e3bf821c84b111e0`: **CLEAN: no remaining complaints within the agreed scope.** All five initial findings are resolved with regression coverage and refreshed Linux evidence. Runtime source matches the clean validated revision `da56e81`. No further implementation changes are requested.
+
+The reviewer verified 83 Windows tests with two expected Linux-only skips, matching validated source hashes, all twelve refreshed Linux trial metrics and recovery claims, eight interruption checks, three overhead pairs, and actual restart-without-reinstall evidence. The same 83 tests also passed as an unprivileged Linux user.
