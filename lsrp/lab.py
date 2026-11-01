@@ -164,7 +164,9 @@ def control(mode: str, duration: float = 0) -> dict:
 
 
 def start() -> None:
-    systemctl("reset-failed", UNIT)
+    # Inactive units may already have been garbage collected by systemd.
+    # reset-failed then reports 'not loaded'; the checked start reloads the unit.
+    systemctl("reset-failed", UNIT, check=False)
     systemctl("start", UNIT)
 
 

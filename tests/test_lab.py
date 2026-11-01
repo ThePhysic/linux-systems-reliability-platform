@@ -1,5 +1,6 @@
 """Tests for the boundary that distinguishes a lab from arbitrary processes."""
 import json
+import hashlib
 import os
 from pathlib import Path
 import socket
@@ -14,7 +15,81 @@ from unittest.mock import MagicMock, patch
 from lsrp import lab
 
 
+class VirtualPath:
+    """A tiny read-only Linux fixture so trust checks also run on Windows."""
+    files = {}
+    directories = {"/etc/lsrp", "/opt/lsrp", "/opt/lsrp/lsrp"}
+
+    def __init__(self, value):
+        self.value = str(value)
+
+    def __str__(self):
+        return self.value
+
+    def __truediv__(self, name):
+        return VirtualPath(self.value.rstrip("/") + "/" + str(name))
+
+    def lstat(self):
+        mode = stat.S_IFDIR | 0o755 if self.value in self.directories else stat.S_IFREG | 0o644
+        return types.SimpleNamespace(st_mode=mode, st_uid=0)
+
+    def read_text(self):
+        return self.files[self.value]
+
+    def read_bytes(self):
+        return self.read_text().encode()
+
+    def is_file(self):
+        return self.value in self.files
+
+
 class LabBoundaryTests(unittest.TestCase):
+    def installation(self):
+        artifacts = ["/opt/lsrp/lsrp/service.py", "/opt/lsrp/lsrp/collision.py"]
+        artifacts += ["/etc/systemd/system/" + unit for unit in [lab.UNIT, lab.COLLISION, lab.RECOVER, lab.TIMER]]
+        data = {"schema_version": 1, "unit": lab.UNIT, "port": lab.PORT,
+                "install_id": "test-install", "machine_id": "machine", "service_uid": 991,
+                "sha256": {p: hashlib.sha256(b"reviewed code").hexdigest() for p in artifacts}}
+        files = {p: "reviewed code" for p in artifacts}
+        files.update({"/proc/1/comm": "systemd\n", "/sys/fs/cgroup/cgroup.controllers": "cpu memory pids",
+                      "/etc/machine-id": "machine\n", "/etc/lsrp/lab.json": json.dumps(data)})
+        def properties(unit):
+            return {"FragmentPath": "/etc/systemd/system/" + unit, "DropInPaths": "", "User": "lsrp-lab"}
+        return data, files, properties
+
+    def test_marker_for_another_machine_refuses_before_inspecting_or_controlling_units(self):
+        data, files, _ = self.installation()
+        data["machine_id"] = "another-machine"
+        files["/etc/lsrp/lab.json"] = json.dumps(data)
+        with patch.object(VirtualPath, "files", files), patch.object(lab, "Path", VirtualPath), \
+                patch.object(lab, "MARKER", VirtualPath("/etc/lsrp/lab.json")), \
+                patch.object(lab.platform, "system", return_value="Linux"), \
+                patch.object(lab.os, "geteuid", return_value=0, create=True), \
+                patch.object(lab, "properties") as props:
+            with self.assertRaisesRegex(lab.LabError, "marker"):
+                lab.guard()
+        props.assert_not_called()
+
+    def test_unit_dropin_and_modified_installed_code_are_rejected(self):
+        pwd_module = types.SimpleNamespace(getpwnam=lambda _: types.SimpleNamespace(pw_uid=991))
+        for changed in ["dropin", "code"]:
+            data, files, properties = self.installation()
+            if changed == "code":
+                files["/opt/lsrp/lsrp/service.py"] = "modified code"
+            def props(unit):
+                result = properties(unit)
+                if changed == "dropin" and unit == lab.UNIT:
+                    result["DropInPaths"] = "/etc/systemd/system/lsrp-lab.service.d/override.conf"
+                return result
+            with self.subTest(changed=changed), patch.dict(sys.modules, {"pwd": pwd_module}), \
+                    patch.object(VirtualPath, "files", files), patch.object(lab, "Path", VirtualPath), \
+                    patch.object(lab, "MARKER", VirtualPath("/etc/lsrp/lab.json")), \
+                    patch.object(lab.platform, "system", return_value="Linux"), \
+                    patch.object(lab.os, "geteuid", return_value=0, create=True), \
+                    patch.object(lab, "properties", side_effect=props):
+                with self.assertRaisesRegex(lab.LabError, "drop-ins|changed"):
+                    lab.guard()
+
     def test_permissions_reject_symlink_unowned_and_writable_targets(self):
         for mode, uid in [(stat.S_IFLNK | 0o777, 0), (stat.S_IFREG | 0o644, 1000),
                           (stat.S_IFREG | 0o666, 0), (stat.S_IFDIR | 0o755, 0)]:

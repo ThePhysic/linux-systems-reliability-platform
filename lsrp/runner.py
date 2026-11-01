@@ -131,9 +131,12 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
                 import socket
                 deadline = time.monotonic() + 2
                 while True:
-                    with socket.socket() as sock:
-                        sock.settimeout(.2)
-                        ready = sock.connect_ex(("127.0.0.1", lab.PORT)) == 0
+                    helper = lab.properties(lab.COLLISION)
+                    helper_pid = int(helper.get("MainPID", "0"))
+                    listeners = lab.command(["/usr/bin/ss", "-H", "-ltnp", f"sport = :{lab.PORT}"])
+                    ready = (helper.get("ActiveState") == "active" and helper_pid > 1
+                             and any(f"pid={helper_pid}," in line and f"127.0.0.1:{lab.PORT}" in line
+                                     for line in listeners.splitlines()))
                     if ready:
                         break
                     if time.monotonic() >= deadline:
