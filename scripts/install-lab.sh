@@ -64,6 +64,7 @@ flock -n 9 || { echo 'Another LSRP installation is in progress.' >&2; exit 1; }
 # Runtime lock also excludes trials during update; match lab.py's fixed lock.
 install -d -o root -g root -m 0755 /run/lsrp
 exec 8>/run/lsrp/lock
+chmod 0600 /run/lsrp/lock
 flock -n 8 || { echo 'An LSRP operation is in progress.' >&2; exit 1; }
 if [[ -f /etc/lsrp/lab.json ]]; then
     systemctl stop lsrp-recover.timer lsrp-recover.service lsrp-collision.service lsrp-lab.service
