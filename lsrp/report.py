@@ -25,7 +25,14 @@ def _time(sample):
 def _cpu(sample):
     group = _data(sample, "cgroup")
     counter = group.get("files", {}).get("cpu.stat", {})
-    return (group.get("path"), counter.get("value")) if counter.get("status") == "ok" else (None, None)
+    generation = group.get("generation") or {}
+    inode = (generation.get("device"), generation.get("inode")) if generation.get("inode") is not None else None
+    invocation = _data(sample, "unit").get("InvocationID") or None
+    identity = _identity(sample)
+    # A path can be reused by a new service activation with higher counters.
+    # Never infer a delta across inode, invocation, or known process changes.
+    key = (group.get("path"), inode, invocation, identity) if (inode or invocation or identity) else None
+    return (key, counter.get("value")) if counter.get("status") == "ok" else (None, None)
 
 
 def _identity(sample):
@@ -93,9 +100,9 @@ def analyze(trial):
         if (is_trial and request.get("ok") and latency_threshold is not None
                 and _number(request.get("latency_ms")) and request["latency_ms"] > latency_threshold):
             degraded.append(sample)
-        path, cpu = _cpu(sample)
+        generation, cpu = _cpu(sample)
         if isinstance(cpu, dict):
-            if previous_cpu and path == previous_cpu[0]:
+            if previous_cpu and generation is not None and generation == previous_cpu[0]:
                 before = previous_cpu[1]
                 available_keys = [k for k in cpu_totals if k in cpu and k in before]
                 if any(cpu[k] < before[k] for k in available_keys):
@@ -106,7 +113,11 @@ def analyze(trial):
                         cpu_totals[key] += cpu[key] - before[key]
                     if "nr_throttled" in available_keys and cpu["nr_throttled"] > before["nr_throttled"]:
                         throttle_samples.append(sample)
-            previous_cpu = (path, cpu)
+            elif previous_cpu and generation != previous_cpu[0]:
+                cpu_resets = True
+            previous_cpu = (generation, cpu)
+        else:
+            previous_cpu = None
         for entry in _journal_entries(sample, reference if reference is not None else earliest):
             key = (entry.get("__MONOTONIC_TIMESTAMP"), str(entry.get("MESSAGE")))
             if key not in seen_journal:
@@ -192,7 +203,7 @@ def analyze(trial):
     if not first_symptom:
         limitations.append("No sampled functional failure, baseline-relative latency degradation or cgroup throttling increment was observed.")
     if cpu_resets:
-        limitations.append("Cgroup counter decreases were treated as resets; no deltas were inferred across them.")
+        limitations.append("Cgroup generation changes or counter decreases were treated as resets; no deltas were inferred across them.")
     unavailable = {}
     for sample in all_samples:
         for key in ("unit", "process", "cgroup", "socket", "journal"):

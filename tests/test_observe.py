@@ -29,6 +29,18 @@ class ObservationTests(unittest.TestCase):
         self.assertIn("absent", value["error"])
         self.assertTrue(value["collected_at"])
 
+    def test_commands_ignore_caller_path_and_dynamic_loader_environment(self):
+        with patch.dict(observe.os.environ, {"PATH": "/malicious", "LD_PRELOAD": "/malicious.so",
+                                            "DBUS_SYSTEM_BUS_ADDRESS": "unix:path=/unrelated"}), \
+                patch.object(observe.subprocess, "run") as run:
+            observe.command([observe.SYSTEMCTL, "--version"])
+        self.assertEqual(run.call_args.args[0][0], "/usr/bin/systemctl")
+        self.assertNotIn("LD_PRELOAD", run.call_args.kwargs["env"])
+        self.assertNotIn("DBUS_SYSTEM_BUS_ADDRESS", run.call_args.kwargs["env"])
+        self.assertNotEqual(run.call_args.kwargs["env"]["PATH"], "/malicious")
+        with self.assertRaises(ValueError):
+            observe.command(["systemctl", "--version"])
+
     def test_cgroup_partial_observations_preserve_missingness(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -85,6 +97,29 @@ class ObservationTests(unittest.TestCase):
         data["result"] = "incorrect"
         with self.assertRaises(ValueError):
             observe._validate_identity(data)
+
+    def test_response_identity_must_match_local_proc(self):
+        identity = {"pid": 123, "start_ticks": 456, "boot_id": "actual-boot"}
+        with patch.object(Path, "read_text", side_effect=["unused", "actual-boot"]), \
+                patch.object(observe, "parse_stat", return_value={"pid": 123, "start_ticks": 999}), \
+                patch.object(observe.os, "sysconf", return_value=100, create=True):
+            result = observe._verify_local_identity(identity)
+        self.assertEqual(result["status"], "error")
+        self.assertIn("disagrees", result["error"])
+
+    def test_work_response_without_verifiable_local_identity_is_not_success(self):
+        payload = {"service": "lsrp-lab", "pid": 123, "start_ticks": 456,
+                   "boot_id": "00000000-0000-0000-0000-000000000001",
+                   "instance": "00000000-0000-0000-0000-000000000002",
+                   "mode": "normal", "result": observe.WORK_RESULT}
+        with patch.object(observe, "build_opener") as opener, \
+                patch.object(observe, "_verify_local_identity", return_value={"status": "unavailable", "error": "PID disappeared"}):
+            response = opener.return_value.open.return_value.__enter__.return_value
+            response.status = 200
+            response.read.return_value = json.dumps(payload).encode()
+            result = observe.probe()
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["error_kind"], "identity_unverified")
 
     def test_journal_is_unit_scoped_and_drops_unrelated_fields(self):
         entry = {"MESSAGE": "service started", "_SYSTEMD_UNIT": observe.UNIT, "UNRELATED_SECRET": "do not collect"}

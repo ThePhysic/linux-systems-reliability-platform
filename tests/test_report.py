@@ -65,6 +65,28 @@ class ReportTests(unittest.TestCase):
         self.assertFalse(result["throttling_observed"])
         self.assertTrue(any("resets" in text for text in result["limitations"]))
 
+    def test_new_cgroup_at_same_path_with_larger_counters_is_not_a_delta(self):
+        record = trial([sample(5, throttled=100)])
+        for item in record["baseline"]:
+            item["cgroup"]["data"]["generation"] = {"device": 1, "inode": 100}
+        record["samples"][0]["cgroup"]["data"]["generation"] = {"device": 1, "inode": 200}
+        result = analyze(record)
+        self.assertFalse(result["throttling_observed"])
+        self.assertIsNone(result["metrics"]["cpu_counter_delta"])
+
+    def test_process_restart_prevents_deltas_when_generation_metadata_is_missing(self):
+        result = analyze(trial([sample(5, pid=11, throttled=100)]))
+        self.assertFalse(result["throttling_observed"])
+        self.assertIsNone(result["metrics"]["cpu_counter_delta"])
+
+    def test_new_systemd_invocation_prevents_cross_activation_deltas(self):
+        record = trial([sample(5, throttled=100)])
+        for item in record["baseline"]:
+            item["unit"]["data"]["InvocationID"] = "old-invocation"
+        record["samples"][0]["unit"]["data"]["InvocationID"] = "new-invocation"
+        result = analyze(record)
+        self.assertFalse(result["throttling_observed"])
+
     def test_previous_trial_journal_is_not_current_evidence(self):
         stale = {"__MONOTONIC_TIMESTAMP": "1000000", "MESSAGE": "Address already in use"}
         result = analyze(trial([sample(5, ok=False, journal=[stale])]))

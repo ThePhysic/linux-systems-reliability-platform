@@ -19,6 +19,11 @@ PORT = 18765
 WORK_RESULT = hashlib.sha256(b"lsrp-reliability-lab").hexdigest()
 PROC = Path("/proc")
 CGROUP = Path("/sys/fs/cgroup")
+SYSTEMCTL = "/usr/bin/systemctl"
+JOURNALCTL = "/usr/bin/journalctl"
+SS = "/usr/bin/ss"
+COMMAND_ENV = {"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "LC_ALL": "C", "LANG": "C",
+               "SYSTEMD_COLORS": "0", "SYSTEMD_PAGER": "cat", "SYSTEMD_PAGERSECURE": "1"}
 UNIT_FIELDS = (
     "Id", "LoadState", "ActiveState", "SubState", "Result", "MainPID",
     "NRestarts", "ExecMainCode", "ExecMainStatus", "ExecMainStartTimestampMonotonic",
@@ -39,14 +44,16 @@ def evidence(source, data=None, *, status="ok", error=None):
 
 def command(args, timeout=2.0):
     """No shell, no user supplied command fragments, bounded subprocess lifetime."""
+    if not args or args[0] not in (SYSTEMCTL, JOURNALCTL, SS):
+        raise ValueError("Observer command is not an approved absolute executable")
     return subprocess.run(args, capture_output=True, text=True, timeout=timeout,
-                          check=False, env={**os.environ, "LC_ALL": "C", "SYSTEMD_COLORS": "0"})
+                          check=False, env=COMMAND_ENV)
 
 
 def unit_state():
     source = "systemctl show " + UNIT
     try:
-        result = command(["systemctl", "show", UNIT, "--no-pager",
+        result = command([SYSTEMCTL, "show", UNIT, "--no-pager",
                           "--property=" + ",".join(UNIT_FIELDS)])
         if result.returncode:
             return evidence(source, status="unavailable", error=result.stderr.strip()[:1000])
@@ -123,7 +130,8 @@ def cgroup_state(path):
         directory = (root / path.lstrip("/")).resolve()
         if directory == root or root not in directory.parents or ".." in Path(path).parts:
             raise ValueError("Refusing non-service cgroup path")
-        data = {"path": path, "files": {}}
+        before = directory.stat()
+        data = {"path": path, "generation": {"device": before.st_dev, "inode": before.st_ino}, "files": {}}
         for name in ("cpu.stat", "cpu.max", "memory.current", "memory.max", "memory.events", "pids.current", "pids.max"):
             filename = directory / name
             try:
@@ -137,6 +145,9 @@ def cgroup_state(path):
             except (OSError, ValueError) as exc:
                 data["files"][name] = {"status": "unavailable", "value": None, "error": str(exc),
                                         "source": str(filename), "collected_at": wall_time()}
+        after = directory.stat()
+        if (before.st_dev, before.st_ino) != (after.st_dev, after.st_ino):
+            return evidence(source, status="unavailable", error="Cgroup generation changed during collection")
         status = "ok" if any(v["status"] == "ok" for v in data["files"].values()) else "unavailable"
         return evidence(source, data, status=status,
                         error=None if status == "ok" else "All cgroup counters unavailable")
@@ -147,7 +158,7 @@ def cgroup_state(path):
 def socket_state():
     source = f"ss -H -ltnp 'sport = :{PORT}'"
     try:
-        result = command(["ss", "-H", "-ltnp", f"sport = :{PORT}"])
+        result = command([SS, "-H", "-ltnp", f"sport = :{PORT}"])
         if result.returncode:
             return evidence(source, status="unavailable", error=result.stderr.strip()[:1000])
         listeners = result.stdout.strip().splitlines()
@@ -160,7 +171,7 @@ def socket_state():
 def journal_state():
     source = "journalctl --boot --unit=" + UNIT
     try:
-        result = command(["journalctl", "--boot", "--unit=" + UNIT, "--lines=20", "--output=json", "--no-pager"])
+        result = command([JOURNALCTL, "--boot", "--unit=" + UNIT, "--lines=20", "--output=json", "--no-pager"])
         if result.returncode:
             return evidence(source, status="unavailable", error=result.stderr.strip()[:1000])
         entries = []
@@ -183,6 +194,8 @@ def _validate_identity(data):
         if type(data.get(field)) is not int or data[field] <= 0:
             raise ValueError("Invalid service identity: " + field)
     for field in ("boot_id", "instance"):
+        if not isinstance(data.get(field), str):
+            raise ValueError("Invalid service identity: " + field)
         uuid.UUID(data[field])
     if data.get("mode") not in ("normal", "hang", "cpu"):
         raise ValueError("Invalid service mode")
@@ -191,12 +204,27 @@ def _validate_identity(data):
     return {k: data[k] for k in ("service", "pid", "start_ticks", "boot_id", "instance", "mode")}
 
 
+def _verify_local_identity(identity):
+    """A response's self-reported identity must agree with the local kernel."""
+    source = f"/proc/{identity['pid']}/stat; /proc/sys/kernel/random/boot_id"
+    try:
+        actual = parse_stat((PROC / str(identity["pid"]) / "stat").read_text(),
+                            os.sysconf("SC_CLK_TCK"), os.sysconf("SC_PAGE_SIZE"))
+        actual["boot_id"] = (PROC / "sys/kernel/random/boot_id").read_text().strip()
+        if any(actual[k] != identity[k] for k in ("pid", "start_ticks", "boot_id")):
+            return evidence(source, status="error", error="Response identity disagrees with the local kernel")
+        return evidence(source, {k: actual[k] for k in ("pid", "start_ticks", "boot_id")})
+    except (OSError, ValueError, AttributeError, IndexError) as exc:
+        return evidence(source, status="unavailable", error=str(exc))
+
+
 def probe(timeout=0.4):
     """An actual computation over loopback, without environmental HTTP proxies."""
     started = time.monotonic()
     result = {"source": f"HTTP GET http://127.0.0.1:{PORT}/work", "collected_at": wall_time(),
               "monotonic": started, "completed_monotonic": None, "ok": False,
-              "latency_ms": None, "error": None, "error_kind": None, "identity": None, "http_status": None}
+              "latency_ms": None, "error": None, "error_kind": None, "identity": None,
+              "identity_verification": None, "http_status": None}
     try:
         opener = build_opener(ProxyHandler({}))
         with opener.open(f"http://127.0.0.1:{PORT}/work", timeout=timeout) as response:
@@ -207,7 +235,11 @@ def probe(timeout=0.4):
             if len(payload) > 8192:
                 raise ValueError("Oversized service response")
             result["identity"] = _validate_identity(json.loads(payload))
-            result["ok"] = True
+            result["identity_verification"] = _verify_local_identity(result["identity"])
+            if result["identity_verification"]["status"] == "ok":
+                result["ok"] = True
+            else:
+                result.update(error=result["identity_verification"]["error"], error_kind="identity_unverified")
     except HTTPError as exc:
         result.update(error=f"HTTP {exc.code}", error_kind="http_error", http_status=exc.code)
     except (TimeoutError, socket.timeout) as exc:
@@ -256,7 +288,7 @@ def environment():
     result = {"platform": platform.platform(), "kernel": platform.release(),
               "python": platform.python_version(), "cgroup_v2": (CGROUP / "cgroup.controllers").exists()}
     try:
-        result["systemd"] = command(["systemctl", "--version"]).stdout.splitlines()[0]
+        result["systemd"] = command([SYSTEMCTL, "--version"]).stdout.splitlines()[0]
     except (OSError, subprocess.SubprocessError, IndexError) as exc:
         result["systemd"] = None
         result["systemd_error"] = str(exc)
