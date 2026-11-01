@@ -246,15 +246,16 @@ def extract_results(payload, destination):
     with tarfile.open(fileobj=io.BytesIO(payload), mode='r:') as archive:
         for member in archive.getmembers():
             path = PurePosixPath(member.name)
-            if path.is_absolute() or '..' in path.parts or member.issym() or member.islnk():
+            if (path.is_absolute() or '..' in path.parts or '\\' in member.name or ':' in member.name
+                    or member.issym() or member.islnk()):
                 raise ValueError('Unsafe archive member: ' + member.name)
             if member.isdir():
                 if path.as_posix() not in {'.', 'trials'}:
                     raise ValueError('Unexpected archive directory: ' + member.name)
                 continue
             name = path.as_posix()
-            expected = name in FETCH_FILES or (len(path.parts) == 2 and path.parts[0] == 'trials'
-                                              and path.suffix == '.json')
+            trial_name = re.fullmatch(r'(?:summary|(?:crash|hang|cpu|collision)-[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})\.json', path.name)
+            expected = name in FETCH_FILES or (len(path.parts) == 2 and path.parts[0] == 'trials' and trial_name)
             total += member.size
             if not expected or not member.isfile() or member.size > 64 * 1024 * 1024 or total > 256 * 1024 * 1024:
                 raise ValueError('Unexpected or oversized archive member: ' + member.name)

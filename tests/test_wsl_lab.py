@@ -76,7 +76,9 @@ class WSLLabHelperTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / 'run'
             for name, symlink in (('../escape', False), ('/absolute', False),
-                                  ('environment.txt', True), ('private.key', False)):
+                                  ('environment.txt', True), ('private.key', False),
+                                  ('trials/C:\\escape.json', False), ('trials/CON.json', False),
+                                  ('trials/file.json:stream', False)):
                 with self.assertRaises(ValueError):
                     HELPER['extract_results'](self.archive(name, symlink=symlink), target)
                 self.assertFalse(target.exists())
