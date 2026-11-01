@@ -1,0 +1,7 @@
+[Unit]
+Description=LSRP independent recovery deadline
+
+[Timer]
+OnActiveSec=25s
+AccuracySec=1s
+Unit=lsrp-recover.service

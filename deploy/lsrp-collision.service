@@ -1,0 +1,31 @@
+[Unit]
+Description=LSRP bounded lab-owned port collision helper
+ConditionPathExists=/etc/lsrp/lab.json
+
+[Service]
+Type=exec
+User=lsrp-lab
+Group=lsrp-lab
+ExecStart=/usr/bin/python3 -u /opt/lsrp/lsrp/collision.py
+Restart=no
+RuntimeMaxSec=15s
+TimeoutStopSec=2s
+KillMode=control-group
+CPUQuota=10%
+MemoryMax=32M
+MemorySwapMax=0
+TasksMax=4
+LimitNOFILE=32
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+CapabilityBoundingSet=
+AmbientCapabilities=
+StandardOutput=journal
+StandardError=journal

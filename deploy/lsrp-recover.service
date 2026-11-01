@@ -1,0 +1,12 @@
+[Unit]
+Description=LSRP independent bounded fault recovery
+ConditionPathExists=/etc/lsrp/lab.json
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl stop lsrp-collision.service
+ExecStart=/usr/bin/systemctl reset-failed lsrp-lab.service
+ExecStart=/usr/bin/systemctl restart lsrp-lab.service
+TimeoutStartSec=20s
+StandardOutput=journal
+StandardError=journal

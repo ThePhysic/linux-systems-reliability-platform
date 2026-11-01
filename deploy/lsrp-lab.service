@@ -1,0 +1,46 @@
+[Unit]
+Description=LSRP deliberately fallible non-root lab service
+Documentation=https://www.freedesktop.org/software/systemd/man/systemd.service.html
+After=network.target
+StartLimitIntervalSec=30s
+StartLimitBurst=5
+ConditionPathExists=/etc/lsrp/lab.json
+
+[Service]
+Type=exec
+User=lsrp-lab
+Group=lsrp-lab
+ExecStart=/usr/bin/python3 -u /opt/lsrp/lsrp/service.py
+Restart=on-failure
+RestartSec=2s
+TimeoutStartSec=5s
+TimeoutStopSec=5s
+KillMode=control-group
+SendSIGKILL=yes
+RuntimeDirectory=lsrp-lab
+RuntimeDirectoryMode=0755
+UMask=0077
+CPUAccounting=yes
+CPUQuota=25%
+CPUQuotaPeriodSec=100ms
+MemoryAccounting=yes
+MemoryMax=128M
+MemorySwapMax=0
+TasksMax=32
+LimitNOFILE=256
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+CapabilityBoundingSet=
+AmbientCapabilities=
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
