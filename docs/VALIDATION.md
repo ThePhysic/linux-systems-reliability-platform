@@ -28,6 +28,7 @@ Expected artifact types include:
 | Artifact | Evidence |
 | --- | --- |
 | `environment.txt` | Kernel, OS, systemd/Python versions, revision when available |
+| `SOURCE_REVISION`, `SOURCE_MANIFEST.json` | Recorded revision/dirty state and hashes of the actual source files validated |
 | `unit-tests.txt` | Actual automated-test output |
 | `doctor.json` | Actual preflight check result |
 | `lifecycle-*.json` / journal | Before/after lifecycle observations |
@@ -38,6 +39,8 @@ Expected artifact types include:
 | `validation-exit.json` | Final script status and final cleanup outcome, including on failure |
 
 Check artifact paths from the final script version. Generated directories are intentionally excluded from source control by default. A curated reference run can be included under a dedicated examples/evidence path after review, with its source revision and an explicit statement that numbers describe one environment. No reference output should be invented or pre-filled.
+
+For Windows, [the dedicated WSL helper](WSL.md) provisions the lab and transfers source without drive mounts. The transferred source manifest is verified before running tests, and validation records its digest even when `.git` was not copied. Without a transferred manifest, validation generates one from the actual checkout and explicitly records unavailable Git metadata.
 
 ## What an incident record must establish
 

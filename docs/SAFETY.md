@@ -50,7 +50,9 @@ sudo python3 -m lsrp stop
 sudo bash scripts/uninstall-lab.sh --accept-disposable-lab
 ```
 
-The uninstaller is limited to the owned lab installation and retains the locked service account for safe UID ownership continuity on reinstall. Preserve wanted incident artifacts separately. Discarding the entire dedicated VM/distribution is an additional operator-controlled option; the project does not automate deletion of unrelated virtual machines or WSL distributions.
+The uninstaller is limited to the owned lab installation and retains the locked service account, its root-owned `/var/lib/lsrp/service-account.json` identity receipt, and `/run/lsrp/lock` for safe UID ownership continuity and serialization on reinstall. The receipt records the account, machine identity, and service UID. Preserve wanted incident artifacts separately. Discarding the entire dedicated VM/distribution is an additional operator-controlled option; the project does not automate deletion of unrelated virtual machines or WSL distributions.
+
+Upgrade and removal verify the existing installed code/unit hashes and unit configuration before controlling services. If an installation was manually changed or tampered with, these operations refuse to treat it as trusted. A source update is not an automatic repair path for an untrusted installation; inspect and remediate that disposable lab explicitly.
 
 ## Trust model and remaining limits
 

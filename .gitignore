@@ -6,6 +6,9 @@ build/
 dist/
 .pytest_cache/
 results/
+artifacts/
+SOURCE_MANIFEST.json
+SOURCE_REVISION
 .env
 *.pem
 *.key

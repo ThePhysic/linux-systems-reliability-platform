@@ -56,6 +56,32 @@ trap cleanup_validation EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
+python3 - "$output_dir" <<'PY'
+import json
+import pathlib
+import runpy
+import sys
+
+out = pathlib.Path(sys.argv[1])
+helper = runpy.run_path('scripts/wsl_lab.py')
+_, actual = helper['source_archive'](pathlib.Path.cwd())
+transferred = pathlib.Path('SOURCE_MANIFEST.json')
+if transferred.exists():
+    recorded = json.loads(transferred.read_text())
+    if recorded.get('files') != actual['files'] or recorded.get('manifest_sha256') != actual['manifest_sha256']:
+        raise SystemExit('Transferred source manifest does not match the files being validated; sync again.')
+    actual = recorded
+revision_file = pathlib.Path('SOURCE_REVISION')
+if revision_file.exists():
+    revision = revision_file.read_text().strip()
+    if transferred.exists() and revision != actual['revision']:
+        raise SystemExit('SOURCE_REVISION disagrees with the transferred source manifest.')
+else:
+    revision = actual['revision']
+(out / 'SOURCE_MANIFEST.json').write_text(json.dumps(actual, indent=2, sort_keys=True) + '\n')
+(out / 'SOURCE_REVISION').write_text(revision + '\n')
+PY
+
 {
     date -u '+%Y-%m-%dT%H:%M:%SZ'
     uname -a
@@ -63,9 +89,11 @@ trap 'exit 143' TERM
     python3 --version
     systemctl --version
     printf 'source_revision='
-    git rev-parse HEAD 2>/dev/null || printf 'uncommitted-or-unavailable\n'
+    cat "$output_dir/SOURCE_REVISION"
+    printf 'source_manifest_sha256='
+    python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["manifest_sha256"])' "$output_dir/SOURCE_MANIFEST.json"
     printf 'source_dirty='
-    git status --porcelain 2>/dev/null || true
+    python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["dirty"])' "$output_dir/SOURCE_MANIFEST.json"
 } >"$output_dir/environment.txt" 2>&1
 
 python3 -m unittest discover -s tests -v >"$output_dir/unit-tests.txt" 2>&1

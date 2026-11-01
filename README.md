@@ -25,6 +25,20 @@ The scope is one service, one CLI, and these four incidents. A web dashboard, me
 
 The implementation uses Python's standard library. Application dependencies, Docker, Kubernetes, and a database are unnecessary. Windows can run the portable unit tests and read saved reports; Linux service experiments run inside the lab.
 
+## Windows: create a dedicated WSL2 lab
+
+From PowerShell in this checkout, with WSL2 already available:
+
+```powershell
+python scripts/wsl_lab.py create
+python scripts/wsl_lab.py validate --run first-run
+python scripts/wsl_lab.py fetch --run first-run
+```
+
+The helper downloads a checksum-pinned official Ubuntu image, imports a **new** distribution named `LSRP-Lab`, disables Windows-drive automount and Windows executable interoperability in that distribution, enables systemd, transfers source through stdin, and installs the lab. It refuses to overwrite an existing distribution and never unregisters one. Runtime files and fetched evidence live in `~/lsrp-lab-runtime`, outside this repository. It does not change global `.wslconfig` settings or other distributions.
+
+After code changes, use `python scripts/wsl_lab.py sync --install`, then validate with a new run name. The helper manages only a distribution carrying its own creation marker. See [Windows/WSL instructions](docs/WSL.md) for options, boundaries, and source-hash provenance.
+
 ## Quickstart
 
 Run these commands **inside the disposable Linux lab**, from a checkout of this repository. On Ubuntu, install the prerequisites first:
