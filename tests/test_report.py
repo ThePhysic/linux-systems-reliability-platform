@@ -114,6 +114,25 @@ class ReportTests(unittest.TestCase):
         self.assertIn("Known experiment actions (ground truth, separate from diagnosis)", text)
         self.assertIn("Limitations:", text)
 
+    def test_render_shows_timeline_and_errors_with_compact_cleanup(self):
+        record = trial([sample(5, ok=False)])
+        record["error"] = "Experiment interrupted"
+        record["events"] = [{"wall_time": "2026-11-01T00:00:00+00:00", "monotonic": 4.25,
+                             "phase": "inject", "message": "Fault dispatch acknowledged"}]
+        record["cleanup"] = {"ok": False, "errors": ["Helper remained active"],
+                             "verification": {"lsrp-collision.service": "active"},
+                             "functional_checks": [{"ok": True, "raw": "DO_NOT_DUMP_RAW_CHECK"},
+                                                   {"ok": False, "error": "Request timed out"}, {"ok": True}]}
+        text = render(record)
+        self.assertIn("Run error: Experiment interrupted", text)
+        self.assertIn("2026-11-01T00:00:00+00:00 [monotonic 4.250000, t+0.250s] inject: Fault dispatch acknowledged", text)
+        self.assertIn("Cleanup functional checks: 2/3 successful", text)
+        self.assertIn("Cleanup unit verification: lsrp-collision.service = active", text)
+        self.assertIn("Cleanup error: Helper remained active", text)
+        self.assertIn("Cleanup functional error: Request timed out", text)
+        self.assertNotIn("DO_NOT_DUMP_RAW_CHECK", text)
+        self.assertIn("injection dispatch; exact failure onset unknown", text)
+
 
 if __name__ == "__main__":
     unittest.main()

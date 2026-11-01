@@ -17,14 +17,15 @@ esac
 for executable in python3 systemctl journalctl ss useradd install flock; do
     command -v "$executable" >/dev/null || { echo "Missing executable: $executable" >&2; exit 1; }
 done
-/usr/bin/python3 -c 'import sys; assert sys.version_info >= (3, 11), "Python 3.11+ required"'
+/usr/bin/python3 -I -c 'import sys; assert sys.version_info >= (3, 11), "Python 3.11+ required"'
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
 export LSRP_INSTALL_REPO="$repo"
 # Validate existing ownership before any stop, overwrite, account, or directory action.
-/usr/bin/python3 - <<'PY'
-import json, os, pathlib, pwd, stat
+/usr/bin/python3 -I - <<'PY'
+import hashlib, json, os, pathlib, pwd, stat, sys
 paths = ['/etc/lsrp', '/opt/lsrp', '/opt/lsrp/lsrp', '/usr/local/bin/lsrp',
-         '/run/lsrp', '/run/lsrp/lock', '/etc/lsrp/install.lock']
+         '/run/lsrp', '/run/lsrp/lock', '/etc/lsrp/install.lock',
+         '/var/lib/lsrp', '/var/lib/lsrp/service-account.json']
 units = ['lsrp-lab.service','lsrp-collision.service','lsrp-recover.service','lsrp-recover.timer']
 paths += ['/etc/systemd/system/' + n for n in units]
 for raw in paths:
@@ -36,27 +37,57 @@ for raw in paths:
             s=q.stat()
             if s.st_uid != 0 or s.st_mode & 0o022:
                 raise SystemExit(f'Refusing non-root-owned or writable install path: {q}')
+            if q != p and not q.is_dir():
+                raise SystemExit(f'Refusing non-directory install ancestor: {q}')
 marker = pathlib.Path('/etc/lsrp/lab.json')
+receipt = pathlib.Path('/var/lib/lsrp/service-account.json')
+machine = pathlib.Path('/etc/machine-id').read_text().strip()
+try:
+    account = pwd.getpwnam('lsrp-lab')
+except KeyError:
+    account = None
+if account is not None and not (account.pw_uid > 0 and account.pw_shell == '/usr/sbin/nologin' and
+                                account.pw_dir == '/nonexistent'):
+    raise SystemExit('Existing lsrp-lab user has an unexpected UID, home or shell')
+receipt_valid = False
+if receipt.exists():
+    if not receipt.is_file():
+        raise SystemExit('Account receipt must be a regular file')
+    retained = json.loads(receipt.read_text())
+    receipt_valid = (retained.get('schema_version') == 1 and retained.get('account') == 'lsrp-lab' and
+                     retained.get('machine_id') == machine and account is not None and
+                     retained.get('service_uid') == account.pw_uid)
+    if not receipt_valid:
+        raise SystemExit('Retained account receipt does not identify this machine/service UID')
 if marker.exists() or marker.is_symlink():
     if marker.is_symlink() or marker.stat().st_uid != 0 or marker.stat().st_mode & 0o022:
         raise SystemExit('Unsafe existing lab marker')
     d=json.loads(marker.read_text())
-    if d.get('machine_id') != pathlib.Path('/etc/machine-id').read_text().strip() or d.get('unit') != 'lsrp-lab.service' or d.get('schema_version') != 1 or d.get('service_uid') != pwd.getpwnam('lsrp-lab').pw_uid:
+    if d.get('machine_id') != machine or d.get('unit') != 'lsrp-lab.service' or d.get('schema_version') != 1 or account is None or d.get('service_uid') != account.pw_uid:
         raise SystemExit('Existing marker does not identify this LSRP lab')
+    # Updating must not stop a replaced unit or execute modified installed code.
+    manifest=d.get('sha256')
+    bootstrap={'/opt/lsrp/lsrp/__init__.py','/opt/lsrp/lsrp/lab.py'}
+    if not isinstance(manifest,dict) or not bootstrap.issubset(manifest):
+        raise SystemExit('Existing installation has no complete guard manifest')
+    for raw in bootstrap:
+        p=pathlib.Path(raw)
+        if p.is_symlink() or not p.is_file() or p.stat().st_uid != 0 or p.stat().st_mode & 0o022:
+            raise SystemExit('Unsafe guard bootstrap path: '+raw)
+        if hashlib.sha256(p.read_bytes()).hexdigest() != manifest[raw]:
+            raise SystemExit('Guard bootstrap code changed: '+raw)
+    sys.dont_write_bytecode=True
+    sys.path.insert(0,'/opt/lsrp')
+    from lsrp.lab import guard
+    guard()
 else:
     for p in paths:
-        if p.startswith('/run/lsrp') or p.endswith('/install.lock'):
+        if p.startswith('/run/lsrp') or p.endswith('/install.lock') or p.startswith('/var/lib/lsrp'):
             continue
         if pathlib.Path(p).exists():
             raise SystemExit(f'Existing unmarked installation path: {p}')
-    try:
-        account=pwd.getpwnam('lsrp-lab')
-    except KeyError:
-        pass
-    else:
-        if not (account.pw_uid > 0 and account.pw_gecos == 'LSRP dedicated lab service' and
-                account.pw_shell == '/usr/sbin/nologin' and account.pw_dir == '/nonexistent'):
-            raise SystemExit('Existing unrelated lsrp-lab user; refusing to claim ownership')
+    if account is not None and not receipt_valid:
+        raise SystemExit('Existing unmarked lsrp-lab user has no valid retained-account receipt; refusing ownership')
 PY
 install -d -o root -g root -m 0755 /etc/lsrp /opt/lsrp
 exec 9>/etc/lsrp/install.lock
@@ -72,6 +103,26 @@ fi
 if ! id lsrp-lab >/dev/null 2>&1; then
     useradd --system --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin --comment 'LSRP dedicated lab service' lsrp-lab
 fi
+install -d -o root -g root -m 0755 /var/lib/lsrp
+/usr/bin/python3 -I - <<'PY'
+import json, os, pathlib, pwd, tempfile
+p=pathlib.Path('/var/lib/lsrp/service-account.json')
+data={'schema_version':1,'account':'lsrp-lab',
+      'machine_id':pathlib.Path('/etc/machine-id').read_text().strip(),
+      'service_uid':pwd.getpwnam('lsrp-lab').pw_uid}
+fd, name=tempfile.mkstemp(prefix='.account-', dir=p.parent)
+try:
+    with os.fdopen(fd, 'w') as stream:
+        json.dump(data, stream, indent=2)
+        stream.write('\n')
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.chmod(name, 0o644)
+    os.replace(name, p)
+finally:
+    if os.path.exists(name):
+        os.unlink(name)
+PY
 install -d -o root -g root -m 0755 /opt/lsrp/lsrp
 for source in "$repo"/lsrp/*.py; do
     [[ -f "$source" && ! -L "$source" ]] || { echo 'Unsafe package source.' >&2; exit 1; }
@@ -89,7 +140,7 @@ raise SystemExit(main())
 PY
 chown root:root /usr/local/bin/lsrp
 chmod 0755 /usr/local/bin/lsrp
-/usr/bin/python3 - <<'PY'
+/usr/bin/python3 -I - <<'PY'
 import hashlib, json, os, pathlib, pwd, uuid
 p=pathlib.Path('/etc/lsrp/lab.json')
 old=json.loads(p.read_text()) if p.exists() else {}

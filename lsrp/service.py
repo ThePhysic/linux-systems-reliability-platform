@@ -227,6 +227,7 @@ def serve() -> int:
     modes = Modes()
     http = control = None
     threads = []
+    started_servers = []
     try:
         http = ServiceHTTP((HOST, PORT), modes, identity)
         # systemd's RuntimeDirectory is cleared on each stopped invocation.
@@ -235,19 +236,20 @@ def serve() -> int:
             thread = threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.1}, name=name)
             thread.start()
             threads.append(thread)
+            started_servers.append(server)
         print(json.dumps({"event": "ready", **identity, "listen": f"{HOST}:{PORT}"}), flush=True)
         stopping.wait()
         print(json.dumps({"event": "shutdown_started", **identity}), flush=True)
         return 0
-    except OSError as exc:
-        print(json.dumps({"event": "startup_failed", "errno": exc.errno, "error": str(exc)}), flush=True)
+    except (OSError, RuntimeError) as exc:
+        print(json.dumps({"event": "startup_failed", "errno": getattr(exc, "errno", None), "error": str(exc)}), flush=True)
         return 1
     finally:
         modes.close()
         for server in (control, http):
             if server is not None:
                 # shutdown only if serve_forever was started, otherwise it deadlocks.
-                if threads:
+                if server in started_servers:
                     server.shutdown()
                 server.server_close()
         for thread in threads:

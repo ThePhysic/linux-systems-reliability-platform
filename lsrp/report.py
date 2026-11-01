@@ -229,7 +229,7 @@ def analyze(trial):
             restart_delay = max(0.0, stamp - exited_at)
             break
     metrics = {
-        "timing_reference": "confirmed injection dispatch; exact failure onset unknown" if reference is not None else "no injection timestamp",
+        "timing_reference": "injection dispatch; exact failure onset unknown" if reference is not None else "no injection timestamp",
         "detection_latency_s": max(0.0, detection - reference) if detection is not None and reference is not None else None,
         "recovery_time_s": max(0.0, recovery_first - reference) if recovery_first is not None and reference is not None else None,
         "recovery_confirmation_time_s": max(0.0, recovery_confirmed - reference) if recovery_confirmed is not None and reference is not None else None,
@@ -256,8 +256,22 @@ def analyze(trial):
 def render(trial):
     analysis = analyze(trial)
     lines = [f"LSRP incident {trial.get('trial_id', '(unknown)')}",
-             f"Experiment: {trial.get('scenario', 'unknown')} | Outcome: {trial.get('outcome', 'not recorded')}", "",
-             "Observed symptoms:"]
+             f"Experiment: {trial.get('scenario', 'unknown')} | Outcome: {trial.get('outcome', 'not recorded')}"]
+    if trial.get("error"):
+        lines += ["", "Run error: " + str(trial["error"])]
+    lines += ["", "Timeline (operator actions and observations):"]
+    reference = (trial.get("injection") or {}).get("monotonic")
+    events = trial.get("events") or []
+    for event in events:
+        stamp = event.get("monotonic")
+        timing = f"monotonic {stamp:.6f}" if _number(stamp) else "monotonic unavailable"
+        if _number(stamp) and _number(reference):
+            timing += f", t{stamp - reference:+.3f}s"
+        lines.append(f"  {event.get('wall_time', 'wall time unavailable')} [{timing}] "
+                     f"{event.get('phase', 'unknown')}: {event.get('message', '')}")
+    if not events:
+        lines.append("  No operator timeline was recorded.")
+    lines += ["", "Observed symptoms:"]
     diagnosis = analysis["diagnosis"]
     lines += ["  - " + text for text in diagnosis["symptoms"]] or ["  No qualifying symptom was sampled."]
     lines += ["", "Evidence (independent of the experiment label):"]
@@ -269,8 +283,20 @@ def render(trial):
         lines.append("  Insufficient evidence to identify a failure mechanism.")
     lines += ["", "Known experiment actions (ground truth, separate from diagnosis):",
               "  " + json.dumps(trial.get("injection", {}), sort_keys=True), "", "Recovery verification:",
-              "  " + json.dumps(analysis["recovery"], sort_keys=True),
-              "  Cleanup: " + json.dumps(trial.get("cleanup", {}), sort_keys=True), "", "Measurements:",
+              "  " + json.dumps(analysis["recovery"], sort_keys=True)]
+    cleanup = trial.get("cleanup") or {}
+    lines.append("  Cleanup: " + ("verified" if cleanup.get("ok") else "incomplete or unverified"))
+    checks = cleanup.get("functional_checks")
+    if isinstance(checks, list):
+        successes = sum(isinstance(check, dict) and bool(check.get("ok")) for check in checks)
+        lines.append(f"  Cleanup functional checks: {successes}/{len(checks)} successful")
+        failed_checks = [str(check.get("error") or "Functional check failed") for check in checks
+                         if isinstance(check, dict) and not check.get("ok")]
+        lines += ["  Cleanup functional error: " + error for error in dict.fromkeys(failed_checks)]
+    for unit, state in (cleanup.get("verification") or {}).items():
+        lines.append(f"  Cleanup unit verification: {unit} = {state}")
+    lines += ["  Cleanup error: " + str(error) for error in cleanup.get("errors", [])]
+    lines += ["", "Measurements:",
               json.dumps(analysis["metrics"], indent=2, sort_keys=True), "", "Limitations:"]
     lines += ["  - " + text for text in analysis["limitations"]]
     return "\n".join(lines) + "\n"

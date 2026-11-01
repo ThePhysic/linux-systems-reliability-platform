@@ -130,5 +130,30 @@ class ControlTests(unittest.TestCase):
         self.assertEqual(mode, "hang")
 
 
+class StartupTests(unittest.TestCase):
+    def test_second_server_thread_failure_closes_unstarted_control_without_shutdown_deadlock(self):
+        http, control = unittest.mock.Mock(), unittest.mock.Mock()
+        first, second = unittest.mock.Mock(), unittest.mock.Mock()
+        second.start.side_effect = RuntimeError("can't start new thread")
+        with patch.object(service.sys, "platform", "linux"), \
+                patch.object(service.os, "geteuid", return_value=991, create=True), \
+                patch.object(service, "process_identity", return_value={"pid": 123}), \
+                patch.object(service.signal, "signal"), \
+                patch.object(service, "Modes") as modes, \
+                patch.object(service, "ServiceHTTP", return_value=http), \
+                patch.object(service, "ControlServer", return_value=control), \
+                patch.object(service.threading, "Thread", side_effect=[first, second]), \
+                patch.object(service, "Path"), patch.object(service.sys, "stdout", io.StringIO()):
+            result = service.serve()
+        self.assertEqual(result, 1)
+        # BaseServer.shutdown waits forever if serve_forever has never started.
+        control.shutdown.assert_not_called()
+        control.server_close.assert_called_once()
+        http.shutdown.assert_called_once()
+        http.server_close.assert_called_once()
+        modes.return_value.close.assert_called_once()
+        first.join.assert_called_once()
+
+
 if __name__ == "__main__":
     unittest.main()

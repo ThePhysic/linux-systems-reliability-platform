@@ -82,7 +82,7 @@ def parse_stat(text, clock_ticks, page_size):
 
 
 def process_state(pid):
-    source = f"/proc/{pid}/stat,status,limits,fd,cgroup; /proc/sys/kernel/random/boot_id"
+    source = f"/proc/{pid}/stat,status,limits,fd,cgroup,task/*/children; /proc/uptime; /proc/sys/kernel/random/boot_id"
     if not isinstance(pid, int) or pid <= 0:
         return evidence(source, status="unavailable", error="Unit has no main PID")
     try:
@@ -92,6 +92,10 @@ def process_state(pid):
         data["boot_id"] = (PROC / "sys/kernel/random/boot_id").read_text().strip()
         data["issues"] = {}
         for key, read in (
+            ("children", lambda: sorted({int(child) for file in (directory / "task").glob("*/children")
+                                          for child in file.read_text().split()})),
+            ("uptime_s", lambda: max(0.0, float((PROC / "uptime").read_text().split()[0])
+                                       - data["start_ticks"] / os.sysconf("SC_CLK_TCK"))),
             ("fd_count", lambda: len(list((directory / "fd").iterdir()))),
             ("limits", lambda: (directory / "limits").read_text()),
             ("cgroup", lambda: (directory / "cgroup").read_text().strip()),

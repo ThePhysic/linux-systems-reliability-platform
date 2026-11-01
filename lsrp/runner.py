@@ -82,7 +82,7 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
              "environment": {}, "parameters": {"duration_s": duration, "poll_interval_s": .2,
              "probe_timeout_s": .4, "recovery_successes": 3}, "baseline": [], "samples": [],
              "injection": {}, "events": [], "cleanup": {"ok": False, "errors": ["not attempted"]},
-             "outcome": "inconclusive", "metrics": {}, "limitations": [
+             "outcome": "inconclusive", "record_status": "running", "metrics": {}, "limitations": [
                  "Single-node synthetic workload in a disposable lab; results do not establish production availability.",
                  "Snapshots are sequential, not atomic; collection/probe overhead changes sampling resolution.",
                  "Injection dispatch is an experiment timing reference, not exact failure onset."]}
@@ -95,6 +95,7 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
         try:
             trial["environment"] = lab.environment()
             _event(trial, "precondition", "Verified fixed installation, non-root service identity and exclusive lab lock.")
+            write_json(output, trial)
             touched = True
             initial = lab.cleanup()
             if not initial["ok"]:
@@ -117,6 +118,7 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
             trial["injection"] = {"requested_at": now(), "monotonic": time.monotonic(), "action": scenario,
                                    "confirmed": False, "details": {"before_identity": owner}}
             _event(trial, "injection", f"Dispatching bounded {scenario} experiment; ground truth is separate from diagnosis.")
+            write_json(output, trial)
             if scenario == "crash":
                 lab.systemctl("kill", "--kill-whom=main", "--signal=SIGKILL", lab.UNIT)
             elif scenario in ["hang", "cpu"]:
@@ -151,6 +153,7 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
             while time.monotonic() < deadline:
                 sample = observe.snapshot()
                 trial["samples"].append(sample)
+                write_json(output, trial)
                 if not released and time.monotonic() >= release_at:
                     if scenario == "collision":
                         lab.systemctl("stop", lab.COLLISION)
@@ -190,6 +193,7 @@ def run_trial(scenario: str, duration: float, output: Path) -> dict:
                                     else "failed" if trial.get("incident_observed") else "inconclusive")
                 if failure or not trial["cleanup"]["ok"]:
                     trial["outcome"] = "failed"
+                trial["record_status"] = "complete"
                 write_json(output, trial)
             finally:
                 for s, handler in previous_handlers.items():
