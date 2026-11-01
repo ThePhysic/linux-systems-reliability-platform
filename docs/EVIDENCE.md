@@ -17,6 +17,7 @@ Every trial has `schema_version: 1` and a UUID `trial_id`. The main fields are:
 | `events` | Timestamped runner actions and lifecycle notes |
 | `cleanup` | Cleanup outcome, errors, and independent verification |
 | `outcome` | `recovered`, `failed`, or `inconclusive` |
+| `record_status` | `running` for an incomplete checkpoint; `complete` after final analysis and cleanup attempt |
 | `metrics` | Derived measurements with units and unavailable values preserved |
 | `limitations` | Sampling limits, missing sources, and interpretation uncertainty |
 
@@ -75,3 +76,5 @@ CPU quota accounting is governed by the service cgroup, including service-create
 - **Inconclusive:** Available observations cannot establish the required incident or recovery claim.
 
 The CLI returns nonzero for failed/inconclusive trials. Record artifacts are preserved so that automation and an operator can examine the same evidence. Do not discard unsuccessful trials from a portfolio result.
+
+The runner atomically checkpoints before fault dispatch and after each observation. SIGINT/SIGTERM attempts cleanup and saves a completed failed record. SIGKILL cannot execute cleanup: its checkpoint remains `running`, `inconclusive`, with cleanup unverified. The independent timer can restore the service, but does not rewrite the killed runner's claim. Run the interruption validator to observe this distinction directly.

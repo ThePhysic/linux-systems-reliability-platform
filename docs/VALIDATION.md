@@ -1,5 +1,13 @@
 # Validation and reproducibility
 
+To test interrupted runners separately after installation, run:
+
+```bash
+sudo /usr/bin/python3 -I scripts/validate-interruption.py /root/lsrp-results/interruption-run
+```
+
+Use a fresh output directory. This test deliberately terminates its own hang runner, rejects overlapping mutation, then kills its own collision runner and observes the independent recovery timer. The killed trial must remain incomplete even after the service recovers. Checks and observations are saved in `validation.json` and adjacent files; final cleanup is attempted on every exit.
+
 There are two different forms of evidence: automated checks of code semantics and end-to-end observations from a real Linux lab. Both are needed. Mocks of `systemctl`, fabricated `/proc` files, and portable HTTP tests cannot prove the actual unit restarted or the kernel enforced a quota.
 
 ## Portable checks
