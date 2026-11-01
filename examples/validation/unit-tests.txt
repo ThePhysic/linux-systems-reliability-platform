@@ -23,12 +23,17 @@ test_identity_validation_rejects_wrong_work_and_pid_types (test_observe.Observat
 test_journal_is_unit_scoped_and_drops_unrelated_fields (test_observe.ObservationTests.test_journal_is_unit_scoped_and_drops_unrelated_fields) ... ok
 test_missing_systemd_is_unavailable_not_zero (test_observe.ObservationTests.test_missing_systemd_is_unavailable_not_zero) ... ok
 test_proc_stat_handles_spaces_and_parentheses (test_observe.ObservationTests.test_proc_stat_handles_spaces_and_parentheses) ... ok
+test_redirect_is_rejected_without_contacting_second_loopback_server (test_observe.ObservationTests.test_redirect_is_rejected_without_contacting_second_loopback_server) ... ok
 test_response_identity_must_match_local_proc (test_observe.ObservationTests.test_response_identity_must_match_local_proc) ... ok
 test_snapshot_rejects_response_from_another_main_process (test_observe.ObservationTests.test_snapshot_rejects_response_from_another_main_process) ... ok
+test_snapshot_requires_affirmative_supervised_process_identity (test_observe.ObservationTests.test_snapshot_requires_affirmative_supervised_process_identity) ... ok
 test_timeout_and_refusal_are_distinct (test_observe.ObservationTests.test_timeout_and_refusal_are_distinct) ... ok
 test_work_response_without_verifiable_local_identity_is_not_success (test_observe.ObservationTests.test_work_response_without_verifiable_local_identity_is_not_success) ... ok
 test_cpu_mode_does_not_count_as_recovery (test_report.ReportTests.test_cpu_mode_does_not_count_as_recovery) ... ok
+test_final_stable_segment_after_relapse_sets_recovery_time (test_report.ReportTests.test_final_stable_segment_after_relapse_sets_recovery_time) ... ok
+test_identity_switch_after_provisional_recovery_requires_new_three (test_report.ReportTests.test_identity_switch_after_provisional_recovery_requires_new_three) ... ok
 test_injection_labels_cannot_change_diagnosis (test_report.ReportTests.test_injection_labels_cannot_change_diagnosis) ... ok
+test_later_relapse_invalidates_earlier_three_successes (test_report.ReportTests.test_later_relapse_invalidates_earlier_three_successes) ... ok
 test_live_but_unhealthy_does_not_prove_crash (test_report.ReportTests.test_live_but_unhealthy_does_not_prove_crash) ... ok
 test_missing_baseline_blocks_timely_recovery (test_report.ReportTests.test_missing_baseline_blocks_timely_recovery) ... ok
 test_new_cgroup_at_same_path_with_larger_counters_is_not_a_delta (test_report.ReportTests.test_new_cgroup_at_same_path_with_larger_counters_is_not_a_delta) ... ok
@@ -57,21 +62,23 @@ test_unhealthy_readiness_times_out_with_explicit_failure (test_runner.RunnerTest
 test_unobserved_fault_does_not_become_a_successful_experiment (test_runner.RunnerTests.test_unobserved_fault_does_not_become_a_successful_experiment) ... ok
 test_requires_bounded_well_formed_control (test_service.ControlTests.test_requires_bounded_well_formed_control) ... ok
 test_unprivileged_control_cannot_change_state (test_service.ControlTests.test_unprivileged_control_cannot_change_state) ... ok
-test_valid_root_control_changes_state (test_service.ControlTests.test_valid_root_control_changes_state) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 583.178797262, "cpu_worker_pid": null}
+test_valid_root_control_changes_state (test_service.ControlTests.test_valid_root_control_changes_state) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 12.946915458, "cpu_worker_pid": null}
 ok
-test_liveness_survives_hang_and_work_recovers_by_expiry (test_service.HttpTests.test_liveness_survives_hang_and_work_recovers_by_expiry) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 582.4821099129999, "cpu_worker_pid": null}
+test_abandoned_hang_requests_leave_liveness_capacity_and_shutdown_drains_waiters (test_service.HttpTests.test_abandoned_hang_requests_leave_liveness_capacity_and_shutdown_drains_waiters) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 14.947979093, "cpu_worker_pid": null}
+ok
+test_liveness_survives_hang_and_work_recovers_by_expiry (test_service.HttpTests.test_liveness_survives_hang_and_work_recovers_by_expiry) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 12.692188920000001, "cpu_worker_pid": null}
 {"event": "fault_expired", "mode": "normal"}
 ok
 test_unknown_endpoint_is_not_healthy (test_service.HttpTests.test_unknown_endpoint_is_not_healthy) ... ok
 test_work_has_stable_result_and_process_identity (test_service.HttpTests.test_work_has_stable_result_and_process_identity) ... ok
-test_cpu_child_expires_and_is_reaped (test_service.ModesTests.test_cpu_child_expires_and_is_reaped) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 582.754414615, "cpu_worker_pid": 1398}
+test_cpu_child_expires_and_is_reaped (test_service.ModesTests.test_cpu_child_expires_and_is_reaped) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 12.963870462, "cpu_worker_pid": 669}
 {"event": "fault_expired", "mode": "normal"}
 ok
-test_hang_automatically_expires_without_an_operator (test_service.ModesTests.test_hang_automatically_expires_without_an_operator) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 582.8445287850001, "cpu_worker_pid": null}
+test_hang_automatically_expires_without_an_operator (test_service.ModesTests.test_hang_automatically_expires_without_an_operator) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 13.048452265, "cpu_worker_pid": null}
 {"event": "fault_expired", "mode": "normal"}
 ok
 test_rejects_unbounded_and_nonfinite_faults (test_service.ModesTests.test_rejects_unbounded_and_nonfinite_faults) ... ok
-test_reset_cancels_cpu_child (test_service.ModesTests.test_reset_cancels_cpu_child) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 592.891151554, "cpu_worker_pid": 1402}
+test_reset_cancels_cpu_child (test_service.ModesTests.test_reset_cancels_cpu_child) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 23.090129143, "cpu_worker_pid": 673}
 {"event": "mode_changed", "ok": true, "mode": "normal", "expires_monotonic": 0.0, "cpu_worker_pid": null}
 ok
 test_second_server_thread_failure_closes_unstarted_control_without_shutdown_deadlock (test_service.StartupTests.test_second_server_thread_failure_closes_unstarted_control_without_shutdown_deadlock) ... ok
@@ -86,6 +93,6 @@ test_runtime_is_under_home_and_outside_repository (test_wsl_lab.WSLLabHelperTest
 test_source_manifest_matches_transferred_bytes_and_excludes_artifacts (test_wsl_lab.WSLLabHelperTests.test_source_manifest_matches_transferred_bytes_and_excludes_artifacts) ... ok
 
 ----------------------------------------------------------------------
-Ran 77 tests in 2.968s
+Ran 83 tests in 3.383s
 
 OK

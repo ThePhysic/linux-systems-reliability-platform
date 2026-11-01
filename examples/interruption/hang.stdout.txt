@@ -1,13 +1,13 @@
-LSRP incident 7513fa39-5688-447a-879d-0a37ce149f45
+LSRP incident 9e18a967-7aa4-430d-8130-e31eaa3cf46a
 Experiment: hang | Outcome: failed
 
 Run error: Interrupted by SIGTERM
 
 Timeline (operator actions and observations):
-  2026-11-01T21:14:59.300323+00:00 [monotonic 520.113277, t-2.800s] precondition: Verified fixed installation, non-root service identity and exclusive lab lock.
-  2026-11-01T21:15:02.100302+00:00 [monotonic 522.913244, t+0.000s] injection: Dispatching bounded hang experiment; ground truth is separate from diagnosis.
-  2026-11-01T21:15:02.933671+00:00 [monotonic 523.746622, t+0.833s] error: Interrupted by SIGTERM
-  2026-11-01T21:15:04.486420+00:00 [monotonic 525.299361, t+2.386s] cleanup: Cleanup verified.
+  2026-11-01T21:25:39.561864+00:00 [monotonic 172.443387, t-2.722s] precondition: Verified fixed installation, non-root service identity and exclusive lab lock.
+  2026-11-01T21:25:42.284293+00:00 [monotonic 175.165792, t+0.000s] injection: Dispatching bounded hang experiment; ground truth is separate from diagnosis.
+  2026-11-01T21:25:43.104171+00:00 [monotonic 175.985694, t+0.820s] error: Interrupted by SIGTERM
+  2026-11-01T21:25:44.564867+00:00 [monotonic 177.446367, t+2.281s] cleanup: Cleanup verified.
 
 Observed symptoms:
   - 1 functional work probes failed.
@@ -20,10 +20,10 @@ Interpretation:
   - A running process was unable to serve valid work; a process crash is not established by these failed probes. [supported]
 
 Known experiment actions (ground truth, separate from diagnosis):
-  {"action": "hang", "confirmed": true, "confirmed_monotonic": 522.935727468, "details": {"before_identity": {"boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd", "pid": 582, "start_ticks": 52049}, "control": {"cpu_worker_pid": null, "expires_monotonic": 534.935407463, "mode": "hang", "ok": true}}, "monotonic": 522.913232801, "requested_at": "2026-11-01T21:15:02.100279+00:00"}
+  {"action": "hang", "confirmed": true, "confirmed_monotonic": 175.191451921, "details": {"before_identity": {"boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5", "pid": 4291, "start_ticks": 17278}, "control": {"cpu_worker_pid": null, "expires_monotonic": 187.191101521, "mode": "hang", "ok": true}}, "monotonic": 175.165781074, "requested_at": "2026-11-01T21:25:42.284258+00:00"}
 
 Recovery verification:
-  {"confirmed_monotonic": null, "consecutive_successes": 0, "first_success_monotonic": null, "sustained": false}
+  {"confirmed_monotonic": null, "consecutive_successes": 0, "first_success_monotonic": null, "provisional_segments": [], "relapses": [], "sustained": false}
   Cleanup: verified
   Cleanup functional checks: 3/5 successful
   Cleanup functional error: [Errno 111] Connection refused
@@ -34,9 +34,9 @@ Recovery verification:
 Measurements:
 {
   "baseline_latency_ms": {
-    "max": 46.68792399991162,
-    "median": 40.95193099999506,
-    "min": 40.38843800003633,
+    "max": 52.50848800000085,
+    "median": 46.285461500005454,
+    "min": 42.14023399998723,
     "missing": 0,
     "n": 4,
     "p95": null
@@ -44,15 +44,15 @@ Measurements:
   "cpu_counter_delta": {
     "nr_throttled": 0,
     "throttled_usec": 0,
-    "usage_usec": 11418
+    "usage_usec": 10693
   },
-  "detection_latency_s": 0.4865087379999977,
+  "detection_latency_s": 0.5212161370000103,
   "failed_probe_count": 1,
   "failure_onset_bounds_monotonic": [
-    522.667565775,
-    523.399741539
+    174.906162982,
+    175.686997211
   ],
-  "latency_degradation_threshold_ms": 122.85579299998517,
+  "latency_degradation_threshold_ms": 138.85638450001636,
   "probe_count": 1,
   "probe_success_ratio": 0.0,
   "process_identity_count": 1,
@@ -79,4 +79,4 @@ Limitations:
   - Injection dispatch is an experiment timing reference, not proof of exact failure onset.
   - Three consecutive normal identity-validated work responses establish sampled recovery, not long-term availability.
 
-Trial saved: /root/lsrp-results/interruption-02/hang-interrupted.json
+Trial saved: /root/lsrp-results/interruption-03/hang-interrupted.json

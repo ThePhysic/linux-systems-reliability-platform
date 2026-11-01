@@ -2,25 +2,25 @@
   "schema_version": 1,
   "kind": "interruption_validation",
   "status": "passed",
-  "started_at": "2026-11-01T21:14:59.134972+00:00",
-  "started_monotonic": 519.947894547,
+  "started_at": "2026-11-01T21:25:39.384208+00:00",
+  "started_monotonic": 172.265685836,
   "checks": [
     {
       "name": "hang injection checkpoint exists",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:02.711086+00:00",
-      "monotonic": 523.52409113,
+      "wall_time": "2026-11-01T21:25:42.907573+00:00",
+      "monotonic": 175.789108459,
       "details": {
-        "runner_pid": 562,
+        "runner_pid": 4274,
         "samples": 1,
-        "trial_path": "/root/lsrp-results/interruption-02/hang-interrupted.json"
+        "trial_path": "/root/lsrp-results/interruption-03/hang-interrupted.json"
       }
     },
     {
       "name": "overlapping start refused by exclusive lab lock",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:02.925035+00:00",
-      "monotonic": 523.737990145,
+      "wall_time": "2026-11-01T21:25:43.069098+00:00",
+      "monotonic": 175.950608848,
       "details": {
         "returncode": 2,
         "stdout": "",
@@ -30,12 +30,12 @@
     {
       "name": "SIGTERM runner exits nonzero with completed failed record and verified cleanup",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:04.561187+00:00",
-      "monotonic": 525.374152557,
+      "wall_time": "2026-11-01T21:25:44.652542+00:00",
+      "monotonic": 177.534071704,
       "details": {
-        "wall_time": "2026-11-01T21:15:02.933423+00:00",
-        "monotonic": 523.746378192,
-        "runner_pid": 562,
+        "wall_time": "2026-11-01T21:25:43.077502+00:00",
+        "monotonic": 175.959024003,
+        "runner_pid": 4274,
         "returncode": 1,
         "record_status": "complete",
         "outcome": "failed",
@@ -46,35 +46,35 @@
     {
       "name": "SIGTERM cleanup restores three consistent normal functional responses",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:05.177569+00:00",
-      "monotonic": 525.990512663,
+      "wall_time": "2026-11-01T21:25:45.240318+00:00",
+      "monotonic": 178.121818002,
       "details": {
         "functional_checks": [
           {
             "source": "HTTP GET http://127.0.0.1:18765/work",
-            "collected_at": "2026-11-01T21:15:04.611533+00:00",
-            "monotonic": 525.424459924,
-            "completed_monotonic": 525.467756798,
+            "collected_at": "2026-11-01T21:25:44.685550+00:00",
+            "monotonic": 177.567042723,
+            "completed_monotonic": 177.617400636,
             "ok": true,
-            "latency_ms": 43.29687400002058,
+            "latency_ms": 50.357913000027565,
             "error": null,
             "error_kind": null,
             "identity": {
               "service": "lsrp-lab",
-              "pid": 671,
-              "start_ticks": 52402,
-              "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-              "instance": "14a4dced-0497-4446-9b3a-cf4741f29108",
+              "pid": 4368,
+              "start_ticks": 17632,
+              "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+              "instance": "ee2c1930-202c-44f7-84be-5c17197a3918",
               "mode": "normal"
             },
             "identity_verification": {
-              "source": "/proc/671/stat; /proc/sys/kernel/random/boot_id",
-              "collected_at": "2026-11-01T21:15:04.654789+00:00",
+              "source": "/proc/4368/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-01T21:25:44.735881+00:00",
               "status": "ok",
               "data": {
-                "pid": 671,
-                "start_ticks": 52402,
-                "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+                "pid": 4368,
+                "start_ticks": 17632,
+                "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
               },
               "error": null
             },
@@ -82,29 +82,29 @@
           },
           {
             "source": "HTTP GET http://127.0.0.1:18765/work",
-            "collected_at": "2026-11-01T21:15:04.864369+00:00",
-            "monotonic": 525.677300115,
-            "completed_monotonic": 525.718842322,
+            "collected_at": "2026-11-01T21:25:44.948166+00:00",
+            "monotonic": 177.829656172,
+            "completed_monotonic": 177.872662123,
             "ok": true,
-            "latency_ms": 41.542207000020426,
+            "latency_ms": 43.00595099999782,
             "error": null,
             "error_kind": null,
             "identity": {
               "service": "lsrp-lab",
-              "pid": 671,
-              "start_ticks": 52402,
-              "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-              "instance": "14a4dced-0497-4446-9b3a-cf4741f29108",
+              "pid": 4368,
+              "start_ticks": 17632,
+              "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+              "instance": "ee2c1930-202c-44f7-84be-5c17197a3918",
               "mode": "normal"
             },
             "identity_verification": {
-              "source": "/proc/671/stat; /proc/sys/kernel/random/boot_id",
-              "collected_at": "2026-11-01T21:15:04.905877+00:00",
+              "source": "/proc/4368/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-01T21:25:44.991136+00:00",
               "status": "ok",
               "data": {
-                "pid": 671,
-                "start_ticks": 52402,
-                "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+                "pid": 4368,
+                "start_ticks": 17632,
+                "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
               },
               "error": null
             },
@@ -112,29 +112,29 @@
           },
           {
             "source": "HTTP GET http://127.0.0.1:18765/work",
-            "collected_at": "2026-11-01T21:15:05.118082+00:00",
-            "monotonic": 525.931016069,
-            "completed_monotonic": 525.974156772,
+            "collected_at": "2026-11-01T21:25:45.178539+00:00",
+            "monotonic": 178.060031888,
+            "completed_monotonic": 178.106140967,
             "ok": true,
-            "latency_ms": 43.140703000062786,
+            "latency_ms": 46.10907899999006,
             "error": null,
             "error_kind": null,
             "identity": {
               "service": "lsrp-lab",
-              "pid": 671,
-              "start_ticks": 52402,
-              "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-              "instance": "14a4dced-0497-4446-9b3a-cf4741f29108",
+              "pid": 4368,
+              "start_ticks": 17632,
+              "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+              "instance": "ee2c1930-202c-44f7-84be-5c17197a3918",
               "mode": "normal"
             },
             "identity_verification": {
-              "source": "/proc/671/stat; /proc/sys/kernel/random/boot_id",
-              "collected_at": "2026-11-01T21:15:05.161182+00:00",
+              "source": "/proc/4368/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-01T21:25:45.224607+00:00",
               "status": "ok",
               "data": {
-                "pid": 671,
-                "start_ticks": 52402,
-                "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+                "pid": 4368,
+                "start_ticks": 17632,
+                "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
               },
               "error": null
             },
@@ -146,12 +146,12 @@
     {
       "name": "collision injection checkpoint exists",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:10.043118+00:00",
-      "monotonic": 530.856086182,
+      "wall_time": "2026-11-01T21:25:49.750089+00:00",
+      "monotonic": 182.631601015,
       "details": {
-        "runner_pid": 719,
+        "runner_pid": 4415,
         "samples": 1,
-        "trial_path": "/root/lsrp-results/interruption-02/collision-interrupted.json",
+        "trial_path": "/root/lsrp-results/interruption-03/collision-interrupted.json",
         "timer_before_kill": {
           "LastTriggerUSec": "",
           "LastTriggerUSecMonotonic": "0",
@@ -163,12 +163,12 @@
     {
       "name": "SIGKILL preserves incomplete inconclusive record without claiming cleanup",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:10.052641+00:00",
-      "monotonic": 530.865609039,
+      "wall_time": "2026-11-01T21:25:49.758548+00:00",
+      "monotonic": 182.640054985,
       "details": {
-        "runner_pid": 719,
-        "wall_time": "2026-11-01T21:15:10.047032+00:00",
-        "monotonic": 530.859966503,
+        "runner_pid": 4415,
+        "wall_time": "2026-11-01T21:25:49.753948+00:00",
+        "monotonic": 182.635441285,
         "returncode": -9,
         "record_status": "running",
         "outcome": "inconclusive",
@@ -183,29 +183,29 @@
     {
       "name": "independent timer restores normal service and removes helper within 40 seconds",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:32.801683+00:00",
-      "monotonic": 555.456287515,
+      "wall_time": "2026-11-01T21:26:12.588212+00:00",
+      "monotonic": 207.66643728,
       "details": {
-        "elapsed_s": 24.584150839000017,
+        "elapsed_s": 25.017926408999983,
         "consecutive_normal_responses": 3,
         "last_three_identities": [
           [
-            "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-            1141,
-            55419,
-            "88ada937-16b3-491e-9ca4-980611f907a5"
+            "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+            4844,
+            20628,
+            "22600fa1-019f-4929-9b3f-d69ff0b8fd01"
           ],
           [
-            "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-            1141,
-            55419,
-            "88ada937-16b3-491e-9ca4-980611f907a5"
+            "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+            4844,
+            20628,
+            "22600fa1-019f-4929-9b3f-d69ff0b8fd01"
           ],
           [
-            "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-            1141,
-            55419,
-            "88ada937-16b3-491e-9ca4-980611f907a5"
+            "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+            4844,
+            20628,
+            "22600fa1-019f-4929-9b3f-d69ff0b8fd01"
           ]
         ],
         "timer_before_kill": {
@@ -215,15 +215,15 @@
           "SubState": "waiting"
         },
         "timer": {
-          "LastTriggerUSec": "Sun 2026-11-01 13:15:31 PST",
-          "LastTriggerUSecMonotonic": "9min 13.996774s",
+          "LastTriggerUSec": "Sun 2026-11-01 13:26:11 PST",
+          "LastTriggerUSecMonotonic": "3min 26.183786s",
           "ActiveState": "active",
           "SubState": "elapsed"
         },
         "recovery": {
           "Result": "success",
-          "ExecMainStartTimestampMonotonic": "554176939",
-          "ExecMainExitTimestampMonotonic": "554336262",
+          "ExecMainStartTimestampMonotonic": "206262187",
+          "ExecMainExitTimestampMonotonic": "206416984",
           "ExecMainStatus": "0",
           "ActiveState": "inactive"
         },
@@ -232,14 +232,14 @@
           "ActiveState": "inactive",
           "SubState": "dead"
         },
-        "observation_path": "/root/lsrp-results/interruption-02/independent-recovery-observations.json"
+        "observation_path": "/root/lsrp-results/interruption-03/independent-recovery-observations.json"
       }
     },
     {
       "name": "independent recovery leaves killed trial claim incomplete",
       "ok": true,
-      "wall_time": "2026-11-01T21:15:32.806148+00:00",
-      "monotonic": 555.460752023,
+      "wall_time": "2026-11-01T21:26:12.604684+00:00",
+      "monotonic": 207.682903563,
       "details": {
         "record_status": "running",
         "outcome": "inconclusive"
@@ -276,11 +276,11 @@
     "functional_checks": [
       {
         "source": "HTTP GET http://127.0.0.1:18765/work",
-        "collected_at": "2026-11-01T21:15:33.296684+00:00",
-        "monotonic": 555.951265614,
-        "completed_monotonic": 555.982382997,
+        "collected_at": "2026-11-01T21:26:13.146105+00:00",
+        "monotonic": 208.224295681,
+        "completed_monotonic": 208.25359367,
         "ok": false,
-        "latency_ms": 31.117382999923393,
+        "latency_ms": 29.29798899998559,
         "error": "[Errno 111] Connection refused",
         "error_kind": "connection_refused",
         "identity": null,
@@ -289,11 +289,11 @@
       },
       {
         "source": "HTTP GET http://127.0.0.1:18765/work",
-        "collected_at": "2026-11-01T21:15:33.557687+00:00",
-        "monotonic": 556.212267877,
-        "completed_monotonic": 556.240778412,
+        "collected_at": "2026-11-01T21:26:13.369905+00:00",
+        "monotonic": 208.448095135,
+        "completed_monotonic": 208.478838912,
         "ok": false,
-        "latency_ms": 28.51053500000944,
+        "latency_ms": 30.743776999997863,
         "error": "[Errno 111] Connection refused",
         "error_kind": "connection_refused",
         "identity": null,
@@ -302,29 +302,29 @@
       },
       {
         "source": "HTTP GET http://127.0.0.1:18765/work",
-        "collected_at": "2026-11-01T21:15:33.791561+00:00",
-        "monotonic": 556.446142318,
-        "completed_monotonic": 556.486440153,
+        "collected_at": "2026-11-01T21:26:13.595299+00:00",
+        "monotonic": 208.673489354,
+        "completed_monotonic": 208.721617735,
         "ok": true,
-        "latency_ms": 40.297834999933,
+        "latency_ms": 48.128380999997944,
         "error": null,
         "error_kind": null,
         "identity": {
           "service": "lsrp-lab",
-          "pid": 1178,
-          "start_ticks": 55573,
-          "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-          "instance": "40f8cc5b-dcbd-4e3b-9ab4-8002e06b58e7",
+          "pid": 4891,
+          "start_ticks": 20803,
+          "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+          "instance": "8a7dec76-b8de-4b00-a612-ce10bb751a8e",
           "mode": "normal"
         },
         "identity_verification": {
-          "source": "/proc/1178/stat; /proc/sys/kernel/random/boot_id",
-          "collected_at": "2026-11-01T21:15:33.831830+00:00",
+          "source": "/proc/4891/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-01T21:26:13.643395+00:00",
           "status": "ok",
           "data": {
-            "pid": 1178,
-            "start_ticks": 55573,
-            "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+            "pid": 4891,
+            "start_ticks": 20803,
+            "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
           },
           "error": null
         },
@@ -332,29 +332,29 @@
       },
       {
         "source": "HTTP GET http://127.0.0.1:18765/work",
-        "collected_at": "2026-11-01T21:15:34.034405+00:00",
-        "monotonic": 556.688985739,
-        "completed_monotonic": 556.73769195,
+        "collected_at": "2026-11-01T21:26:13.856295+00:00",
+        "monotonic": 208.934485617,
+        "completed_monotonic": 208.979991094,
         "ok": true,
-        "latency_ms": 48.70621099996697,
+        "latency_ms": 45.50547700000607,
         "error": null,
         "error_kind": null,
         "identity": {
           "service": "lsrp-lab",
-          "pid": 1178,
-          "start_ticks": 55573,
-          "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-          "instance": "40f8cc5b-dcbd-4e3b-9ab4-8002e06b58e7",
+          "pid": 4891,
+          "start_ticks": 20803,
+          "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+          "instance": "8a7dec76-b8de-4b00-a612-ce10bb751a8e",
           "mode": "normal"
         },
         "identity_verification": {
-          "source": "/proc/1178/stat; /proc/sys/kernel/random/boot_id",
-          "collected_at": "2026-11-01T21:15:34.083084+00:00",
+          "source": "/proc/4891/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-01T21:26:13.901770+00:00",
           "status": "ok",
           "data": {
-            "pid": 1178,
-            "start_ticks": 55573,
-            "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+            "pid": 4891,
+            "start_ticks": 20803,
+            "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
           },
           "error": null
         },
@@ -362,29 +362,29 @@
       },
       {
         "source": "HTTP GET http://127.0.0.1:18765/work",
-        "collected_at": "2026-11-01T21:15:34.292388+00:00",
-        "monotonic": 556.946968248,
-        "completed_monotonic": 556.989480103,
+        "collected_at": "2026-11-01T21:26:14.101437+00:00",
+        "monotonic": 209.179627572,
+        "completed_monotonic": 209.217566633,
         "ok": true,
-        "latency_ms": 42.5118550000434,
+        "latency_ms": 37.939061000002994,
         "error": null,
         "error_kind": null,
         "identity": {
           "service": "lsrp-lab",
-          "pid": 1178,
-          "start_ticks": 55573,
-          "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd",
-          "instance": "40f8cc5b-dcbd-4e3b-9ab4-8002e06b58e7",
+          "pid": 4891,
+          "start_ticks": 20803,
+          "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5",
+          "instance": "8a7dec76-b8de-4b00-a612-ce10bb751a8e",
           "mode": "normal"
         },
         "identity_verification": {
-          "source": "/proc/1178/stat; /proc/sys/kernel/random/boot_id",
-          "collected_at": "2026-11-01T21:15:34.334872+00:00",
+          "source": "/proc/4891/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-01T21:26:14.139355+00:00",
           "status": "ok",
           "data": {
-            "pid": 1178,
-            "start_ticks": 55573,
-            "boot_id": "d0a63fbc-3f82-48c9-8092-cd1847790cfd"
+            "pid": 4891,
+            "start_ticks": 20803,
+            "boot_id": "21e8c6c6-f6ae-4bb8-8711-2274b25291c5"
           },
           "error": null
         },
@@ -392,6 +392,6 @@
       }
     ]
   },
-  "ended_at": "2026-11-01T21:15:34.348501+00:00",
-  "elapsed_s": 37.05519983299996
+  "ended_at": "2026-11-01T21:26:14.153699+00:00",
+  "elapsed_s": 36.966215954000006
 }
