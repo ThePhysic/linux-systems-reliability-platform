@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "kind": "observation_overhead",
+  "environment": {
+    "kernel": "6.18.54.1-microsoft-standard-WSL2",
+    "architecture": "x86_64",
+    "python": "3.12.3",
+    "clock": "time.monotonic (seconds); UTC wall clock for correlation",
+    "systemd": "systemd 255 (255.4-1ubuntu8)",
+    "virtualization": "wsl",
+    "os_release": "PRETTY_NAME=\"Ubuntu 24.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+  },
+  "wall_time": "2026-11-02T03:04:17.148664+00:00",
+  "duration_s": 4.0,
+  "trials": [
+    {
+      "baseline": {
+        "elapsed_s": 4.001029353999996,
+        "requests": 100,
+        "successes": 100,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 24.99356819265168,
+        "median_latency_ms": 11.910411999991766,
+        "runner_cpu_s": 0.09323997700000002,
+        "snapshots": 0,
+        "collector_errors": []
+      },
+      "observed": {
+        "elapsed_s": 4.0965133950000165,
+        "requests": 85,
+        "successes": 85,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 20.74935238921626,
+        "median_latency_ms": 13.644784999996773,
+        "runner_cpu_s": 0.170362146,
+        "snapshots": 14,
+        "collector_errors": []
+      },
+      "throughput_change_percent": -16.9812320142558
+    },
+    {
+      "observed": {
+        "elapsed_s": 4.085470280999999,
+        "requests": 88,
+        "successes": 88,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 21.539747923086168,
+        "median_latency_ms": 14.36409599999422,
+        "runner_cpu_s": 0.174951688,
+        "snapshots": 14,
+        "collector_errors": []
+      },
+      "baseline": {
+        "elapsed_s": 4.00315903500001,
+        "requests": 102,
+        "successes": 102,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 25.47987704415539,
+        "median_latency_ms": 11.564173500005381,
+        "runner_cpu_s": 0.093521615,
+        "snapshots": 0,
+        "collector_errors": []
+      },
+      "throughput_change_percent": -15.463689696151873
+    },
+    {
+      "baseline": {
+        "elapsed_s": 4.010693579000019,
+        "requests": 97,
+        "successes": 97,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 24.185343030914087,
+        "median_latency_ms": 12.687553000006346,
+        "runner_cpu_s": 0.09114230500000009,
+        "snapshots": 0,
+        "collector_errors": []
+      },
+      "observed": {
+        "elapsed_s": 4.095472791999981,
+        "requests": 87,
+        "successes": 87,
+        "success_ratio": 1.0,
+        "successful_requests_per_s": 21.24296861889649,
+        "median_latency_ms": 13.741054999997004,
+        "runner_cpu_s": 0.162047559,
+        "snapshots": 13,
+        "collector_errors": []
+      },
+      "throughput_change_percent": -12.165940372466943
+    }
+  ],
+  "n": 3,
+  "limitations": [
+    "Closed-loop single client, synthetic work and fixed 25% CPU quota.",
+    "Collector adds its own functional probe, so this measures combined collection/probe interference.",
+    "runner_cpu_s excludes subprocess CPU; elapsed time includes bounded collector join.",
+    "Alternating order reduces ordering bias; small samples are descriptive, not causal performance claims."
+  ]
+}

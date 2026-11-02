@@ -1,0 +1,14 @@
+{"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 277.430671895, "cpu_worker_pid": null}
+{"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 279.431736173, "cpu_worker_pid": null}
+{"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 277.174730156, "cpu_worker_pid": null}
+{"event": "fault_expired", "mode": "normal"}
+{"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 277.45742688800004, "cpu_worker_pid": 568}
+{"event": "fault_expired", "mode": "normal"}
+{"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 277.54597548199996, "cpu_worker_pid": null}
+{"event": "fault_expired", "mode": "normal"}
+{"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 287.597518347, "cpu_worker_pid": 572}
+{"event": "mode_changed", "ok": true, "mode": "normal", "expires_monotonic": 0.0, "cpu_worker_pid": null}
+----------------------------------------------------------------------
+Ran 100 tests in 6.079s
+
+OK

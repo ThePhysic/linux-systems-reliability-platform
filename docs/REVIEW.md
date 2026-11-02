@@ -19,3 +19,15 @@ The reviewer independently audited the initial twelve saved trials and found the
 Independent adversarial rereview of commit `5c22e95022207010d197b005e3bf821c84b111e0`: **CLEAN: no remaining complaints within the agreed scope.** All five initial findings are resolved with regression coverage and refreshed Linux evidence. Runtime source matches the clean validated revision `da56e81`. No further implementation changes are requested.
 
 The reviewer verified 83 Windows tests with two expected Linux-only skips, matching validated source hashes, all twelve refreshed Linux trial metrics and recovery claims, eight interruption checks, three overhead pairs, and actual restart-without-reinstall evidence. The same 83 tests also passed as an unprivileged Linux user.
+
+## Follow-up robustness fixes
+
+A subsequent audit identified two additional edge cases: malformed nested saved-record fields could reach the renderer, and per-read HTTP timeouts could be extended by slow response progress.
+
+- `1d34973` validates supplied record structures before every report/compare mode, with field-specific errors and preservation of valid unavailable/incomplete observations.
+- `06c60b4` applies one absolute monotonic budget to connect/send/status/headers/body/chunk/trailer reads, closes transport resources on exit, and retains identity and redirect checks.
+- `e49d359` includes archived record fixtures in the disposable Linux source transfer so compatibility tests run there as well as on ordinary CI checkouts.
+
+Fresh [verification artifacts](../examples/robustness/README.md) record 100 passing tests, twelve recovered incident trials, three overhead pairs, and eight interruption checks against the corrected implementation.
+
+Independent Astra medium follow-up review: pending.

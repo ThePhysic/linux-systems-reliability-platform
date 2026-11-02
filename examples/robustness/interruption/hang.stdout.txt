@@ -1,0 +1,82 @@
+LSRP incident 75963af8-aeff-45ca-a048-1cc4d666ba53
+Experiment: hang | Outcome: failed
+
+Run error: Interrupted by SIGTERM
+
+Timeline (operator actions and observations):
+  2026-11-02T03:04:19.501846+00:00 [monotonic 171.408163, t-2.508s] precondition: Verified fixed installation, non-root service identity and exclusive lab lock.
+  2026-11-02T03:04:22.009671+00:00 [monotonic 173.915973, t+0.000s] injection: Dispatching bounded hang experiment; ground truth is separate from diagnosis.
+  2026-11-02T03:04:22.753840+00:00 [monotonic 174.660151, t+0.744s] error: Interrupted by SIGTERM
+  2026-11-02T03:04:24.197719+00:00 [monotonic 176.104019, t+2.188s] cleanup: Cleanup verified.
+
+Observed symptoms:
+  - 1 functional work probes failed.
+  - The unit was active and its main process existed during failed work probes.
+
+Evidence (independent of the experiment label):
+  - HTTP GET http://127.0.0.1:18765/work: Functional probe deadline exceeded
+
+Interpretation:
+  - A running process was unable to serve valid work; a process crash is not established by these failed probes. [supported]
+
+Known experiment actions (ground truth, separate from diagnosis):
+  {"action": "hang", "confirmed": true, "confirmed_monotonic": 173.938191872, "details": {"before_identity": {"boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e", "pid": 4423, "start_ticks": 17168}, "control": {"cpu_worker_pid": null, "expires_monotonic": 185.937881316, "mode": "hang", "ok": true}}, "monotonic": 173.915960854, "requested_at": "2026-11-02T03:04:22.009642+00:00"}
+
+Recovery verification:
+  {"confirmed_monotonic": null, "consecutive_successes": 0, "first_success_monotonic": null, "provisional_segments": [], "relapses": [], "sustained": false}
+  Cleanup: verified
+  Cleanup functional checks: 3/5 successful
+  Cleanup functional error: [Errno 111] Connection refused
+  Cleanup unit verification: lsrp-recover.timer = inactive
+  Cleanup unit verification: lsrp-recover.service = inactive
+  Cleanup unit verification: lsrp-collision.service = inactive
+
+Measurements:
+{
+  "baseline_latency_ms": {
+    "max": 12.54697600001009,
+    "median": 11.074113500001204,
+    "min": 9.93512100001226,
+    "missing": 0,
+    "n": 4,
+    "p95": null
+  },
+  "cpu_counter_delta": {
+    "nr_throttled": 0,
+    "throttled_usec": 0,
+    "usage_usec": 11854
+  },
+  "detection_latency_s": 0.4683622520000199,
+  "failed_probe_count": 1,
+  "failure_onset_bounds_monotonic": [
+    173.660912578,
+    174.384323106
+  ],
+  "latency_degradation_threshold_ms": 50.0,
+  "probe_count": 1,
+  "probe_success_ratio": 0.0,
+  "process_identity_count": 1,
+  "recovery_confirmation_time_s": null,
+  "recovery_from_first_observed_symptom_s": null,
+  "recovery_time_s": null,
+  "systemd_restart_delay_s": null,
+  "timing_reference": "injection dispatch; exact failure onset unknown",
+  "trial_success_latency_ms": {
+    "max": null,
+    "median": null,
+    "min": null,
+    "missing": 0,
+    "n": 0,
+    "p95": null
+  }
+}
+
+Limitations:
+  - Single-node synthetic workload in a disposable lab; results do not establish production availability.
+  - Snapshots are sequential, not atomic; collection/probe overhead changes sampling resolution.
+  - Injection dispatch is an experiment timing reference, not exact failure onset.
+  - Serial collection and HTTP timeouts introduce sampling uncertainty; snapshots are not atomic.
+  - Injection dispatch is an experiment timing reference, not proof of exact failure onset.
+  - Three consecutive normal identity-validated work responses establish sampled recovery, not long-term availability.
+
+Trial saved: /root/lsrp-results/robustness-interruption-20261101/hang-interrupted.json

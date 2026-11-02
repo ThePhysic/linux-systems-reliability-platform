@@ -1,0 +1,169 @@
+{
+  "wall_time": "2026-11-02T03:01:51.632473+00:00",
+  "monotonic": 18.341356173,
+  "completed_monotonic": 18.398030877,
+  "unit": {
+    "source": "systemctl show lsrp-lab.service",
+    "collected_at": "2026-11-02T03:01:51.590276+00:00",
+    "status": "ok",
+    "data": {
+      "Restart": "on-failure",
+      "RestartUSec": "2s",
+      "MainPID": "0",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStartTimestampMonotonic": "0",
+      "ExecMainExitTimestampMonotonic": "0",
+      "ExecMainCode": "0",
+      "ExecMainStatus": "0",
+      "ControlGroup": "",
+      "CPUQuotaPerSecUSec": "250ms",
+      "MemoryMax": "134217728",
+      "TasksMax": "32",
+      "LimitNOFILE": "256",
+      "User": "lsrp-lab",
+      "Id": "lsrp-lab.service",
+      "LoadState": "loaded",
+      "ActiveState": "inactive",
+      "SubState": "dead",
+      "FragmentPath": "/etc/systemd/system/lsrp-lab.service",
+      "ActiveEnterTimestampMonotonic": "0",
+      "InvocationID": ""
+    },
+    "error": null
+  },
+  "process": {
+    "source": "/proc/0/stat,status,limits,fd,cgroup,task/*/children; /proc/uptime; /proc/sys/kernel/random/boot_id",
+    "collected_at": "2026-11-02T03:01:51.590327+00:00",
+    "status": "unavailable",
+    "data": null,
+    "error": "Unit has no main PID"
+  },
+  "cgroup": {
+    "source": "cgroup v2 ",
+    "collected_at": "2026-11-02T03:01:51.590341+00:00",
+    "status": "unavailable",
+    "data": null,
+    "error": "Unit has no cgroup path"
+  },
+  "socket": {
+    "source": "ss -H -ltnp 'sport = :18765'",
+    "collected_at": "2026-11-02T03:01:51.617592+00:00",
+    "status": "ok",
+    "data": {
+      "listeners": [],
+      "count": 0,
+      "ownership_visibility": "PID owner appears only when ss permits it"
+    },
+    "error": null
+  },
+  "probe": {
+    "source": "HTTP GET http://127.0.0.1:18765/work",
+    "collected_at": "2026-11-02T03:01:51.617650+00:00",
+    "monotonic": 18.383199378,
+    "completed_monotonic": 18.383483091,
+    "ok": false,
+    "latency_ms": 0.2837129999981869,
+    "error": "[Errno 111] Connection refused",
+    "error_kind": "connection_refused",
+    "identity": null,
+    "identity_verification": null,
+    "http_status": null
+  },
+  "journal": {
+    "source": "journalctl --boot --unit=lsrp-lab.service",
+    "collected_at": "2026-11-02T03:01:51.632453+00:00",
+    "status": "ok",
+    "data": {
+      "entries": [
+        {
+          "UNIT": "lsrp-lab.service",
+          "PRIORITY": "6",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "__MONOTONIC_TIMESTAMP": "9190536",
+          "_PID": "1",
+          "__REALTIME_TIMESTAMP": "1793588502424984",
+          "_SYSTEMD_UNIT": "init.scope",
+          "MESSAGE_ID": "7d4958e842da4a758f6c1cdc7b36dcc5",
+          "MESSAGE": "Starting lsrp-lab.service - LSRP deliberately fallible non-root lab service..."
+        },
+        {
+          "MESSAGE_ID": "39f53479d3a045ac8e11786248231fbf",
+          "__REALTIME_TIMESTAMP": "1793588502528014",
+          "UNIT": "lsrp-lab.service",
+          "_SYSTEMD_UNIT": "init.scope",
+          "MESSAGE": "Started lsrp-lab.service - LSRP deliberately fallible non-root lab service.",
+          "PRIORITY": "6",
+          "_PID": "1",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "__MONOTONIC_TIMESTAMP": "9293566"
+        },
+        {
+          "PRIORITY": "6",
+          "MESSAGE": "{\"event\": \"ready\", \"service\": \"lsrp-lab\", \"pid\": 575, \"start_ticks\": 918, \"boot_id\": \"cb462ef6-c78b-4541-bb55-4b15e0d7ab5e\", \"instance\": \"ab2e1db2-4a59-4f07-b985-890147a6bbe7\", \"listen\": \"127.0.0.1:18765\"}",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "_SYSTEMD_UNIT": "lsrp-lab.service",
+          "_PID": "575",
+          "_SYSTEMD_INVOCATION_ID": "6a5ab2c7e99146568b4ff4587c90535d",
+          "__MONOTONIC_TIMESTAMP": "9771520",
+          "__REALTIME_TIMESTAMP": "1793588503005967"
+        },
+        {
+          "_SYSTEMD_UNIT": "lsrp-lab.service",
+          "__REALTIME_TIMESTAMP": "1793588511285942",
+          "MESSAGE": "{\"event\": \"shutdown_started\", \"service\": \"lsrp-lab\", \"pid\": 575, \"start_ticks\": 918, \"boot_id\": \"cb462ef6-c78b-4541-bb55-4b15e0d7ab5e\", \"instance\": \"ab2e1db2-4a59-4f07-b985-890147a6bbe7\"}",
+          "PRIORITY": "6",
+          "__MONOTONIC_TIMESTAMP": "18051494",
+          "_SYSTEMD_INVOCATION_ID": "6a5ab2c7e99146568b4ff4587c90535d",
+          "_PID": "575",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e"
+        },
+        {
+          "MESSAGE_ID": "de5b426a63be47a7b6ac3eaac82e2f6f",
+          "__MONOTONIC_TIMESTAMP": "18052218",
+          "_PID": "1",
+          "__REALTIME_TIMESTAMP": "1793588511286666",
+          "MESSAGE": "Stopping lsrp-lab.service - LSRP deliberately fallible non-root lab service...",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "_SYSTEMD_UNIT": "init.scope",
+          "UNIT": "lsrp-lab.service",
+          "PRIORITY": "6"
+        },
+        {
+          "_SYSTEMD_UNIT": "lsrp-lab.service",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "_PID": "575",
+          "__REALTIME_TIMESTAMP": "1793588511339458",
+          "_SYSTEMD_INVOCATION_ID": "6a5ab2c7e99146568b4ff4587c90535d",
+          "__MONOTONIC_TIMESTAMP": "18105010",
+          "PRIORITY": "6",
+          "MESSAGE": "{\"event\": \"shutdown_complete\"}"
+        },
+        {
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "__REALTIME_TIMESTAMP": "1793588511358505",
+          "_SYSTEMD_UNIT": "init.scope",
+          "_PID": "1",
+          "MESSAGE_ID": "7ad2d189f7e94e70a38c781354912448",
+          "UNIT": "lsrp-lab.service",
+          "PRIORITY": "6",
+          "__MONOTONIC_TIMESTAMP": "18124058",
+          "MESSAGE": "lsrp-lab.service: Deactivated successfully."
+        },
+        {
+          "UNIT": "lsrp-lab.service",
+          "__REALTIME_TIMESTAMP": "1793588511359372",
+          "MESSAGE_ID": "9d1aaa27d60140bd96365438aad20286",
+          "__MONOTONIC_TIMESTAMP": "18124924",
+          "_SYSTEMD_UNIT": "init.scope",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "MESSAGE": "Stopped lsrp-lab.service - LSRP deliberately fallible non-root lab service.",
+          "_PID": "1",
+          "PRIORITY": "6"
+        }
+      ],
+      "visibility_warning": null
+    },
+    "error": null
+  }
+}

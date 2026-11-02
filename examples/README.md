@@ -1,5 +1,7 @@
 # Recorded Linux evidence
 
+The latest [follow-up robustness verification](robustness/README.md) covers the saved-record and absolute-deadline fixes with 100 tests and fresh incident/interruption runs. The reference run below describes the earlier validated implementation and is retained as historical evidence.
+
 These files are actual observations from the dedicated `LSRP-Lab` WSL2 distribution on 2026-11-01. They are not generated fixtures. The lab used Ubuntu 24.04, Python 3.12.3, systemd 255, cgroup v2, and the kernel recorded in [environment.txt](validation/environment.txt). The service ran unprivileged under a 25% CPU quota and 128 MiB memory limit.
 
 [Full validation](validation/validation-summary.json) passed all 12 trials (three per scenario), normal/graceful lifecycle checks, evidence/chronology checks, functional recovery and cleanup, plus three [paired overhead measurements](validation/overhead.json). All 83 Linux unit tests passed; see [the complete test log](validation/unit-tests.txt). The [source manifest](validation/SOURCE_MANIFEST.json) identifies exact transferred file hashes and revision `da56e81`, which includes all five initial Astra review fixes. Subsequent evidence and documentation commits do not change that incident implementation.

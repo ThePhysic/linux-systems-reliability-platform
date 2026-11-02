@@ -1,0 +1,115 @@
+test_bad_or_absent_offline_records_fail_cleanly (test_contract.CLIContractTests.test_bad_or_absent_offline_records_fail_cleanly) ... ok
+test_comparison_keeps_failed_trials_and_missing_measurements (test_contract.CLIContractTests.test_comparison_keeps_failed_trials_and_missing_measurements) ... ok
+test_duplicate_trial_identity_is_rejected (test_contract.CLIContractTests.test_duplicate_trial_identity_is_rejected) ... ok
+test_fault_interface_rejects_arbitrary_target_or_scenario (test_contract.CLIContractTests.test_fault_interface_rejects_arbitrary_target_or_scenario) ... ok
+test_help_exposes_operator_workflow_without_requiring_lab (test_contract.CLIContractTests.test_help_exposes_operator_workflow_without_requiring_lab) ... ok
+test_malformed_nested_trial_fields_fail_without_tracebacks (test_contract.CLIContractTests.test_malformed_nested_trial_fields_fail_without_tracebacks) ... ok
+test_offline_json_report_preserves_original_record_and_uncertainty (test_contract.CLIContractTests.test_offline_json_report_preserves_original_record_and_uncertainty) ... ok
+test_cleanup_reports_lingering_helper_and_individual_stop_errors (test_lab.LabBoundaryTests.test_cleanup_reports_lingering_helper_and_individual_stop_errors) ... ok
+test_control_rejects_wrong_socket_process_or_uid_before_sending_fault (test_lab.LabBoundaryTests.test_control_rejects_wrong_socket_process_or_uid_before_sending_fault) ... ok
+test_exclusive_lock_rejects_overlapping_operations (test_lab.LabBoundaryTests.test_exclusive_lock_rejects_overlapping_operations) ... ok
+test_marker_for_another_machine_refuses_before_inspecting_or_controlling_units (test_lab.LabBoundaryTests.test_marker_for_another_machine_refuses_before_inspecting_or_controlling_units) ... ok
+test_non_linux_mutation_never_reaches_service_manager (test_lab.LabBoundaryTests.test_non_linux_mutation_never_reaches_service_manager) ... ok
+test_permissions_reject_symlink_unowned_and_writable_targets (test_lab.LabBoundaryTests.test_permissions_reject_symlink_unowned_and_writable_targets) ... ok
+test_root_requirement_is_checked_before_reading_or_controlling_host (test_lab.LabBoundaryTests.test_root_requirement_is_checked_before_reading_or_controlling_host) ... ok
+test_unit_dropin_and_modified_installed_code_are_rejected (test_lab.LabBoundaryTests.test_unit_dropin_and_modified_installed_code_are_rejected) ... ok
+test_validated_socket_gets_only_bounded_json_protocol (test_lab.LabBoundaryTests.test_validated_socket_gets_only_bounded_json_protocol) ... ok
+test_an_unrelated_healthy_listener_is_not_recovery (test_observe.ObservationTests.test_an_unrelated_healthy_listener_is_not_recovery) ... ok
+test_cgroup_malformed_values_are_explicit (test_observe.ObservationTests.test_cgroup_malformed_values_are_explicit) ... ok
+test_cgroup_partial_observations_preserve_missingness (test_observe.ObservationTests.test_cgroup_partial_observations_preserve_missingness) ... ok
+test_cgroup_path_cannot_escape_scope_or_read_host_root (test_observe.ObservationTests.test_cgroup_path_cannot_escape_scope_or_read_host_root) ... ok
+test_commands_ignore_caller_path_and_dynamic_loader_environment (test_observe.ObservationTests.test_commands_ignore_caller_path_and_dynamic_loader_environment) ... ok
+test_identity_validation_rejects_wrong_work_and_pid_types (test_observe.ObservationTests.test_identity_validation_rejects_wrong_work_and_pid_types) ... ok
+test_journal_is_unit_scoped_and_drops_unrelated_fields (test_observe.ObservationTests.test_journal_is_unit_scoped_and_drops_unrelated_fields) ... ok
+test_missing_systemd_is_unavailable_not_zero (test_observe.ObservationTests.test_missing_systemd_is_unavailable_not_zero) ... ok
+test_proc_stat_handles_spaces_and_parentheses (test_observe.ObservationTests.test_proc_stat_handles_spaces_and_parentheses) ... ok
+test_redirect_is_rejected_without_contacting_second_loopback_server (test_observe.ObservationTests.test_redirect_is_rejected_without_contacting_second_loopback_server) ... ok
+test_response_identity_must_match_local_proc (test_observe.ObservationTests.test_response_identity_must_match_local_proc) ... ok
+test_snapshot_rejects_response_from_another_main_process (test_observe.ObservationTests.test_snapshot_rejects_response_from_another_main_process) ... ok
+test_snapshot_requires_affirmative_supervised_process_identity (test_observe.ObservationTests.test_snapshot_requires_affirmative_supervised_process_identity) ... ok
+test_timeout_and_refusal_are_distinct (test_observe.ObservationTests.test_timeout_and_refusal_are_distinct) ... ok
+test_work_response_without_verifiable_local_identity_is_not_success (test_observe.ObservationTests.test_work_response_without_verifiable_local_identity_is_not_success) ... ok
+test_chunked_body_cannot_reset_deadline (test_probe_deadline.ProbeDeadlineTests.test_chunked_body_cannot_reset_deadline) ... ok
+test_chunked_trailers_cannot_reset_deadline (test_probe_deadline.ProbeDeadlineTests.test_chunked_trailers_cannot_reset_deadline) ... ok
+test_complete_work_response_preserves_identity_validation (test_probe_deadline.ProbeDeadlineTests.test_complete_work_response_preserves_identity_validation) ... ok
+test_deeply_nested_response_is_a_failed_probe_without_traceback (test_probe_deadline.ProbeDeadlineTests.test_deeply_nested_response_is_a_failed_probe_without_traceback) ... ok
+test_headers_and_body_share_one_budget (test_probe_deadline.ProbeDeadlineTests.test_headers_and_body_share_one_budget) ... ok
+test_invalid_timeout_never_starts_network_io (test_probe_deadline.ProbeDeadlineTests.test_invalid_timeout_never_starts_network_io) ... ok
+test_oversized_body_remains_invalid (test_probe_deadline.ProbeDeadlineTests.test_oversized_body_remains_invalid) ... ok
+test_slow_body_hits_total_deadline_despite_continuous_progress (test_probe_deadline.ProbeDeadlineTests.test_slow_body_hits_total_deadline_despite_continuous_progress) ... ok
+test_slow_headers_cannot_reset_deadline (test_probe_deadline.ProbeDeadlineTests.test_slow_headers_cannot_reset_deadline) ... ok
+test_slow_status_line_cannot_reset_deadline (test_probe_deadline.ProbeDeadlineTests.test_slow_status_line_cannot_reset_deadline) ... ok
+test_all_checked_in_real_trials_and_interrupted_checkpoints_remain_compatible (test_records.SavedRecordTests.test_all_checked_in_real_trials_and_interrupted_checkpoints_remain_compatible) ... ok
+test_binary_journal_message_remains_valid_evidence (test_records.SavedRecordTests.test_binary_journal_message_remains_valid_evidence) ... ok
+test_duplicate_json_fields_and_excessive_nesting_fail_without_tracebacks (test_records.SavedRecordTests.test_duplicate_json_fields_and_excessive_nesting_fail_without_tracebacks) ... ok
+test_malformed_nested_fields_are_rejected_before_rendering_or_comparing (test_records.SavedRecordTests.test_malformed_nested_fields_are_rejected_before_rendering_or_comparing) ... ok
+test_missing_checkpoint_fields_and_null_os_observations_are_preserved (test_records.SavedRecordTests.test_missing_checkpoint_fields_and_null_os_observations_are_preserved) ... ok
+test_nonfinite_values_and_numeric_overflow_are_rejected_even_in_extension_fields (test_records.SavedRecordTests.test_nonfinite_values_and_numeric_overflow_are_rejected_even_in_extension_fields) ... ok
+test_null_timeline_entry_fails_cleanly_in_real_cli_processes (test_records.SavedRecordTests.test_null_timeline_entry_fails_cleanly_in_real_cli_processes) ... ok
+test_cpu_mode_does_not_count_as_recovery (test_report.ReportTests.test_cpu_mode_does_not_count_as_recovery) ... ok
+test_final_stable_segment_after_relapse_sets_recovery_time (test_report.ReportTests.test_final_stable_segment_after_relapse_sets_recovery_time) ... ok
+test_identity_switch_after_provisional_recovery_requires_new_three (test_report.ReportTests.test_identity_switch_after_provisional_recovery_requires_new_three) ... ok
+test_injection_labels_cannot_change_diagnosis (test_report.ReportTests.test_injection_labels_cannot_change_diagnosis) ... ok
+test_later_relapse_invalidates_earlier_three_successes (test_report.ReportTests.test_later_relapse_invalidates_earlier_three_successes) ... ok
+test_live_but_unhealthy_does_not_prove_crash (test_report.ReportTests.test_live_but_unhealthy_does_not_prove_crash) ... ok
+test_missing_baseline_blocks_timely_recovery (test_report.ReportTests.test_missing_baseline_blocks_timely_recovery) ... ok
+test_new_cgroup_at_same_path_with_larger_counters_is_not_a_delta (test_report.ReportTests.test_new_cgroup_at_same_path_with_larger_counters_is_not_a_delta) ... ok
+test_new_systemd_invocation_prevents_cross_activation_deltas (test_report.ReportTests.test_new_systemd_invocation_prevents_cross_activation_deltas) ... ok
+test_no_sampled_incident_remains_inconclusive (test_report.ReportTests.test_no_sampled_incident_remains_inconclusive) ... ok
+test_only_two_successes_or_interleaved_failures_do_not_recover (test_report.ReportTests.test_only_two_successes_or_interleaved_failures_do_not_recover) ... ok
+test_previous_trial_journal_is_not_current_evidence (test_report.ReportTests.test_previous_trial_journal_is_not_current_evidence) ... ok
+test_process_restart_prevents_deltas_when_generation_metadata_is_missing (test_report.ReportTests.test_process_restart_prevents_deltas_when_generation_metadata_is_missing) ... ok
+test_process_restarts_break_success_streak (test_report.ReportTests.test_process_restarts_break_success_streak) ... ok
+test_render_separates_ground_truth_from_evidence (test_report.ReportTests.test_render_separates_ground_truth_from_evidence) ... ok
+test_render_shows_timeline_and_errors_with_compact_cleanup (test_report.ReportTests.test_render_shows_timeline_and_errors_with_compact_cleanup) ... ok
+test_resource_reset_is_not_negative_or_invented_throttling (test_report.ReportTests.test_resource_reset_is_not_negative_or_invented_throttling) ... ok
+test_three_successes_verify_recovery_and_timings (test_report.ReportTests.test_three_successes_verify_recovery_and_timings) ... ok
+test_atomic_output_replaces_symlink_without_overwriting_its_target (test_runner.RunnerTests.test_atomic_output_replaces_symlink_without_overwriting_its_target) ... ok
+test_failed_request_breaks_readiness_streak (test_runner.RunnerTests.test_failed_request_breaks_readiness_streak) ... ok
+test_interruption_persists_failure_and_runs_cleanup_and_restores_handlers (test_runner.RunnerTests.test_interruption_persists_failure_and_runs_cleanup_and_restores_handlers) ... ok
+test_invalid_durations_are_rejected_before_acquiring_lab (test_runner.RunnerTests.test_invalid_durations_are_rejected_before_acquiring_lab) ... ok
+test_missing_mode_or_identity_cannot_establish_readiness (test_runner.RunnerTests.test_missing_mode_or_identity_cannot_establish_readiness) ... ok
+test_missing_resource_caps_prevent_any_fault_dispatch (test_runner.RunnerTests.test_missing_resource_caps_prevent_any_fault_dispatch) ... ok
+test_precondition_failure_does_not_touch_service (test_runner.RunnerTests.test_precondition_failure_does_not_touch_service) ... ok
+test_readiness_restarts_streak_when_any_process_identity_component_changes (test_runner.RunnerTests.test_readiness_restarts_streak_when_any_process_identity_component_changes) ... ok
+test_real_record_reports_recovery_only_after_observed_failure_and_successes (test_runner.RunnerTests.test_real_record_reports_recovery_only_after_observed_failure_and_successes) ... ok
+test_stable_third_normal_identity_check_establishes_readiness (test_runner.RunnerTests.test_stable_third_normal_identity_check_establishes_readiness) ... ok
+test_start_reloads_unit_even_if_reset_failed_reports_not_loaded (test_runner.RunnerTests.test_start_reloads_unit_even_if_reset_failed_reports_not_loaded) ... ok
+test_unhealthy_readiness_times_out_with_explicit_failure (test_runner.RunnerTests.test_unhealthy_readiness_times_out_with_explicit_failure) ... ok
+test_unobserved_fault_does_not_become_a_successful_experiment (test_runner.RunnerTests.test_unobserved_fault_does_not_become_a_successful_experiment) ... ok
+test_requires_bounded_well_formed_control (test_service.ControlTests.test_requires_bounded_well_formed_control) ... ok
+test_unprivileged_control_cannot_change_state (test_service.ControlTests.test_unprivileged_control_cannot_change_state) ... ok
+test_valid_root_control_changes_state (test_service.ControlTests.test_valid_root_control_changes_state) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 16.572685684, "cpu_worker_pid": null}
+ok
+test_abandoned_hang_requests_leave_liveness_capacity_and_shutdown_drains_waiters (test_service.HttpTests.test_abandoned_hang_requests_leave_liveness_capacity_and_shutdown_drains_waiters) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 18.573591123, "cpu_worker_pid": null}
+ok
+test_liveness_survives_hang_and_work_recovers_by_expiry (test_service.HttpTests.test_liveness_survives_hang_and_work_recovers_by_expiry) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 16.312398820000002, "cpu_worker_pid": null}
+{"event": "fault_expired", "mode": "normal"}
+ok
+test_unknown_endpoint_is_not_healthy (test_service.HttpTests.test_unknown_endpoint_is_not_healthy) ... ok
+test_work_has_stable_result_and_process_identity (test_service.HttpTests.test_work_has_stable_result_and_process_identity) ... ok
+test_cpu_child_expires_and_is_reaped (test_service.ModesTests.test_cpu_child_expires_and_is_reaped) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 16.581817224, "cpu_worker_pid": 727}
+{"event": "fault_expired", "mode": "normal"}
+ok
+test_hang_automatically_expires_without_an_operator (test_service.ModesTests.test_hang_automatically_expires_without_an_operator) ... {"event": "mode_changed", "ok": true, "mode": "hang", "expires_monotonic": 16.666371895999998, "cpu_worker_pid": null}
+{"event": "fault_expired", "mode": "normal"}
+ok
+test_rejects_unbounded_and_nonfinite_faults (test_service.ModesTests.test_rejects_unbounded_and_nonfinite_faults) ... ok
+test_reset_cancels_cpu_child (test_service.ModesTests.test_reset_cancels_cpu_child) ... {"event": "mode_changed", "ok": true, "mode": "cpu", "expires_monotonic": 26.707908601, "cpu_worker_pid": 731}
+{"event": "mode_changed", "ok": true, "mode": "normal", "expires_monotonic": 0.0, "cpu_worker_pid": null}
+ok
+test_second_server_thread_failure_closes_unstarted_control_without_shutdown_deadlock (test_service.StartupTests.test_second_server_thread_failure_closes_unstarted_control_without_shutdown_deadlock) ... ok
+test_failed_and_inconclusive_trials_remain_visible (test_stats.StatisticsTests.test_failed_and_inconclusive_trials_remain_visible) ... ok
+test_missing_values_do_not_become_zero (test_stats.StatisticsTests.test_missing_values_do_not_become_zero) ... ok
+test_tail_requires_twenty_available_values (test_stats.StatisticsTests.test_tail_requires_twenty_available_values) ... ok
+test_checksum_requires_exact_unambiguous_pinned_name (test_wsl_lab.WSLLabHelperTests.test_checksum_requires_exact_unambiguous_pinned_name) ... ok
+test_fetch_extracts_only_expected_regular_files_without_overwrite (test_wsl_lab.WSLLabHelperTests.test_fetch_extracts_only_expected_regular_files_without_overwrite) ... ok
+test_fetch_rejects_traversal_links_and_unexpected_files_before_writing (test_wsl_lab.WSLLabHelperTests.test_fetch_rejects_traversal_links_and_unexpected_files_before_writing) ... ok
+test_run_names_cannot_escape_result_directory (test_wsl_lab.WSLLabHelperTests.test_run_names_cannot_escape_result_directory) ... ok
+test_runtime_is_under_home_and_outside_repository (test_wsl_lab.WSLLabHelperTests.test_runtime_is_under_home_and_outside_repository) ... ok
+test_source_manifest_matches_transferred_bytes_and_excludes_artifacts (test_wsl_lab.WSLLabHelperTests.test_source_manifest_matches_transferred_bytes_and_excludes_artifacts) ... ok
+
+----------------------------------------------------------------------
+Ran 100 tests in 6.226s
+
+OK

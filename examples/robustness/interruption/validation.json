@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "kind": "interruption_validation",
+  "status": "passed",
+  "started_at": "2026-11-02T03:04:19.307493+00:00",
+  "started_monotonic": 171.213771784,
+  "checks": [
+    {
+      "name": "hang injection checkpoint exists",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:22.579145+00:00",
+      "monotonic": 174.485476165,
+      "details": {
+        "runner_pid": 4406,
+        "samples": 1,
+        "trial_path": "/root/lsrp-results/robustness-interruption-20261101/hang-interrupted.json"
+      }
+    },
+    {
+      "name": "overlapping start refused by exclusive lab lock",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:22.743876+00:00",
+      "monotonic": 174.650242621,
+      "details": {
+        "returncode": 2,
+        "stdout": "",
+        "stderr": "lsrp: Another LSRP operation is running.\n"
+      }
+    },
+    {
+      "name": "SIGTERM runner exits nonzero with completed failed record and verified cleanup",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:24.238044+00:00",
+      "monotonic": 176.144377835,
+      "details": {
+        "wall_time": "2026-11-02T03:04:22.753400+00:00",
+        "monotonic": 174.659744982,
+        "runner_pid": 4406,
+        "returncode": 1,
+        "record_status": "complete",
+        "outcome": "failed",
+        "error": "Interrupted by SIGTERM",
+        "cleanup_ok": true
+      }
+    },
+    {
+      "name": "SIGTERM cleanup restores three consistent normal functional responses",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:24.788817+00:00",
+      "monotonic": 176.695119279,
+      "details": {
+        "functional_checks": [
+          {
+            "source": "HTTP GET http://127.0.0.1:18765/work",
+            "collected_at": "2026-11-02T03:04:24.290539+00:00",
+            "monotonic": 176.196830926,
+            "completed_monotonic": 176.208580046,
+            "ok": true,
+            "latency_ms": 11.74912000001882,
+            "error": null,
+            "error_kind": null,
+            "identity": {
+              "service": "lsrp-lab",
+              "pid": 4499,
+              "start_ticks": 17491,
+              "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+              "instance": "763b8bd1-d2e1-4a46-9d41-7154b7aba855",
+              "mode": "normal"
+            },
+            "identity_verification": {
+              "source": "/proc/4499/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-02T03:04:24.302257+00:00",
+              "status": "ok",
+              "data": {
+                "pid": 4499,
+                "start_ticks": 17491,
+                "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+              },
+              "error": null
+            },
+            "http_status": 200
+          },
+          {
+            "source": "HTTP GET http://127.0.0.1:18765/work",
+            "collected_at": "2026-11-02T03:04:24.514962+00:00",
+            "monotonic": 176.421255016,
+            "completed_monotonic": 176.433095829,
+            "ok": true,
+            "latency_ms": 11.840812999992067,
+            "error": null,
+            "error_kind": null,
+            "identity": {
+              "service": "lsrp-lab",
+              "pid": 4499,
+              "start_ticks": 17491,
+              "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+              "instance": "763b8bd1-d2e1-4a46-9d41-7154b7aba855",
+              "mode": "normal"
+            },
+            "identity_verification": {
+              "source": "/proc/4499/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-02T03:04:24.526771+00:00",
+              "status": "ok",
+              "data": {
+                "pid": 4499,
+                "start_ticks": 17491,
+                "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+              },
+              "error": null
+            },
+            "http_status": 200
+          },
+          {
+            "source": "HTTP GET http://127.0.0.1:18765/work",
+            "collected_at": "2026-11-02T03:04:24.755808+00:00",
+            "monotonic": 176.662103673,
+            "completed_monotonic": 176.675649133,
+            "ok": true,
+            "latency_ms": 13.545460000017329,
+            "error": null,
+            "error_kind": null,
+            "identity": {
+              "service": "lsrp-lab",
+              "pid": 4499,
+              "start_ticks": 17491,
+              "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+              "instance": "763b8bd1-d2e1-4a46-9d41-7154b7aba855",
+              "mode": "normal"
+            },
+            "identity_verification": {
+              "source": "/proc/4499/stat; /proc/sys/kernel/random/boot_id",
+              "collected_at": "2026-11-02T03:04:24.769315+00:00",
+              "status": "ok",
+              "data": {
+                "pid": 4499,
+                "start_ticks": 17491,
+                "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+              },
+              "error": null
+            },
+            "http_status": 200
+          }
+        ]
+      }
+    },
+    {
+      "name": "collision injection checkpoint exists",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:29.286272+00:00",
+      "monotonic": 181.19259503,
+      "details": {
+        "runner_pid": 4546,
+        "samples": 1,
+        "trial_path": "/root/lsrp-results/robustness-interruption-20261101/collision-interrupted.json",
+        "timer_before_kill": {
+          "LastTriggerUSec": "",
+          "LastTriggerUSecMonotonic": "0",
+          "ActiveState": "active",
+          "SubState": "waiting"
+        }
+      }
+    },
+    {
+      "name": "SIGKILL preserves incomplete inconclusive record without claiming cleanup",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:29.294836+00:00",
+      "monotonic": 181.201148715,
+      "details": {
+        "runner_pid": 4546,
+        "wall_time": "2026-11-02T03:04:29.290398+00:00",
+        "monotonic": 181.196689281,
+        "returncode": -9,
+        "record_status": "running",
+        "outcome": "inconclusive",
+        "cleanup": {
+          "ok": false,
+          "errors": [
+            "not attempted"
+          ]
+        }
+      }
+    },
+    {
+      "name": "independent timer restores normal service and removes helper within 40 seconds",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:51.436287+00:00",
+      "monotonic": 205.822035874,
+      "details": {
+        "elapsed_s": 24.614018920999996,
+        "consecutive_normal_responses": 3,
+        "last_three_identities": [
+          [
+            "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+            4992,
+            20466,
+            "5d1aa57f-9629-4d06-b553-99b7a3ca111b"
+          ],
+          [
+            "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+            4992,
+            20466,
+            "5d1aa57f-9629-4d06-b553-99b7a3ca111b"
+          ],
+          [
+            "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+            4992,
+            20466,
+            "5d1aa57f-9629-4d06-b553-99b7a3ca111b"
+          ]
+        ],
+        "timer_before_kill": {
+          "LastTriggerUSec": "",
+          "LastTriggerUSecMonotonic": "0",
+          "ActiveState": "active",
+          "SubState": "waiting"
+        },
+        "timer": {
+          "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+          "LastTriggerUSecMonotonic": "3min 24.561849s",
+          "ActiveState": "active",
+          "SubState": "elapsed"
+        },
+        "recovery": {
+          "Result": "success",
+          "ExecMainStartTimestampMonotonic": "204650040",
+          "ExecMainExitTimestampMonotonic": "204780686",
+          "ExecMainStatus": "0",
+          "ActiveState": "inactive"
+        },
+        "helper": {
+          "MainPID": "0",
+          "ActiveState": "inactive",
+          "SubState": "dead"
+        },
+        "observation_path": "/root/lsrp-results/robustness-interruption-20261101/independent-recovery-observations.json"
+      }
+    },
+    {
+      "name": "independent recovery leaves killed trial claim incomplete",
+      "ok": true,
+      "wall_time": "2026-11-02T03:04:51.442986+00:00",
+      "monotonic": 205.828756555,
+      "details": {
+        "record_status": "running",
+        "outcome": "inconclusive"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Results apply to this isolated installation and these interruption points.",
+    "SIGKILL cannot run CLI cleanup; its last checkpoint must remain incomplete."
+  ],
+  "installation": {
+    "install_id": "237fe0da-1423-4819-8e0e-9b65d3d71d9a",
+    "unit": "lsrp-lab.service",
+    "port": 18765
+  },
+  "environment": {
+    "kernel": "6.18.54.1-microsoft-standard-WSL2",
+    "architecture": "x86_64",
+    "python": "3.12.3",
+    "clock": "time.monotonic (seconds); UTC wall clock for correlation",
+    "systemd": "systemd 255 (255.4-1ubuntu8)",
+    "virtualization": "wsl",
+    "os_release": "PRETTY_NAME=\"Ubuntu 24.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+  },
+  "final_cleanup": {
+    "ok": true,
+    "errors": [],
+    "verification": {
+      "lsrp-recover.timer": "inactive",
+      "lsrp-recover.service": "inactive",
+      "lsrp-collision.service": "inactive"
+    },
+    "functional_checks": [
+      {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:51.913994+00:00",
+        "monotonic": 206.299717337,
+        "completed_monotonic": 206.299860095,
+        "ok": false,
+        "latency_ms": 0.14275800000973504,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:52.100022+00:00",
+        "monotonic": 206.485744989,
+        "completed_monotonic": 206.485922642,
+        "ok": false,
+        "latency_ms": 0.17765299998018236,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:52.291698+00:00",
+        "monotonic": 206.677421228,
+        "completed_monotonic": 206.687399211,
+        "ok": true,
+        "latency_ms": 9.97798300002728,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 5042,
+          "start_ticks": 20617,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "49c7d8bb-a2b4-4196-ae22-3ea744612d5f",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/5042/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:52.301658+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 5042,
+            "start_ticks": 20617,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      },
+      {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:52.495909+00:00",
+        "monotonic": 206.881631939,
+        "completed_monotonic": 206.891220177,
+        "ok": true,
+        "latency_ms": 9.58823800002051,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 5042,
+          "start_ticks": 20617,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "49c7d8bb-a2b4-4196-ae22-3ea744612d5f",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/5042/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:52.505480+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 5042,
+            "start_ticks": 20617,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      },
+      {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:52.700563+00:00",
+        "monotonic": 207.086285004,
+        "completed_monotonic": 207.094551598,
+        "ok": true,
+        "latency_ms": 8.266594000019722,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 5042,
+          "start_ticks": 20617,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "49c7d8bb-a2b4-4196-ae22-3ea744612d5f",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/5042/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:52.708812+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 5042,
+            "start_ticks": 20617,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      }
+    ]
+  },
+  "ended_at": "2026-11-02T03:04:52.727752+00:00",
+  "elapsed_s": 35.89971443600001
+}

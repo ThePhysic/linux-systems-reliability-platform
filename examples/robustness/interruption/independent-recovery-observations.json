@@ -1,0 +1,2437 @@
+{
+  "schema_version": 1,
+  "kill_monotonic": 181.196689281,
+  "observations": [
+    {
+      "wall_time": "2026-11-02T03:04:29.784796+00:00",
+      "monotonic": 181.691128202,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:29.298421+00:00",
+        "monotonic": 181.204713339,
+        "completed_monotonic": 181.632398684,
+        "ok": false,
+        "latency_ms": 427.68534500001465,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:30.454266+00:00",
+      "monotonic": 182.360593371,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:29.990962+00:00",
+        "monotonic": 181.897250805,
+        "completed_monotonic": 182.33145196,
+        "ok": false,
+        "latency_ms": 434.2011550000109,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:31.131265+00:00",
+      "monotonic": 183.037605978,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:30.659959+00:00",
+        "monotonic": 182.566223063,
+        "completed_monotonic": 182.988753015,
+        "ok": false,
+        "latency_ms": 422.5299519999908,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:31.784747+00:00",
+      "monotonic": 183.691062985,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:31.342738+00:00",
+        "monotonic": 183.249021879,
+        "completed_monotonic": 183.668429402,
+        "ok": false,
+        "latency_ms": 419.4075229999896,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:32.422687+00:00",
+      "monotonic": 184.328999914,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:31.991890+00:00",
+        "monotonic": 183.898175231,
+        "completed_monotonic": 184.307146778,
+        "ok": false,
+        "latency_ms": 408.97154699999305,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:33.072695+00:00",
+      "monotonic": 184.979012922,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:32.631323+00:00",
+        "monotonic": 184.537611894,
+        "completed_monotonic": 184.954851422,
+        "ok": false,
+        "latency_ms": 417.2395279999819,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:31.230515+00:00",
+      "monotonic": 185.616265799,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:30.793662+00:00",
+        "monotonic": 185.179378255,
+        "completed_monotonic": 185.58808254,
+        "ok": false,
+        "latency_ms": 408.7042849999989,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:31.862319+00:00",
+      "monotonic": 186.248058887,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:31.440415+00:00",
+        "monotonic": 185.826129769,
+        "completed_monotonic": 186.227057814,
+        "ok": false,
+        "latency_ms": 400.92804500000057,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:32.490787+00:00",
+      "monotonic": 186.87654298,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:32.065229+00:00",
+        "monotonic": 186.450938157,
+        "completed_monotonic": 186.853009985,
+        "ok": false,
+        "latency_ms": 402.07182800000396,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:33.148318+00:00",
+      "monotonic": 187.534062226,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:32.695556+00:00",
+        "monotonic": 187.081269473,
+        "completed_monotonic": 187.507055779,
+        "ok": false,
+        "latency_ms": 425.78630600002043,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:33.855836+00:00",
+      "monotonic": 188.241601458,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:33.351223+00:00",
+        "monotonic": 187.736937879,
+        "completed_monotonic": 188.166803419,
+        "ok": false,
+        "latency_ms": 429.86553999998023,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:34.481766+00:00",
+      "monotonic": 188.867505372,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:34.059543+00:00",
+        "monotonic": 188.445234803,
+        "completed_monotonic": 188.846612598,
+        "ok": false,
+        "latency_ms": 401.3777950000019,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:35.122809+00:00",
+      "monotonic": 189.50855311,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:34.682846+00:00",
+        "monotonic": 189.068537321,
+        "completed_monotonic": 189.480946217,
+        "ok": false,
+        "latency_ms": 412.4088959999881,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:35.756130+00:00",
+      "monotonic": 190.141873407,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:35.327000+00:00",
+        "monotonic": 189.712716116,
+        "completed_monotonic": 190.122074725,
+        "ok": false,
+        "latency_ms": 409.35860900000876,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:36.379111+00:00",
+      "monotonic": 190.764850299,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:35.957555+00:00",
+        "monotonic": 190.343270109,
+        "completed_monotonic": 190.744256024,
+        "ok": false,
+        "latency_ms": 400.9859150000068,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:37.017588+00:00",
+      "monotonic": 191.403336467,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:36.582469+00:00",
+        "monotonic": 190.968180622,
+        "completed_monotonic": 191.381222065,
+        "ok": false,
+        "latency_ms": 413.04144299999734,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:37.652131+00:00",
+      "monotonic": 192.037876079,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:37.217861+00:00",
+        "monotonic": 191.603572824,
+        "completed_monotonic": 192.012289403,
+        "ok": false,
+        "latency_ms": 408.71657900001424,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:38.298575+00:00",
+      "monotonic": 192.684329052,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:37.853478+00:00",
+        "monotonic": 192.239185958,
+        "completed_monotonic": 192.641206528,
+        "ok": false,
+        "latency_ms": 402.0205699999906,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:38.925202+00:00",
+      "monotonic": 193.31094148,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:38.499782+00:00",
+        "monotonic": 192.885499285,
+        "completed_monotonic": 193.2883124,
+        "ok": false,
+        "latency_ms": 402.8131149999865,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:39.555245+00:00",
+      "monotonic": 193.940987212,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:39.127927+00:00",
+        "monotonic": 193.513635962,
+        "completed_monotonic": 193.921070268,
+        "ok": false,
+        "latency_ms": 407.43430599999897,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:40.186343+00:00",
+      "monotonic": 194.572092735,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:39.756924+00:00",
+        "monotonic": 194.142640695,
+        "completed_monotonic": 194.550511368,
+        "ok": false,
+        "latency_ms": 407.8706729999908,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:40.825565+00:00",
+      "monotonic": 195.211311341,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:40.388867+00:00",
+        "monotonic": 194.774576337,
+        "completed_monotonic": 195.184314782,
+        "ok": false,
+        "latency_ms": 409.7384449999879,
+        "error": "Functional probe deadline exceeded",
+        "error_kind": "timeout",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "4633",
+        "ActiveState": "deactivating",
+        "SubState": "stop-sigterm"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:41.049638+00:00",
+      "monotonic": 195.43538067,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:41.028856+00:00",
+        "monotonic": 195.414572591,
+        "completed_monotonic": 195.414749512,
+        "ok": false,
+        "latency_ms": 0.17692099999067068,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:41.278045+00:00",
+      "monotonic": 195.66379888,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:41.253498+00:00",
+        "monotonic": 195.639205783,
+        "completed_monotonic": 195.639616716,
+        "ok": false,
+        "latency_ms": 0.4109330000119371,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:41.498361+00:00",
+      "monotonic": 195.884100608,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:41.478726+00:00",
+        "monotonic": 195.864441242,
+        "completed_monotonic": 195.864717187,
+        "ok": false,
+        "latency_ms": 0.27594499999850086,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:41.720436+00:00",
+      "monotonic": 196.10617813,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:41.699898+00:00",
+        "monotonic": 196.085614414,
+        "completed_monotonic": 196.085852331,
+        "ok": false,
+        "latency_ms": 0.23791700002107063,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:41.947754+00:00",
+      "monotonic": 196.333504853,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:41.923829+00:00",
+        "monotonic": 196.309545088,
+        "completed_monotonic": 196.309905666,
+        "ok": false,
+        "latency_ms": 0.360577999998668,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:42.173309+00:00",
+      "monotonic": 196.559052798,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:42.149105+00:00",
+        "monotonic": 196.53480472,
+        "completed_monotonic": 196.535321372,
+        "ok": false,
+        "latency_ms": 0.5166519999875163,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:42.396440+00:00",
+      "monotonic": 196.782188364,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:42.375338+00:00",
+        "monotonic": 196.761054596,
+        "completed_monotonic": 196.761273854,
+        "ok": false,
+        "latency_ms": 0.21925799998712137,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:42.628247+00:00",
+      "monotonic": 197.013991641,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:42.603371+00:00",
+        "monotonic": 196.989081672,
+        "completed_monotonic": 196.989426461,
+        "ok": false,
+        "latency_ms": 0.3447889999961262,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:42.864556+00:00",
+      "monotonic": 197.250303827,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:42.829558+00:00",
+        "monotonic": 197.215267742,
+        "completed_monotonic": 197.215573827,
+        "ok": false,
+        "latency_ms": 0.30608499997697436,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:43.091791+00:00",
+      "monotonic": 197.477537854,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:43.068779+00:00",
+        "monotonic": 197.454479752,
+        "completed_monotonic": 197.454977936,
+        "ok": false,
+        "latency_ms": 0.4981840000084503,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:43.323881+00:00",
+      "monotonic": 197.709621864,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:43.298193+00:00",
+        "monotonic": 197.68389905,
+        "completed_monotonic": 197.684406558,
+        "ok": false,
+        "latency_ms": 0.5075079999983245,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:43.547143+00:00",
+      "monotonic": 197.932902185,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:43.524354+00:00",
+        "monotonic": 197.910063533,
+        "completed_monotonic": 197.910378497,
+        "ok": false,
+        "latency_ms": 0.3149640000117415,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:43.773398+00:00",
+      "monotonic": 198.159148277,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:43.749760+00:00",
+        "monotonic": 198.135475519,
+        "completed_monotonic": 198.135707245,
+        "ok": false,
+        "latency_ms": 0.23172599998133592,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:44.001526+00:00",
+      "monotonic": 198.387277397,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:43.977114+00:00",
+        "monotonic": 198.362828828,
+        "completed_monotonic": 198.363032313,
+        "ok": false,
+        "latency_ms": 0.20348499998590341,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:44.229137+00:00",
+      "monotonic": 198.61488095,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:44.204365+00:00",
+        "monotonic": 198.59007905,
+        "completed_monotonic": 198.590313533,
+        "ok": false,
+        "latency_ms": 0.23448299998563016,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:44.454672+00:00",
+      "monotonic": 198.840516466,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:44.430876+00:00",
+        "monotonic": 198.816585814,
+        "completed_monotonic": 198.816958248,
+        "ok": false,
+        "latency_ms": 0.37243399998487803,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:44.684109+00:00",
+      "monotonic": 199.069857478,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:44.658242+00:00",
+        "monotonic": 199.043951019,
+        "completed_monotonic": 199.044330931,
+        "ok": false,
+        "latency_ms": 0.3799119999996492,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:44.924828+00:00",
+      "monotonic": 199.310571757,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:44.886154+00:00",
+        "monotonic": 199.271854156,
+        "completed_monotonic": 199.272217722,
+        "ok": false,
+        "latency_ms": 0.3635660000043117,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:45.156626+00:00",
+      "monotonic": 199.542371802,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:45.132612+00:00",
+        "monotonic": 199.518327164,
+        "completed_monotonic": 199.518568735,
+        "ok": false,
+        "latency_ms": 0.24157100000365972,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:45.381189+00:00",
+      "monotonic": 199.766963075,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:45.359362+00:00",
+        "monotonic": 199.745075814,
+        "completed_monotonic": 199.745492119,
+        "ok": false,
+        "latency_ms": 0.4163050000158819,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:45.603074+00:00",
+      "monotonic": 199.988855686,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:45.582701+00:00",
+        "monotonic": 199.968416265,
+        "completed_monotonic": 199.968691872,
+        "ok": false,
+        "latency_ms": 0.2756069999918509,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:45.829474+00:00",
+      "monotonic": 200.215216284,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:45.809058+00:00",
+        "monotonic": 200.194772077,
+        "completed_monotonic": 200.194988098,
+        "ok": false,
+        "latency_ms": 0.21602099999995517,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:46.055986+00:00",
+      "monotonic": 200.441730669,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:46.030593+00:00",
+        "monotonic": 200.416307438,
+        "completed_monotonic": 200.416717523,
+        "ok": false,
+        "latency_ms": 0.4100849999986167,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:46.283140+00:00",
+      "monotonic": 200.668880808,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:46.259603+00:00",
+        "monotonic": 200.645318041,
+        "completed_monotonic": 200.645549996,
+        "ok": false,
+        "latency_ms": 0.23195500000383618,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:46.511895+00:00",
+      "monotonic": 200.897636598,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:46.484441+00:00",
+        "monotonic": 200.870149702,
+        "completed_monotonic": 200.870520518,
+        "ok": false,
+        "latency_ms": 0.37081600001442894,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:46.737769+00:00",
+      "monotonic": 201.123515141,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:46.714628+00:00",
+        "monotonic": 201.100335879,
+        "completed_monotonic": 201.100649399,
+        "ok": false,
+        "latency_ms": 0.3135199999917404,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:46.973334+00:00",
+      "monotonic": 201.359081938,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:46.942878+00:00",
+        "monotonic": 201.328587744,
+        "completed_monotonic": 201.328913908,
+        "ok": false,
+        "latency_ms": 0.32616400000051726,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:47.203486+00:00",
+      "monotonic": 201.589226871,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:47.178432+00:00",
+        "monotonic": 201.564138065,
+        "completed_monotonic": 201.564583804,
+        "ok": false,
+        "latency_ms": 0.4457389999856787,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:47.432062+00:00",
+      "monotonic": 201.81781049,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:47.404589+00:00",
+        "monotonic": 201.790293344,
+        "completed_monotonic": 201.790725104,
+        "ok": false,
+        "latency_ms": 0.43175999999789383,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:47.659428+00:00",
+      "monotonic": 202.045177909,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:47.633399+00:00",
+        "monotonic": 202.019115461,
+        "completed_monotonic": 202.019326511,
+        "ok": false,
+        "latency_ms": 0.21104999999010943,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:47.892243+00:00",
+      "monotonic": 202.278003378,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:47.869920+00:00",
+        "monotonic": 202.255619724,
+        "completed_monotonic": 202.255893747,
+        "ok": false,
+        "latency_ms": 0.274022999974477,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:48.121712+00:00",
+      "monotonic": 202.507462814,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:48.098866+00:00",
+        "monotonic": 202.48457226,
+        "completed_monotonic": 202.484917917,
+        "ok": false,
+        "latency_ms": 0.3456569999968906,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:48.345988+00:00",
+      "monotonic": 202.731734544,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:48.322427+00:00",
+        "monotonic": 202.708133572,
+        "completed_monotonic": 202.708478047,
+        "ok": false,
+        "latency_ms": 0.344474999991462,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:48.573654+00:00",
+      "monotonic": 202.959439339,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:48.548214+00:00",
+        "monotonic": 202.933929257,
+        "completed_monotonic": 202.934149674,
+        "ok": false,
+        "latency_ms": 0.22041700000841047,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:48.798484+00:00",
+      "monotonic": 203.184232523,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:48.774743+00:00",
+        "monotonic": 203.16045608,
+        "completed_monotonic": 203.160741195,
+        "ok": false,
+        "latency_ms": 0.28511500002537105,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:49.031455+00:00",
+      "monotonic": 203.417208772,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:49.005547+00:00",
+        "monotonic": 203.391261601,
+        "completed_monotonic": 203.391482474,
+        "ok": false,
+        "latency_ms": 0.22087299998929666,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:49.286799+00:00",
+      "monotonic": 203.672543157,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:49.233870+00:00",
+        "monotonic": 203.619584525,
+        "completed_monotonic": 203.619838458,
+        "ok": false,
+        "latency_ms": 0.2539330000104201,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:49.515081+00:00",
+      "monotonic": 203.900869066,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:49.492368+00:00",
+        "monotonic": 203.878082697,
+        "completed_monotonic": 203.878313175,
+        "ok": false,
+        "latency_ms": 0.23047799999176277,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:49.740886+00:00",
+      "monotonic": 204.126632201,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:49.719907+00:00",
+        "monotonic": 204.105616144,
+        "completed_monotonic": 204.105962757,
+        "ok": false,
+        "latency_ms": 0.3466129999765144,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:49.966784+00:00",
+      "monotonic": 204.352528424,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:49.941215+00:00",
+        "monotonic": 204.326924014,
+        "completed_monotonic": 204.327253814,
+        "ok": false,
+        "latency_ms": 0.3297999999745116,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "",
+        "LastTriggerUSecMonotonic": "0",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:50.213911+00:00",
+      "monotonic": 204.599663758,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:50.170842+00:00",
+        "monotonic": 204.556558009,
+        "completed_monotonic": 204.556737866,
+        "ok": false,
+        "latency_ms": 0.17985699997780102,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "failed",
+        "SubState": "failed"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204580767",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainStatus": "0",
+        "ActiveState": "activating"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "running"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:50.447201+00:00",
+      "monotonic": 204.832947991,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:50.422068+00:00",
+        "monotonic": 204.807784446,
+        "completed_monotonic": 204.807994085,
+        "ok": false,
+        "latency_ms": 0.20963899999060231,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204650040",
+        "ExecMainExitTimestampMonotonic": "204780686",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "elapsed"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:50.674193+00:00",
+      "monotonic": 205.059936638,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:50.649695+00:00",
+        "monotonic": 205.03540429,
+        "completed_monotonic": 205.035674394,
+        "ok": false,
+        "latency_ms": 0.27010400000904156,
+        "error": "[Errno 111] Connection refused",
+        "error_kind": "connection_refused",
+        "identity": null,
+        "identity_verification": null,
+        "http_status": null
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204650040",
+        "ExecMainExitTimestampMonotonic": "204780686",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "elapsed"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:50.916914+00:00",
+      "monotonic": 205.302670268,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:50.879103+00:00",
+        "monotonic": 205.26481839,
+        "completed_monotonic": 205.274253275,
+        "ok": true,
+        "latency_ms": 9.434885000018767,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 4992,
+          "start_ticks": 20466,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "5d1aa57f-9629-4d06-b553-99b7a3ca111b",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/4992/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:50.888502+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 4992,
+            "start_ticks": 20466,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204650040",
+        "ExecMainExitTimestampMonotonic": "204780686",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "elapsed"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:51.155214+00:00",
+      "monotonic": 205.540954601,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:51.125361+00:00",
+        "monotonic": 205.511071579,
+        "completed_monotonic": 205.519510822,
+        "ok": true,
+        "latency_ms": 8.439242999997987,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 4992,
+          "start_ticks": 20466,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "5d1aa57f-9629-4d06-b553-99b7a3ca111b",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/4992/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:51.133767+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 4992,
+            "start_ticks": 20466,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204650040",
+        "ExecMainExitTimestampMonotonic": "204780686",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "elapsed"
+      }
+    },
+    {
+      "wall_time": "2026-11-02T03:04:51.424948+00:00",
+      "monotonic": 205.810694906,
+      "probe": {
+        "source": "HTTP GET http://127.0.0.1:18765/work",
+        "collected_at": "2026-11-02T03:04:51.357464+00:00",
+        "monotonic": 205.743180899,
+        "completed_monotonic": 205.755055966,
+        "ok": true,
+        "latency_ms": 11.87506699997698,
+        "error": null,
+        "error_kind": null,
+        "identity": {
+          "service": "lsrp-lab",
+          "pid": 4992,
+          "start_ticks": 20466,
+          "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+          "instance": "5d1aa57f-9629-4d06-b553-99b7a3ca111b",
+          "mode": "normal"
+        },
+        "identity_verification": {
+          "source": "/proc/4992/stat; /proc/sys/kernel/random/boot_id",
+          "collected_at": "2026-11-02T03:04:51.369301+00:00",
+          "status": "ok",
+          "data": {
+            "pid": 4992,
+            "start_ticks": 20466,
+            "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+          },
+          "error": null
+        },
+        "http_status": 200
+      },
+      "helper": {
+        "MainPID": "0",
+        "ActiveState": "inactive",
+        "SubState": "dead"
+      },
+      "recovery": {
+        "Result": "success",
+        "ExecMainStartTimestampMonotonic": "204650040",
+        "ExecMainExitTimestampMonotonic": "204780686",
+        "ExecMainStatus": "0",
+        "ActiveState": "inactive"
+      },
+      "timer": {
+        "LastTriggerUSec": "Sun 2026-11-01 19:04:50 PST",
+        "LastTriggerUSecMonotonic": "3min 24.561849s",
+        "ActiveState": "active",
+        "SubState": "elapsed"
+      }
+    }
+  ]
+}

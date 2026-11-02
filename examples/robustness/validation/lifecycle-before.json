@@ -1,0 +1,225 @@
+{
+  "wall_time": "2026-11-02T03:01:51.061030+00:00",
+  "monotonic": 17.756083122,
+  "completed_monotonic": 17.826587527,
+  "unit": {
+    "source": "systemctl show lsrp-lab.service",
+    "collected_at": "2026-11-02T03:01:51.002543+00:00",
+    "status": "ok",
+    "data": {
+      "Restart": "on-failure",
+      "RestartUSec": "2s",
+      "MainPID": "575",
+      "Result": "success",
+      "NRestarts": "0",
+      "ExecMainStartTimestampMonotonic": "9190113",
+      "ExecMainExitTimestampMonotonic": "0",
+      "ExecMainCode": "0",
+      "ExecMainStatus": "0",
+      "ControlGroup": "/system.slice/lsrp-lab.service",
+      "CPUQuotaPerSecUSec": "250ms",
+      "MemoryMax": "134217728",
+      "TasksMax": "32",
+      "LimitNOFILE": "256",
+      "User": "lsrp-lab",
+      "Id": "lsrp-lab.service",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "running",
+      "FragmentPath": "/etc/systemd/system/lsrp-lab.service",
+      "ActiveEnterTimestampMonotonic": "9293440",
+      "InvocationID": "6a5ab2c7e99146568b4ff4587c90535d"
+    },
+    "error": null
+  },
+  "process": {
+    "source": "/proc/575/stat,status,limits,fd,cgroup,task/*/children; /proc/uptime; /proc/sys/kernel/random/boot_id",
+    "collected_at": "2026-11-02T03:01:51.004073+00:00",
+    "status": "ok",
+    "data": {
+      "pid": 575,
+      "comm": "python3",
+      "state": "S",
+      "ppid": 1,
+      "start_ticks": 918,
+      "cpu_seconds": 0.19,
+      "rss_bytes": 22724608,
+      "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+      "issues": {},
+      "children": [],
+      "uptime_s": 8.580000000000002,
+      "fd_count": 5,
+      "limits": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        0                    unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             62345                62345                processes \nMax open files            256                  256                  files     \nMax locked memory         67108864             67108864             bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       62345                62345                signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      unlimited            unlimited            us        \n",
+      "cgroup": "0::/system.slice/lsrp-lab.service",
+      "uid": 999
+    },
+    "error": null
+  },
+  "cgroup": {
+    "source": "cgroup v2 /system.slice/lsrp-lab.service",
+    "collected_at": "2026-11-02T03:01:51.004614+00:00",
+    "status": "ok",
+    "data": {
+      "path": "/system.slice/lsrp-lab.service",
+      "generation": {
+        "device": 25,
+        "inode": 3169
+      },
+      "files": {
+        "cpu.stat": {
+          "status": "ok",
+          "value": {
+            "usage_usec": 209187,
+            "user_usec": 114847,
+            "system_usec": 94339,
+            "nice_usec": 0,
+            "nr_periods": 46,
+            "nr_throttled": 6,
+            "throttled_usec": 416296,
+            "nr_bursts": 0,
+            "burst_usec": 0
+          },
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/cpu.stat",
+          "collected_at": "2026-11-02T03:01:51.004357+00:00"
+        },
+        "cpu.max": {
+          "status": "ok",
+          "value": "25000 100000",
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/cpu.max",
+          "collected_at": "2026-11-02T03:01:51.004405+00:00"
+        },
+        "memory.current": {
+          "status": "ok",
+          "value": 12414976,
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/memory.current",
+          "collected_at": "2026-11-02T03:01:51.004445+00:00"
+        },
+        "memory.max": {
+          "status": "ok",
+          "value": 134217728,
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/memory.max",
+          "collected_at": "2026-11-02T03:01:51.004483+00:00"
+        },
+        "memory.events": {
+          "status": "ok",
+          "value": {
+            "low": 0,
+            "high": 0,
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0,
+            "oom_group_kill": 0
+          },
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/memory.events",
+          "collected_at": "2026-11-02T03:01:51.004526+00:00"
+        },
+        "pids.current": {
+          "status": "ok",
+          "value": 4,
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/pids.current",
+          "collected_at": "2026-11-02T03:01:51.004563+00:00"
+        },
+        "pids.max": {
+          "status": "ok",
+          "value": 32,
+          "error": null,
+          "source": "/sys/fs/cgroup/system.slice/lsrp-lab.service/pids.max",
+          "collected_at": "2026-11-02T03:01:51.004598+00:00"
+        }
+      }
+    },
+    "error": null
+  },
+  "socket": {
+    "source": "ss -H -ltnp 'sport = :18765'",
+    "collected_at": "2026-11-02T03:01:51.037418+00:00",
+    "status": "ok",
+    "data": {
+      "listeners": [
+        "LISTEN 0      16     127.0.0.1:18765 0.0.0.0:* users:((\"python3\",pid=575,fd=3))"
+      ],
+      "count": 1,
+      "ownership_visibility": "PID owner appears only when ss permits it"
+    },
+    "error": null
+  },
+  "probe": {
+    "source": "HTTP GET http://127.0.0.1:18765/work",
+    "collected_at": "2026-11-02T03:01:51.037440+00:00",
+    "monotonic": 17.802990336,
+    "completed_monotonic": 17.813256903,
+    "ok": true,
+    "latency_ms": 10.266566999998616,
+    "error": null,
+    "error_kind": null,
+    "identity": {
+      "service": "lsrp-lab",
+      "pid": 575,
+      "start_ticks": 918,
+      "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e",
+      "instance": "ab2e1db2-4a59-4f07-b985-890147a6bbe7",
+      "mode": "normal"
+    },
+    "identity_verification": {
+      "source": "/proc/575/stat; /proc/sys/kernel/random/boot_id",
+      "collected_at": "2026-11-02T03:01:51.047687+00:00",
+      "status": "ok",
+      "data": {
+        "pid": 575,
+        "start_ticks": 918,
+        "boot_id": "cb462ef6-c78b-4541-bb55-4b15e0d7ab5e"
+      },
+      "error": null
+    },
+    "http_status": 200
+  },
+  "journal": {
+    "source": "journalctl --boot --unit=lsrp-lab.service",
+    "collected_at": "2026-11-02T03:01:51.061007+00:00",
+    "status": "ok",
+    "data": {
+      "entries": [
+        {
+          "MESSAGE_ID": "7d4958e842da4a758f6c1cdc7b36dcc5",
+          "_PID": "1",
+          "__MONOTONIC_TIMESTAMP": "9190536",
+          "__REALTIME_TIMESTAMP": "1793588502424984",
+          "_SYSTEMD_UNIT": "init.scope",
+          "UNIT": "lsrp-lab.service",
+          "MESSAGE": "Starting lsrp-lab.service - LSRP deliberately fallible non-root lab service...",
+          "PRIORITY": "6",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e"
+        },
+        {
+          "__MONOTONIC_TIMESTAMP": "9293566",
+          "MESSAGE": "Started lsrp-lab.service - LSRP deliberately fallible non-root lab service.",
+          "__REALTIME_TIMESTAMP": "1793588502528014",
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "UNIT": "lsrp-lab.service",
+          "_PID": "1",
+          "_SYSTEMD_UNIT": "init.scope",
+          "MESSAGE_ID": "39f53479d3a045ac8e11786248231fbf",
+          "PRIORITY": "6"
+        },
+        {
+          "_BOOT_ID": "cb462ef6c78b4541bb554b15e0d7ab5e",
+          "_SYSTEMD_INVOCATION_ID": "6a5ab2c7e99146568b4ff4587c90535d",
+          "MESSAGE": "{\"event\": \"ready\", \"service\": \"lsrp-lab\", \"pid\": 575, \"start_ticks\": 918, \"boot_id\": \"cb462ef6-c78b-4541-bb55-4b15e0d7ab5e\", \"instance\": \"ab2e1db2-4a59-4f07-b985-890147a6bbe7\", \"listen\": \"127.0.0.1:18765\"}",
+          "PRIORITY": "6",
+          "_SYSTEMD_UNIT": "lsrp-lab.service",
+          "_PID": "575",
+          "__MONOTONIC_TIMESTAMP": "9771520",
+          "__REALTIME_TIMESTAMP": "1793588503005967"
+        }
+      ],
+      "visibility_warning": null
+    },
+    "error": null
+  }
+}

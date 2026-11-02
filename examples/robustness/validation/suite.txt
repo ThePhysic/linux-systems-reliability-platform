@@ -1,0 +1,377 @@
+{
+  "summary": {
+    "schema_version": 1,
+    "total_trials": 12,
+    "scenarios": {
+      "collision": {
+        "n": 3,
+        "outcomes": {
+          "recovered": 3,
+          "failed": 0,
+          "inconclusive": 0,
+          "unknown": 0
+        },
+        "metrics": {
+          "detection_latency_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 1.6264330300000012,
+            "min": 1.1953514440000106,
+            "max": 1.70595560000001,
+            "p95": null
+          },
+          "failed_probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 6.0,
+            "min": 6.0,
+            "max": 7.0,
+            "p95": null
+          },
+          "latency_degradation_threshold_ms": {
+            "n": 3,
+            "missing": 0,
+            "median": 50.0,
+            "min": 50.0,
+            "max": 50.0,
+            "p95": null
+          },
+          "probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 10.0,
+            "min": 10.0,
+            "max": 11.0,
+            "p95": null
+          },
+          "probe_success_ratio": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.4,
+            "min": 0.36363636363636365,
+            "max": 0.4,
+            "p95": null
+          },
+          "process_identity_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 4.0,
+            "min": 4.0,
+            "max": 4.0,
+            "p95": null
+          },
+          "recovery_confirmation_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 7.852506925,
+            "min": 7.257735706999995,
+            "max": 7.923601837000007,
+            "p95": null
+          },
+          "recovery_from_first_observed_symptom_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 5.595762358999991,
+            "min": 5.495522590000007,
+            "max": 5.623518697000009,
+            "p95": null
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 7.24995172700001,
+            "min": 6.690874034000018,
+            "max": 7.301717959000001,
+            "p95": null
+          },
+          "systemd_restart_delay_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 2.2541259999999994,
+            "min": 2.2227889999999775,
+            "max": 2.2549489999999963,
+            "p95": null
+          }
+        }
+      },
+      "cpu": {
+        "n": 3,
+        "outcomes": {
+          "recovered": 3,
+          "failed": 0,
+          "inconclusive": 0,
+          "unknown": 0
+        },
+        "metrics": {
+          "detection_latency_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.38773764900000174,
+            "min": 0.16323917199999016,
+            "max": 0.4245493620000076,
+            "p95": null
+          },
+          "failed_probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "p95": null
+          },
+          "latency_degradation_threshold_ms": {
+            "n": 3,
+            "missing": 0,
+            "median": 50.0,
+            "min": 50.0,
+            "max": 50.0,
+            "p95": null
+          },
+          "probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 17.0,
+            "min": 17.0,
+            "max": 18.0,
+            "p95": null
+          },
+          "probe_success_ratio": {
+            "n": 3,
+            "missing": 0,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0,
+            "p95": null
+          },
+          "process_identity_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0,
+            "p95": null
+          },
+          "recovery_confirmation_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 4.838909053999998,
+            "min": 4.702632699999995,
+            "max": 4.996151130000001,
+            "p95": null
+          },
+          "recovery_from_first_observed_symptom_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 3.908468447000004,
+            "min": 3.777427691999989,
+            "max": 3.9658442519999966,
+            "p95": null
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 4.201977053999997,
+            "min": 4.071707618999994,
+            "max": 4.353581900999998,
+            "p95": null
+          },
+          "systemd_restart_delay_s": {
+            "n": 0,
+            "missing": 3,
+            "median": null,
+            "min": null,
+            "max": null,
+            "p95": null
+          }
+        }
+      },
+      "crash": {
+        "n": 3,
+        "outcomes": {
+          "recovered": 3,
+          "failed": 0,
+          "inconclusive": 0,
+          "unknown": 0
+        },
+        "metrics": {
+          "detection_latency_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.06207217800000109,
+            "min": 0.06190368899999754,
+            "max": 0.06355044100000384,
+            "p95": null
+          },
+          "failed_probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 10.0,
+            "min": 10.0,
+            "max": 10.0,
+            "p95": null
+          },
+          "latency_degradation_threshold_ms": {
+            "n": 3,
+            "missing": 0,
+            "median": 50.0,
+            "min": 50.0,
+            "max": 50.0,
+            "p95": null
+          },
+          "probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 20.0,
+            "min": 19.0,
+            "max": 20.0,
+            "p95": null
+          },
+          "probe_success_ratio": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.5,
+            "min": 0.47368421052631576,
+            "max": 0.5,
+            "p95": null
+          },
+          "process_identity_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 2.0,
+            "min": 2.0,
+            "max": 2.0,
+            "p95": null
+          },
+          "recovery_confirmation_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 3.3700071000000023,
+            "min": 3.350234693000001,
+            "max": 3.375431814999999,
+            "p95": null
+          },
+          "recovery_from_first_observed_symptom_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 2.7306117860000043,
+            "min": 2.711985304999999,
+            "max": 2.7338180259999945,
+            "p95": null
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 2.792515475000002,
+            "min": 2.774057483,
+            "max": 2.7973684669999983,
+            "p95": null
+          },
+          "systemd_restart_delay_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 2.137305999999999,
+            "min": 2.058306999999999,
+            "max": 2.154865000000001,
+            "p95": null
+          }
+        }
+      },
+      "hang": {
+        "n": 3,
+        "outcomes": {
+          "recovered": 3,
+          "failed": 0,
+          "inconclusive": 0,
+          "unknown": 0
+        },
+        "metrics": {
+          "detection_latency_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.4621978200000001,
+            "min": 0.46134496999999897,
+            "max": 0.46307339299999484,
+            "p95": null
+          },
+          "failed_probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 6.0,
+            "min": 6.0,
+            "max": 6.0,
+            "p95": null
+          },
+          "latency_degradation_threshold_ms": {
+            "n": 3,
+            "missing": 0,
+            "median": 50.0,
+            "min": 50.0,
+            "max": 50.0,
+            "p95": null
+          },
+          "probe_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 11.0,
+            "min": 11.0,
+            "max": 11.0,
+            "p95": null
+          },
+          "probe_success_ratio": {
+            "n": 3,
+            "missing": 0,
+            "median": 0.45454545454545453,
+            "min": 0.45454545454545453,
+            "max": 0.45454545454545453,
+            "p95": null
+          },
+          "process_identity_count": {
+            "n": 3,
+            "missing": 0,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0,
+            "p95": null
+          },
+          "recovery_confirmation_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 5.097873682999996,
+            "min": 5.076509621999989,
+            "max": 5.206227181000003,
+            "p95": null
+          },
+          "recovery_from_first_observed_symptom_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 4.058984003000006,
+            "min": 4.033743496999989,
+            "max": 4.170073497000004,
+            "p95": null
+          },
+          "recovery_time_s": {
+            "n": 3,
+            "missing": 0,
+            "median": 4.522057396000001,
+            "min": 4.495941316999989,
+            "max": 4.631418467000003,
+            "p95": null
+          },
+          "systemd_restart_delay_s": {
+            "n": 0,
+            "missing": 3,
+            "median": null,
+            "min": null,
+            "max": null,
+            "p95": null
+          }
+        }
+      }
+    },
+    "notes": [
+      "p95 uses nearest rank and requires at least 20 available measurements.",
+      "Failed and inconclusive trials remain in outcome counts; unavailable timings are not zero."
+    ]
+  },
+  "ok": true
+}
