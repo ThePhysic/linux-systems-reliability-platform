@@ -1,4 +1,7 @@
 import copy
+import hashlib
+import json
+from pathlib import Path
 import unittest
 
 from lsrp.report import analyze, render
@@ -149,12 +152,124 @@ class ReportTests(unittest.TestCase):
         text = render(record)
         self.assertIn("Run error: Experiment interrupted", text)
         self.assertIn("2026-11-01T00:00:00+00:00 [monotonic 4.250000, t+0.250s] inject: Fault dispatch acknowledged", text)
-        self.assertIn("Cleanup functional checks: 2/3 successful", text)
+        self.assertIn("Cleanup functional probe attempts: 2/3 successful (1 failed attempt)", text)
+        self.assertIn("Cleanup final recorded probe streak: 1 consecutive successful probe (fewer than the required 3)", text)
         self.assertIn("Cleanup unit verification: lsrp-collision.service = active", text)
         self.assertIn("Cleanup error: Helper remained active", text)
-        self.assertIn("Cleanup functional error: Request timed out", text)
+        self.assertIn("Cleanup functional error (1 attempt): Request timed out", text)
         self.assertNotIn("DO_NOT_DUMP_RAW_CHECK", text)
         self.assertIn("injection dispatch; exact failure onset unknown", text)
+
+    def test_counted_symptoms_use_singular_and_plural_nouns(self):
+        single = render(trial([sample(5, ok=False), sample(6, latency=100)]))
+        self.assertIn("1 functional work probe failed.", single)
+        self.assertIn("1 successful request exceeded", single)
+        self.assertNotIn("1 successful requests", single)
+        multiple = render(trial([sample(5, ok=False), sample(6, ok=False),
+                                 sample(7, latency=100), sample(8, latency=100)]))
+        self.assertIn("2 functional work probes failed.", multiple)
+        self.assertIn("2 successful requests exceeded", multiple)
+
+    def test_relapse_symptoms_use_singular_and_plural_nouns(self):
+        early = [sample(5, ok=False), sample(6), sample(7), sample(8), sample(9, ok=False)]
+        single = render(trial(early))
+        self.assertIn("1 later relapse or process identity change invalidated", single)
+        multiple = render(trial(early + [sample(10), sample(11), sample(12), sample(13, ok=False)]))
+        self.assertIn("2 later relapses or process identity changes invalidated", multiple)
+        self.assertNotIn("relapse(s)", single + multiple)
+
+    def test_render_merges_only_known_caveat_aliases_preserving_all_uncertainties(self):
+        record = trial([sample(5, ok=False)])
+        record["limitations"] = [
+            "Snapshots are sequential, not atomic; collection/probe overhead changes sampling resolution.",
+            "Injection dispatch is an experiment timing reference, not exact failure onset.",
+            "Monitoring polls can perturb request latency.",
+            "Snapshots may omit a short-lived process between samples.",
+            "Clock resolution limits the precision of event ordering.",
+        ]
+        before = copy.deepcopy(record)
+        analysis = analyze(record)
+        text = render(record)
+        limitations = text.split("\nLimitations:\n", 1)[1]
+        self.assertEqual(limitations.count("Snapshots are sequential, not atomic;"), 1)
+        self.assertNotIn("Serial collection and HTTP timeouts", limitations)
+        self.assertIn("collection/probe overhead changes sampling resolution", limitations)
+        self.assertIn("HTTP timeouts introduce additional sampling uncertainty", limitations)
+        self.assertEqual(limitations.count("Injection dispatch is an experiment timing reference"), 1)
+        self.assertIn("not proof of exact failure onset", limitations)
+        for caveat in record["limitations"][2:]:
+            self.assertIn(caveat, limitations)
+        self.assertIn("not long-term availability", limitations)
+        self.assertEqual(record, before)
+        # Consolidation is presentation-only; neither the stored caveats nor
+        # the complete machine-readable analysis are replaced by the summary.
+        self.assertEqual(analyze(record), analysis)
+        self.assertIn(record["limitations"][0], analysis["limitations"])
+        self.assertIn("Serial collection and HTTP timeouts introduce sampling uncertainty; snapshots are not atomic.",
+                      analysis["limitations"])
+
+    def test_cleanup_distinguishes_retry_attempts_from_the_recorded_verified_result(self):
+        record = trial([sample(5, ok=False)])
+        failed = {"ok": False, "error": "[Errno 111] Connection refused"}
+        record["cleanup"] = {"ok": True, "errors": [], "verification": {"helper": "inactive"},
+                             "functional_checks": [failed, failed, {"ok": True}, {"ok": True}, {"ok": True}]}
+        before = copy.deepcopy(record)
+        text = render(record)
+        self.assertIn("Cleanup: verified (recorded result)", text)
+        self.assertIn("Cleanup functional probe attempts: 3/5 successful (2 failed attempts)", text)
+        self.assertIn("Cleanup final recorded probe streak: 3 consecutive successful probes", text)
+        self.assertIn("2 earlier failed attempts preceded the final recorded successes", text)
+        self.assertIn("Cleanup retry error (2 attempts): [Errno 111] Connection refused", text)
+        self.assertEqual(record, before)
+
+    def test_successful_probe_attempts_never_override_a_failed_cleanup_verdict(self):
+        record = trial([sample(5, ok=False)])
+        record["cleanup"] = {"ok": False, "errors": ["Helper remained active"],
+                             "functional_checks": [{"ok": True}, {"ok": True}, {"ok": True}]}
+        text = render(record)
+        self.assertIn("Cleanup: incomplete or unverified (recorded result)", text)
+        self.assertIn("Cleanup final recorded probe streak: 3 consecutive successful probes", text)
+        self.assertIn("Cleanup error: Helper remained active", text)
+        self.assertNotIn("Cleanup: verified", text)
+
+    def test_insufficient_final_streak_does_not_relabel_failures_as_completed_retries(self):
+        record = trial([sample(5, ok=False)])
+        record["cleanup"] = {"ok": True, "errors": [], "functional_checks": [
+            {"ok": True}, {"ok": True}, {"ok": False, "error": "Request timed out"}]}
+        text = render(record)
+        self.assertIn("Cleanup: verified (recorded result)", text)
+        self.assertIn("Cleanup final recorded probe streak: 0 consecutive successful probes (fewer than the required 3)", text)
+        self.assertIn("Cleanup functional error (1 attempt): Request timed out", text)
+        self.assertNotIn("Cleanup retries:", text)
+        self.assertNotIn("Cleanup retry error", text)
+
+    def test_missing_cleanup_probe_sequence_is_explicitly_unavailable(self):
+        record = trial([sample(5, ok=False)])
+        record["cleanup"] = {"ok": False, "errors": ["not attempted"]}
+        text = render(record)
+        self.assertIn("Cleanup final recorded probe streak: unavailable", text)
+        self.assertIn("Cleanup error: not attempted", text)
+
+    def test_real_hang_and_crash_reports_keep_saved_measurements_and_artifacts_intact(self):
+        root = Path(__file__).resolve().parents[1]
+        for filename in ("hang-325476e5-045c-4fa9-96ef-4d7d4c803f65.json",
+                         "crash-697258cf-64b2-4c4f-be39-f1e1e2f56477.json"):
+            path = root / "examples" / "robustness" / "validation" / "trials" / filename
+            with self.subTest(filename=filename):
+                raw = path.read_bytes()
+                digest = hashlib.sha256(raw).hexdigest()
+                record = json.loads(raw)
+                before = copy.deepcopy(record)
+                text = render(record)
+                self.assertIn("Outcome: recovered", text)
+                self.assertIn("Cleanup functional probe attempts: 3/5 successful (2 failed attempts)", text)
+                self.assertIn("Cleanup final recorded probe streak: 3 consecutive successful probes", text)
+                self.assertIn("Cleanup retry error (2 attempts): [Errno 111] Connection refused", text)
+                self.assertNotIn("1 successful requests", text)
+                self.assertEqual(analyze(record)["metrics"], record["metrics"])
+                self.assertEqual(analyze(record)["recovery"], record["recovery"])
+                self.assertEqual(record, before)
+                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), digest)
 
 
 if __name__ == "__main__":

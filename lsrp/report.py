@@ -124,7 +124,7 @@ def analyze(trial):
                 seen_journal.add(key)
                 journal.append(entry)
     if failures:
-        symptoms.append(f"{len(failures)} functional work probes failed.")
+        symptoms.append(f"{len(failures)} functional work {'probe' if len(failures) == 1 else 'probes'} failed.")
         for sample in failures[:3]:
             p = sample.get("probe") or {}
             evidence.append({"source": p.get("source", "HTTP /work"), "at_monotonic": _time(sample),
@@ -134,7 +134,7 @@ def analyze(trial):
         hypotheses.append({"explanation": "A running process was unable to serve valid work; a process crash is not established by these failed probes.",
                            "confidence": "supported", "basis": "unit/process observations correlated with failed requests"})
     if degraded:
-        symptoms.append(f"{len(degraded)} successful requests exceeded the baseline-relative latency threshold ({latency_threshold:.2f} ms).")
+        symptoms.append(f"{len(degraded)} successful {'request' if len(degraded) == 1 else 'requests'} exceeded the baseline-relative latency threshold ({latency_threshold:.2f} ms).")
         hypotheses.append({"explanation": "Request latency degraded; resource contention is one possible explanation.",
                            "confidence": "possible", "basis": "latency alone does not identify a cause"})
     if throttle_samples:
@@ -206,7 +206,8 @@ def analyze(trial):
             recovery_first = _time(streak[0])
             recovery_confirmed = _time(streak[2])
     if relapses:
-        symptoms.append(f"{len(relapses)} later relapse(s) or process identity change(s) invalidated provisional sampled recovery.")
+        event = "relapse or process identity change" if len(relapses) == 1 else "relapses or process identity changes"
+        symptoms.append(f"{len(relapses)} later {event} invalidated provisional sampled recovery.")
     onset_bounds = None
     if first_symptom:
         previous = [s for s in all_samples if _number(_time(s)) and _time(s) < detection]
@@ -267,6 +268,26 @@ def analyze(trial):
             "limitations": list(dict.fromkeys(list(trial.get("limitations", [])) + limitations))}
 
 
+def _presentation_limitations(limitations):
+    """Merge only known duplicate caveats, leaving analysis and raw data intact."""
+    sampling = (
+        "Snapshots are sequential, not atomic; collection/probe overhead changes sampling resolution.",
+        "Serial collection and HTTP timeouts introduce sampling uncertainty; snapshots are not atomic.",
+    )
+    injection = (
+        "Injection dispatch is an experiment timing reference, not exact failure onset.",
+        "Injection dispatch is an experiment timing reference, not proof of exact failure onset.",
+    )
+    replacements = {}
+    if all(item in limitations for item in sampling):
+        combined = ("Snapshots are sequential, not atomic; collection/probe overhead changes sampling resolution, "
+                    "and HTTP timeouts introduce additional sampling uncertainty.")
+        replacements.update({item: combined for item in sampling})
+    if all(item in limitations for item in injection):
+        replacements.update({item: injection[1] for item in injection})
+    return list(dict.fromkeys(replacements.get(item, item) for item in limitations))
+
+
 def render(trial):
     analysis = analyze(trial)
     lines = [f"LSRP incident {trial.get('trial_id', '(unknown)')}",
@@ -299,18 +320,41 @@ def render(trial):
               "  " + json.dumps(trial.get("injection", {}), sort_keys=True), "", "Recovery verification:",
               "  " + json.dumps(analysis["recovery"], sort_keys=True)]
     cleanup = trial.get("cleanup") or {}
-    lines.append("  Cleanup: " + ("verified" if cleanup.get("ok") else "incomplete or unverified"))
+    cleanup_status = "verified" if cleanup.get("ok") else "incomplete or unverified"
+    lines.append("  Cleanup: " + cleanup_status + " (recorded result)")
     checks = cleanup.get("functional_checks")
     if isinstance(checks, list):
-        successes = sum(isinstance(check, dict) and bool(check.get("ok")) for check in checks)
-        lines.append(f"  Cleanup functional checks: {successes}/{len(checks)} successful")
-        failed_checks = [str(check.get("error") or "Functional check failed") for check in checks
-                         if isinstance(check, dict) and not check.get("ok")]
-        lines += ["  Cleanup functional error: " + error for error in dict.fromkeys(failed_checks)]
+        successes = sum(isinstance(check, dict) and check.get("ok") is True for check in checks)
+        failures = len(checks) - successes
+        lines.append(f"  Cleanup functional probe attempts: {successes}/{len(checks)} successful "
+                     f"({failures} failed {'attempt' if failures == 1 else 'attempts'}).")
+        trailing = 0
+        for check in reversed(checks):
+            if not isinstance(check, dict) or check.get("ok") is not True:
+                break
+            trailing += 1
+        if trailing >= 3:
+            lines.append(f"  Cleanup final recorded probe streak: {trailing} consecutive successful probes.")
+            if failures:
+                lines.append(f"  Cleanup retries: {failures} earlier failed "
+                             f"{'attempt' if failures == 1 else 'attempts'} preceded the final recorded successes.")
+        else:
+            lines.append(f"  Cleanup final recorded probe streak: {trailing} consecutive successful "
+                         f"{'probe' if trailing == 1 else 'probes'} (fewer than the required 3).")
+        failed_checks = {}
+        for check in checks:
+            if isinstance(check, dict) and check.get("ok") is not True:
+                error = str(check.get("error") or "Functional check failed")
+                failed_checks[error] = failed_checks.get(error, 0) + 1
+        label = "Cleanup retry error" if cleanup.get("ok") and trailing >= 3 else "Cleanup functional error"
+        lines += [f"  {label} ({count} {'attempt' if count == 1 else 'attempts'}): {error}"
+                  for error, count in failed_checks.items()]
+    else:
+        lines.append("  Cleanup final recorded probe streak: unavailable; no functional probe sequence was recorded.")
     for unit, state in (cleanup.get("verification") or {}).items():
         lines.append(f"  Cleanup unit verification: {unit} = {state}")
     lines += ["  Cleanup error: " + str(error) for error in cleanup.get("errors", [])]
     lines += ["", "Measurements:",
               json.dumps(analysis["metrics"], indent=2, sort_keys=True), "", "Limitations:"]
-    lines += ["  - " + text for text in analysis["limitations"]]
+    lines += ["  - " + text for text in _presentation_limitations(analysis["limitations"])]
     return "\n".join(lines) + "\n"
