@@ -30,4 +30,6 @@ A subsequent audit identified two additional edge cases: malformed nested saved-
 
 Fresh [verification artifacts](../examples/robustness/README.md) record 100 passing tests, twelve recovered incident trials, three overhead pairs, and eight interruption checks against the corrected implementation.
 
-Independent Astra medium follow-up review: pending.
+Independent adversarial follow-up review of commit `4e94c34906c4bf9fedcee94d072c4b0c89edf5e2`: **CLEAN: no remaining complaints within the agreed scope.** Saved-record validation and absolute probe deadlines resolve both reported defects. Regression tests and refreshed Linux evidence support the implementation; no further changes are requested.
+
+The reviewer verified 100 Windows tests with two expected Linux-only skips, additional socket-framing checks, matching source hashes for validated revision `e49d359`, all twelve refreshed Linux trial metrics and recovery claims, 100 Linux tests, 100 unprivileged Linux tests, eight interruption checks, and three overhead pairs.

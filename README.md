@@ -137,7 +137,7 @@ Read the [architecture](docs/ARCHITECTURE.md), [diagnostic walkthrough](docs/DIA
 
 Actual Linux run records, measurements, and interruption evidence are checked in under [examples](examples/README.md).
 
-An independent Astra medium adversarial review and rereview resolved five findings and finished clean; see [the review record](docs/REVIEW.md).
+Independent Astra medium adversarial reviews finished clean after the initial findings and two follow-up robustness fixes; see [the review record](docs/REVIEW.md).
 
 ```bash
 python3 -m unittest discover -s tests -v
