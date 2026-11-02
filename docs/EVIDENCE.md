@@ -41,6 +41,10 @@ Each snapshot contains `wall_time` (UTC ISO timestamp), `monotonic` (seconds in 
 
 Probes record at least success, latency in milliseconds, error, identity, request source, and timestamps. A valid `/work` response must contain the expected service identity and deterministic result. Connection refusal, timeout, non-success HTTP response, malformed response, wrong identity, and wrong result are distinct observations.
 
+The configured probe timeout is one absolute monotonic deadline shared by connection, request sending, status/header parsing, and every response-body read, including HTTP chunk framing and trailers. Progress does not reset the budget. The transport connects directly to numeric IPv4 loopback, follows no redirects, and uses no background workers. Sockets and response buffers close before a timeout result is returned. Scheduling and local result-processing overhead can add a small amount to observed wall time; a late result cannot be accepted as healthy. Parsed HTTP status remains available when the body times out.
+
+Saved reports are validated before rendering or comparison, including JSON output. Invalid nested fields identify their location (for example, `events[0]`) and cause a normal CLI validation error. Non-finite numbers, duplicate JSON keys, and excessive nesting are rejected. Valid incomplete checkpoints and explicitly unavailable/null OS observations remain readable without changing the recorded data.
+
 The evidence is scoped to the fixed unit, its process/cgroup, recent unit journal, and the lab port. Journal entries use an allowlist and bounded recent history; arbitrary process environments and host-wide logs are not exported. Review your own artifacts before sharing them: kernel versions, machine identifiers, PIDs, and operational timing may still be sensitive in some environments.
 
 ## Identity and races

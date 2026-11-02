@@ -7,7 +7,6 @@ import tempfile
 import threading
 import unittest
 from unittest.mock import patch
-from urllib.error import URLError
 
 from lsrp import observe
 
@@ -72,8 +71,7 @@ class ObservationTests(unittest.TestCase):
 
     def test_timeout_and_refusal_are_distinct(self):
         for reason, kind in ((TimeoutError("slow"), "timeout"), (ConnectionRefusedError("closed"), "connection_refused")):
-            with self.subTest(kind=kind), patch.object(observe, "build_opener") as opener:
-                opener.return_value.open.side_effect = URLError(reason)
+            with self.subTest(kind=kind), patch.object(observe, "get_work", side_effect=reason):
                 value = observe.probe()
                 self.assertFalse(value["ok"])
                 self.assertEqual(value["error_kind"], kind)
@@ -81,10 +79,7 @@ class ObservationTests(unittest.TestCase):
 
     def test_an_unrelated_healthy_listener_is_not_recovery(self):
         payload = {"status": "healthy", "service": "somebody-else"}
-        with patch.object(observe, "build_opener") as opener:
-            response = opener.return_value.open.return_value.__enter__.return_value
-            response.status = 200
-            response.read.return_value = json.dumps(payload).encode()
+        with patch.object(observe, "get_work", return_value=(200, json.dumps(payload).encode())):
             value = observe.probe()
         self.assertFalse(value["ok"])
         self.assertEqual(value["error_kind"], "invalid_response")
@@ -114,11 +109,8 @@ class ObservationTests(unittest.TestCase):
                    "boot_id": "00000000-0000-0000-0000-000000000001",
                    "instance": "00000000-0000-0000-0000-000000000002",
                    "mode": "normal", "result": observe.WORK_RESULT}
-        with patch.object(observe, "build_opener") as opener, \
+        with patch.object(observe, "get_work", return_value=(200, json.dumps(payload).encode())), \
                 patch.object(observe, "_verify_local_identity", return_value={"status": "unavailable", "error": "PID disappeared"}):
-            response = opener.return_value.open.return_value.__enter__.return_value
-            response.status = 200
-            response.read.return_value = json.dumps(payload).encode()
             result = observe.probe()
         self.assertFalse(result["ok"])
         self.assertEqual(result["error_kind"], "identity_unverified")

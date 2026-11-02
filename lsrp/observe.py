@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPException
 import json
+import math
 import os
 from pathlib import Path
 import platform
@@ -10,9 +12,9 @@ import socket
 import subprocess
 import time
 from datetime import datetime, timezone
-from urllib.error import HTTPError, URLError
-from urllib.request import HTTPRedirectHandler, ProxyHandler, build_opener
 import uuid
+
+from .probe_http import get_work, remaining
 
 UNIT = "lsrp-lab.service"
 PORT = 18765
@@ -24,13 +26,6 @@ JOURNALCTL = "/usr/bin/journalctl"
 SS = "/usr/bin/ss"
 COMMAND_ENV = {"PATH": "/usr/sbin:/usr/bin:/sbin:/bin", "LC_ALL": "C", "LANG": "C",
                "SYSTEMD_COLORS": "0", "SYSTEMD_PAGER": "cat", "SYSTEMD_PAGERSECURE": "1"}
-
-
-class NoRedirect(HTTPRedirectHandler):
-    """A lab probe must never leave its explicitly recorded loopback target."""
-
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
 
 
 UNIT_FIELDS = (
@@ -232,41 +227,41 @@ def _verify_local_identity(identity):
 
 
 def probe(timeout=0.4):
-    """An actual computation over loopback, without environmental HTTP proxies."""
+    """Identity-validated loopback work under one monotonic deadline."""
     started = time.monotonic()
     result = {"source": f"HTTP GET http://127.0.0.1:{PORT}/work", "collected_at": wall_time(),
               "monotonic": started, "completed_monotonic": None, "ok": False,
               "latency_ms": None, "error": None, "error_kind": None, "identity": None,
               "identity_verification": None, "http_status": None}
+    deadline = None
     try:
-        opener = build_opener(ProxyHandler({}), NoRedirect())
-        with opener.open(f"http://127.0.0.1:{PORT}/work", timeout=timeout) as response:
-            result["http_status"] = response.status
-            if response.status != 200:
-                raise ValueError(f"Unexpected HTTP status {response.status}")
-            payload = response.read(8193)
-            if len(payload) > 8192:
-                raise ValueError("Oversized service response")
+        if type(timeout) not in (int, float) or not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError("Probe timeout must be a positive finite number")
+        deadline = started + timeout
+        status, payload = get_work(PORT, deadline, on_status=lambda value: result.update(http_status=value))
+        result["http_status"] = status
+        if status != 200:
+            description = f"HTTP {status}" + (" (redirect rejected)" if 300 <= status < 400 else "")
+            result.update(error=description, error_kind="http_error")
+        else:
             result["identity"] = _validate_identity(json.loads(payload))
             result["identity_verification"] = _verify_local_identity(result["identity"])
+            remaining(deadline)
             if result["identity_verification"]["status"] == "ok":
                 result["ok"] = True
             else:
                 result.update(error=result["identity_verification"]["error"], error_kind="identity_unverified")
-    except HTTPError as exc:
-        description = f"HTTP {exc.code}" + (" (redirect rejected)" if 300 <= exc.code < 400 else "")
-        result.update(error=description, error_kind="http_error", http_status=exc.code)
-        exc.close()
     except (TimeoutError, socket.timeout) as exc:
         result.update(error=str(exc) or "Request timed out", error_kind="timeout")
-    except URLError as exc:
-        reason = exc.reason
-        kind = "timeout" if isinstance(reason, (TimeoutError, socket.timeout)) else (
-            "connection_refused" if isinstance(reason, ConnectionRefusedError) else "connection_error")
-        result.update(error=str(reason), error_kind=kind)
-    except (ValueError, TypeError, KeyError, OSError) as exc:
+    except ConnectionRefusedError as exc:
+        result.update(error=str(exc), error_kind="connection_refused")
+    except OSError as exc:
+        result.update(error=str(exc), error_kind="connection_error")
+    except (ValueError, TypeError, KeyError, OverflowError, RecursionError, HTTPException) as exc:
         result.update(error=str(exc), error_kind="invalid_response")
     result["completed_monotonic"] = time.monotonic()
+    if deadline is not None and result["completed_monotonic"] >= deadline:
+        result.update(ok=False, error="Functional probe deadline exceeded", error_kind="timeout")
     result["latency_ms"] = (result["completed_monotonic"] - started) * 1000
     return result
 
