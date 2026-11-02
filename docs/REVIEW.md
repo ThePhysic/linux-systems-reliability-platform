@@ -1,6 +1,6 @@
-# Independent adversarial review
+# AI-assisted adversarial code review history
 
-Reviewer: **gpt-6-astra, medium reasoning**, independently delegated after implementation and initial real Linux validation. Review date: 2026-11-01. Publication is gated on an explicit clean rereview.
+Review tool: **gpt-6-astra, medium reasoning**, used in separate AI-assisted adversarial code-review sessions after implementation and validation. Initial review date: 2026-11-01. These were AI reviews, not human reviews or third-party certification. The findings and clean verdicts below record the tool's assessment within the reviewed scope; reproducible tests and named Linux evidence are the primary verification.
 
 ## Round 1 findings and fixes
 

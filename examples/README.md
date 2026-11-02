@@ -1,29 +1,32 @@
 # Recorded Linux evidence
 
-The latest [follow-up robustness verification](robustness/README.md) covers the saved-record and absolute-deadline fixes with 100 tests and fresh incident/interruption runs. The reference run below describes the earlier validated implementation and is retained as historical evidence.
+Start with the **[latest robustness verification](robustness/README.md)** or the **[real hang-incident walkthrough](../docs/DEMO.md)**. These are saved observations from a dedicated Ubuntu 24.04 WSL2 lab, not generated fixtures or hosted-CI integration results.
 
-These files are actual observations from the dedicated `LSRP-Lab` WSL2 distribution on 2026-11-01. They are not generated fixtures. The lab used Ubuntu 24.04, Python 3.12.3, systemd 255, cgroup v2, and the kernel recorded in [environment.txt](validation/environment.txt). The service ran unprivileged under a 25% CPU quota and 128 MiB memory limit.
+## Latest validated run
 
-[Full validation](validation/validation-summary.json) passed all 12 trials (three per scenario), normal/graceful lifecycle checks, evidence/chronology checks, functional recovery and cleanup, plus three [paired overhead measurements](validation/overhead.json). All 83 Linux unit tests passed; see [the complete test log](validation/unit-tests.txt). The [source manifest](validation/SOURCE_MANIFEST.json) identifies exact transferred file hashes and revision `da56e81`, which includes all five initial Astra review fixes. Subsequent evidence and documentation commits do not change that incident implementation.
+The validated source is revision [`e49d359`](https://github.com/ThePhysic/linux-systems-reliability-platform/commit/e49d3595eaa23410223790f5cebf3c4643f10a9e), recorded with exact file hashes in [SOURCE_MANIFEST.json](robustness/validation/SOURCE_MANIFEST.json). The lab used Python 3.12.3, systemd 255, cgroup v2, and the kernel recorded in [environment.txt](robustness/validation/environment.txt). The service ran unprivileged under a 25% CPU quota and 128 MiB memory limit.
 
-| Scenario | Trials recovered | Median injection-to-recovery (seconds) |
-| --- | --- | --- |
-| Crash | 3/3 | 2.847 |
-| Hang | 3/3 | 4.343 |
-| CPU pressure | 3/3 | 4.198 |
-| Port collision | 3/3 | 7.250 |
+- [Linux test log](robustness/validation/unit-tests.txt): **100 tests passed**; the separate [unprivileged test log](robustness/nonroot-unit-tests.txt) also records 100 passing tests.
+- [Validation summary](robustness/validation/validation-summary.json): **12/12 recovered trials**, three per scenario, plus lifecycle, evidence, chronology, recovery, and cleanup checks.
+- [Interruption validation](robustness/interruption/validation.json): **8/8 checks passed**, including exclusive-operation rejection, SIGTERM cleanup, honest SIGKILL checkpoint preservation, and independent timer-driven restoration.
+- [Comparison](robustness/validation/comparison.json) and [raw trial records](robustness/validation/trials/): per-scenario timing distributions and the observations behind them.
+- [Paired overhead measurements](robustness/validation/overhead.json): three workload comparisons with and without full observation.
 
-These descriptive timings come from [comparison.json](validation/comparison.json). The reference is injection dispatch, not exact failure onset; each record preserves observation bounds. Three samples do not justify a stable tail estimate or production availability claim. Baseline/fault workloads are deliberately synthetic. Probe latency includes HTTP handling, response validation and local process-identity verification.
-
-Inspect any complete raw [trial JSON](validation/trials/) with the offline CLI:
+Inspect the saved records from the repository root, without root or a live lab:
 
 ```bash
-python -m lsrp compare examples/validation/trials --json
-python -m lsrp report examples/validation/trials/CRASH_FILENAME.json
+python3 -m lsrp report examples/robustness/validation/trials/hang-325476e5-045c-4fa9-96ef-4d7d4c803f65.json
+python3 -m lsrp compare examples/robustness/validation/trials --json
 ```
 
-Replace `CRASH_FILENAME.json` with an actual filename from that directory. No Linux privileges are needed to read these records.
+On Windows PowerShell, use `python` in place of `python3`; the [demo](../docs/DEMO.md) includes copy-paste commands for both platforms.
 
-[Interruption validation](interruption/validation.json) passed eight checks: it demonstrated exclusive-operation rejection, SIGTERM cleanup, a SIGKILL-preserved incomplete record, and timer-driven service restoration after the runner died. Its [independent observations](interruption/independent-recovery-observations.json) preserve timer/service/process evidence. The intentionally interrupted trials remain failed/inconclusive, even though the separate recovery validator passed. These are expected outcomes, not discarded failed samples.
+The intentionally interrupted trials remain failed/inconclusive even though the separate recovery validator passed. The [independent observations](robustness/interruption/independent-recovery-observations.json) preserve timer/service/process evidence. Restoration after a killed runner does not rewrite that runner's incomplete claim.
 
-The original unsuccessful development runs remain in the local lab runtime and concern earlier implementations. This directory preserves every trial from the named final validation run, plus both deliberately interrupted trials.
+The robustness archive is preserved unchanged. Current report presentation can differ from the validated source; the saved raw observations and manifests remain the provenance for these results. Three trials per incident are descriptive, and timings are relative to injection dispatch rather than exact failure onset. See [evidence and measurement semantics](../docs/EVIDENCE.md).
+
+## Historical reference run
+
+The earlier [validation summary](validation/validation-summary.json), [comparison](validation/comparison.json), and [interruption record](interruption/validation.json) remain available for historical inspection. That run passed 83 Linux unit tests and 12 incident trials at source revision `da56e81`, identified by its [own manifest](validation/SOURCE_MANIFEST.json). It is separate from the later robustness run above.
+
+Both archives preserve all trials from their named runs and the deliberately interrupted records. The deadline-aware probe transport changed client overhead between revisions, so combining the two archives into one benchmark would obscure that change. Earlier unsuccessful development runs remain in the local lab runtime; no raw records have been rewritten to make their outcomes look successful.

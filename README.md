@@ -1,8 +1,21 @@
 # Linux Systems & Reliability Platform
 
-LSRP is a terminal-based Linux reliability laboratory. A real, unprivileged network service runs under systemd. The CLI introduces bounded failures, collects operating-system evidence, and proves recovery by making successful work requests.
+[![Portable tests](https://github.com/ThePhysic/linux-systems-reliability-platform/actions/workflows/tests.yml/badge.svg)](https://github.com/ThePhysic/linux-systems-reliability-platform/actions/workflows/tests.yml)
 
-The question behind each experiment is: **What can I prove is happening to this service, and how do I know it recovered?**
+LSRP is a terminal-based Linux reliability laboratory: a real, unprivileged service runs under systemd while a bounded experiment harness reproduces failures, correlates `/proc`, cgroup, journal, socket, and request evidence, and verifies functional recovery. Each incident asks: **What can I prove is happening to this service, and how do I know it recovered?** Saved records make the diagnosis, timing, and cleanup claims independently inspectable.
+
+## Verified results
+
+| Check | Recorded result | Evidence |
+| --- | --- | --- |
+| Linux unit tests | **100 passed** | [Saved Linux test log](examples/robustness/validation/unit-tests.txt) |
+| Real Linux incident trials | **12/12 recovered**, three per scenario | [Validation summary](examples/robustness/validation/validation-summary.json) |
+| Interruption validation | **8/8 checks passed**, including SIGTERM cleanup and independent recovery after SIGKILL | [Interruption record](examples/robustness/interruption/validation.json) |
+| Hosted portable CI | **4/4 jobs passed** at `24119e4`: Ubuntu/Windows × Python 3.11/3.13 | [Recorded CI run](https://github.com/ThePhysic/linux-systems-reliability-platform/actions/runs/41381466023), [workflow](.github/workflows/tests.yml) |
+
+The [saved Linux validation](examples/robustness/README.md) ran in a dedicated **Ubuntu 24.04 WSL2 lab** at source revision [`e49d359`](https://github.com/ThePhysic/linux-systems-reliability-platform/commit/e49d3595eaa23410223790f5cebf3c4643f10a9e). Hosted CI runs portable checks; privileged systemd fault integration has separate Linux evidence. These records describe their named revisions and environment; current report presentation can differ.
+
+**[See a real incident: a live process that stopped serving work](docs/DEMO.md).** Read the evidence and run the saved report on Windows or Linux, without root or a running lab.
 
 ## What you can demonstrate
 
@@ -135,9 +148,7 @@ Read the [architecture](docs/ARCHITECTURE.md), [diagnostic walkthrough](docs/DIA
 
 ## Development
 
-Actual Linux run records, measurements, and interruption evidence are checked in under [examples](examples/README.md).
-
-Independent Astra medium adversarial reviews finished clean after the initial findings and two follow-up robustness fixes; see [the review record](docs/REVIEW.md).
+The [recorded evidence index](examples/README.md) separates the latest robustness validation from the earlier historical run. The [AI-assisted adversarial code-review history](docs/REVIEW.md) preserves development findings, fixes, and regression checks.
 
 ```bash
 python3 -m unittest discover -s tests -v
@@ -147,3 +158,7 @@ python3 -m compileall -q lsrp tests
 Unit tests exercise parsers, diagnosis, measurement semantics, identity validation, service behavior, and CLI contracts. They do not establish that systemd restart or cgroup controls work on a particular host; that requires the Linux validation run.
 
 No performance improvement is promised. Any example numbers must come from recorded experiments, with their environment, sample counts, sampling limits, and source revision. Successful laboratory trials demonstrate this implementation in that environment; they do not establish production high availability.
+
+## License
+
+[MIT](LICENSE). Copyright 2026 ThePhysic.
