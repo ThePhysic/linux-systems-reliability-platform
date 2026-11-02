@@ -33,3 +33,9 @@ Fresh [verification artifacts](../examples/robustness/README.md) record 100 pass
 Independent adversarial follow-up review of commit `4e94c34906c4bf9fedcee94d072c4b0c89edf5e2`: **CLEAN: no remaining complaints within the agreed scope.** Saved-record validation and absolute probe deadlines resolve both reported defects. Regression tests and refreshed Linux evidence support the implementation; no further changes are requested.
 
 The reviewer verified 100 Windows tests with two expected Linux-only skips, additional socket-framing checks, matching source hashes for validated revision `e49d359`, all twelve refreshed Linux trial metrics and recovery claims, 100 Linux tests, 100 unprivileged Linux tests, eight interruption checks, and three overhead pairs.
+
+## Portfolio presentation polish
+
+AI-assisted adversarial review of commit `4470e7ed7fd65b8a668580f9c170ee3b688deac1`: **CLEAN: no remaining complaints within the portfolio-polish scope.** The demo and results are evidence-backed, raw archives remain unchanged, and report wording preserves measurement and recovery semantics. No further implementation changes are requested.
+
+The review checked 108 passing portable tests with two expected Windows skips, offline reports, the demo's named source records and timing semantics, retained uncertainty, public repository topics, and the owner-approved MIT license. This presentation pass did not perform or claim a fresh privileged Linux fault-integration run; the existing archive remains tied to its original validated source.
