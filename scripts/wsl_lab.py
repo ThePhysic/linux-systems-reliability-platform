@@ -25,7 +25,7 @@ SOURCE = '/root/lsrp-source'
 RESULTS = '/root/lsrp-results'
 OWNER_TAG = 'lsrp-disposable-wsl-v1'
 WSL_CONFIG = '[boot]\nsystemd=true\n[automount]\nenabled=false\nmountFsTab=false\n[interop]\nenabled=false\nappendWindowsPath=false\n'
-SOURCE_DIRS = {'lsrp', 'tests', 'deploy', 'scripts', 'docs', '.github'}
+SOURCE_DIRS = {'lsrp', 'tests', 'deploy', 'scripts', 'docs', 'examples', '.github'}
 SOURCE_ROOT_FILES = {'README.md', 'CONTRACT.md', 'pyproject.toml', '.gitignore', '.gitattributes', 'LICENSE'}
 IGNORED_PARTS = {'__pycache__', '.pytest_cache', '.venv', '.git', 'results', 'artifacts'}
 FETCH_FILES = {
